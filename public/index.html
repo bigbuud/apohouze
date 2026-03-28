@@ -749,7 +749,8 @@ function setLang(lang){
   // Re-render dynamic content with new language
   if(lastStats) renderStats(lastStats);
   if(lastAlerts!==null) renderAlerts(lastAlerts, lastAlertsToday);
-  if(inventoryData.length) { renderInventory(); renderCategoryPills(); }
+  if(inventoryData.length) { renderInventory(); renderCategoryPills(); renderCatOverview(); }
+  populateCategorySelect();
   if(currentPage==='categories') renderCategoryPage();
   if(currentPage==='add') renderAddPage();
 }
