@@ -734,11 +734,12 @@ const TRANSLATIONS = {
   }
 };
 
-let currentLang = 'en';
+let currentLang = localStorage.getItem('apohouze_lang') || 'en';
 function t(key){ return (TRANSLATIONS[currentLang]&&TRANSLATIONS[currentLang][key])||TRANSLATIONS.en[key]||key; }
 
 function setLang(lang){
   currentLang = lang;
+  localStorage.setItem('apohouze_lang', lang);
   document.querySelectorAll('.lang-btn').forEach(btn=>{
     btn.classList.toggle('active', btn.textContent.toLowerCase()===lang);
   });
@@ -865,6 +866,10 @@ function getFlagImg(countryCode,size=20){
 
 // ==================== INIT ====================
 document.addEventListener('DOMContentLoaded',()=>{
+  // Restore saved language
+  document.querySelectorAll('.lang-btn').forEach(btn=>{
+    btn.classList.toggle('active', btn.textContent.toLowerCase()===currentLang);
+  });
   applyTranslations();
   renderFormSelect();
   checkAuth();
