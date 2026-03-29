@@ -1,208 +1,145 @@
 #!/usr/bin/env node
 /**
- * apoHouze — Medicine Database Updater
- * =====================================
- * Haalt officiële merklijsten op van nationale geneesmiddelenregisters
- * en voegt ontbrekende medicijnen toe aan de landbestanden.
- *
- * Bronnen:
- *   BE — SAM v2 (FAMHP / eHealth): publiek XML-export, dagelijks bijgewerkt
- *   NL — CBG Geneesmiddeleninformatiebank: publiek databestand, wekelijks bijgewerkt
- *
- * Gebruik:
- *   node update.js           — update BE + NL
- *   node update.js be        — update alleen BE
- *   node update.js nl        — update alleen NL
- *   node update.js --dry-run — preview zonder bestanden te schrijven
+ * apoHouze — Medicine Database Updater v4
+ * ========================================
+ * BE: SAM v2 via directe bekende URL-patronen
+ * NL: CBG Geneesmiddeleninformatiebank
  */
-
 'use strict';
 const fs    = require('fs');
 const path  = require('path');
 const https = require('https');
 const http  = require('http');
-const zlib  = require('zlib');
 
-const DATA_DIR   = path.join(__dirname, 'data', 'countries');
-const LOG_FILE   = path.join(__dirname, 'data', 'last-update.json');
-const TMP_DIR    = path.join(__dirname, 'data', '_tmp');
+const DATA_DIR = path.join(__dirname, 'data', 'countries');
+const LOG_FILE = path.join(__dirname, 'data', 'last-update.json');
+const TMP_DIR  = path.join(__dirname, 'data', '_tmp');
+if (!fs.existsSync(TMP_DIR)) fs.mkdirSync(TMP_DIR, { recursive: true });
 
 const DRY_RUN = process.argv.includes('--dry-run');
 const args    = process.argv.slice(2).filter(a => !a.startsWith('--'));
 const targets = args.length ? args.map(a => a.toLowerCase()) : ['be', 'nl'];
 
-if (!fs.existsSync(TMP_DIR)) fs.mkdirSync(TMP_DIR, { recursive: true });
-
 // ================================================================
-// ATC-CODE → CATEGORIE MAPPING (eerste 3 tekens van ATC-code)
+// ATC-CODE MAPPING (eerste 3 chars)
 // ================================================================
 const ATC_MAP = {
-  // A — Spijsverteringskanaal en metabolisme
-  A02: 'Stomach & Intestine',   // Antacida, maagzuurremmers
-  A03: 'Stomach & Intestine',   // Krampen/spasmen
-  A04: 'Stomach & Intestine',   // Anti-emetica
-  A05: 'Stomach & Intestine',   // Galwegen
-  A06: 'Stomach & Intestine',   // Laxantia
-  A07: 'Stomach & Intestine',   // Antidiarrhoica
-  A08: 'Stomach & Intestine',   // Obesitas
-  A09: 'Stomach & Intestine',   // Digestiva
-  A10: 'Diabetes',              // Diabetesmiddelen
-  A11: 'Vitamins & Supplements',// Vitamines
-  A12: 'Vitamins & Supplements',// Mineralen
-  A13: 'Vitamins & Supplements',// Tonica
-  A16: 'Stomach & Intestine',   // Overige maag-darmklachten
-  // B — Bloed en bloedvormende organen
-  B01: 'Anticoagulants',        // Antitrombotisch
-  B02: 'Heart & Blood Pressure',// Hemostase
-  B03: 'Vitamins & Supplements',// Bloedmiddelen / ijzer / foliumzuur
-  B05: 'Heart & Blood Pressure',// Bloedvervangers
-  B06: 'Heart & Blood Pressure',// Overige bloedmiddelen
-  // C — Hart en bloedvaten
-  C01: 'Heart & Blood Pressure',// Harttherapie
-  C02: 'Heart & Blood Pressure',// Antihypertensiva
-  C03: 'Heart & Blood Pressure',// Diuretica
-  C04: 'Heart & Blood Pressure',// Vasodilatantia
-  C05: 'Heart & Blood Pressure',// Vasoprotectiva
-  C07: 'Heart & Blood Pressure',// Bètablokkers
-  C08: 'Heart & Blood Pressure',// Calciumantagonisten
-  C09: 'Heart & Blood Pressure',// ACE-remmers/ARB
-  C10: 'Cholesterol',           // Lipidenverlagers
-  // D — Dermatologica
-  D01: 'Antifungals',           // Antifungale dermato
-  D02: 'Skin & Wounds',         // Bescherming huid
-  D03: 'Skin & Wounds',         // Wondbehandeling
-  D04: 'Skin & Wounds',         // Antipruriginosa
-  D05: 'Skin & Wounds',         // Psoriasismiddelen
-  D06: 'Antibiotics',           // Antibiotica dermato
-  D07: 'Corticosteroids',       // Corticosteroïden dermato
-  D08: 'Skin & Wounds',         // Antiseptica
-  D09: 'Skin & Wounds',         // Verband
-  D10: 'Skin & Wounds',         // Acnemiddelen
-  D11: 'Skin & Wounds',         // Overige dermato
-  // G — Urogenitaalstelsel en geslachtshormonen
-  G01: "Women's Health",        // Gynaecologische anti-infectiva
-  G02: "Women's Health",        // Overige gynaecologica
-  G03: "Women's Health",        // Geslachtshormonen / contraceptiva
-  G04: 'Urology',               // Urologica
-  // H — Hormonen (excl. geslachtshormonen en insuline)
-  H01: 'Thyroid',               // Hypofysehormonen
-  H02: 'Corticosteroids',       // Corticosteroïden systemisch
-  H03: 'Thyroid',               // Schildklierhormonen
-  H04: 'Diabetes',              // Glucagon
-  H05: 'Vitamins & Supplements',// Calciumhomeostase
-  // J — Antiinfectiva systemisch
-  J01: 'Antibiotics',           // Antibiotica
-  J02: 'Antifungals',           // Antimycotica systemisch
-  J04: 'Antibiotics',           // Antimycobacterieel
-  J05: 'Antivirals',            // Antivirale middelen
-  J06: 'Antivirals',            // Immunsera / immunoglobulinen
-  J07: 'Antivirals',            // Vaccins
-  // L — Antineoplastica en immunomodulerende middelen
-  L01: 'Oncology',              // Cytostatica
-  L02: 'Oncology',              // Endocriene therapie oncologie
-  L03: 'Oncology',              // Immunostimulantia
-  L04: 'Corticosteroids',       // Immunosuppressiva
-  // M — Skeletspierstelsel
-  M01: 'Pain & Fever',          // Antiinflammatoir/antireumatisch
-  M02: 'Joints & Muscles',      // Topische middelen
-  M03: 'Joints & Muscles',      // Spierrelaxantia
-  M04: 'Joints & Muscles',      // Jichtmiddelen
-  M05: 'Joints & Muscles',      // Botaandoeningen
-  M09: 'Joints & Muscles',      // Overige skeletspierstelsel
-  // N — Zenuwstelsel
-  N01: 'Pain & Fever',          // Anesthetica
-  N02: 'Pain & Fever',          // Analgetica / migraine
-  N03: 'Neurology',             // Anti-epileptica
-  N04: 'Neurology',             // Anti-Parkinson
-  N05: 'Sleep & Sedation',      // Psycholeptica (sedativa/anxiolytica/antipsychotica)
-  N06: 'Antidepressants',       // Psychoanaleptica (antidepressiva)
-  N07: 'Nervous System',        // Overige zenuwstelsel / rookstop
-  // P — Antiparasitaire middelen
-  P01: 'Antiparasitics',        // Antiprotozoaire middelen
-  P02: 'Antiparasitics',        // Anthelmintica
-  P03: 'Antiparasitics',        // Ectoparasiticide
-  // R — Ademhalingsstelsel
-  R01: 'Cough & Cold',          // Neusklachten
-  R02: 'Cough & Cold',          // Keelklachten
-  R03: 'Lungs & Asthma',        // Astma/COPD
-  R04: 'Cough & Cold',          // Andere luchtwegmiddelen
-  R05: 'Cough & Cold',          // Hoest en verkoudheid
-  R06: 'Allergy',               // Antihistaminica systemisch
-  R07: 'Lungs & Asthma',        // Overige luchtwegen
-  // S — Zintuigorganen
-  S01: 'Eye & Ear',             // Oogmiddelen
-  S02: 'Eye & Ear',             // Oormiddelen
-  S03: 'Eye & Ear',             // Oog/oor combinaties
-  // V — Diverse
-  V03: 'First Aid',             // Antidota / diverse
-  V06: 'Vitamins & Supplements',// Voedingspreparaten
-  V07: 'First Aid',             // Hulpstoffen
-  V08: 'First Aid',             // Contrastmiddelen
+  A02:'Stomach & Intestine', A03:'Stomach & Intestine', A04:'Stomach & Intestine',
+  A05:'Stomach & Intestine', A06:'Stomach & Intestine', A07:'Stomach & Intestine',
+  A08:'Stomach & Intestine', A09:'Stomach & Intestine', A10:'Diabetes',
+  A11:'Vitamins & Supplements', A12:'Vitamins & Supplements', A13:'Vitamins & Supplements',
+  A16:'Stomach & Intestine',
+  B01:'Anticoagulants', B02:'Heart & Blood Pressure', B03:'Vitamins & Supplements',
+  B05:'Heart & Blood Pressure', B06:'Heart & Blood Pressure',
+  C01:'Heart & Blood Pressure', C02:'Heart & Blood Pressure', C03:'Heart & Blood Pressure',
+  C04:'Heart & Blood Pressure', C05:'Heart & Blood Pressure', C07:'Heart & Blood Pressure',
+  C08:'Heart & Blood Pressure', C09:'Heart & Blood Pressure', C10:'Cholesterol',
+  D01:'Antifungals', D02:'Skin & Wounds', D03:'Skin & Wounds', D04:'Skin & Wounds',
+  D05:'Skin & Wounds', D06:'Antibiotics', D07:'Corticosteroids', D08:'Skin & Wounds',
+  D09:'Skin & Wounds', D10:'Skin & Wounds', D11:'Skin & Wounds',
+  G01:"Women's Health", G02:"Women's Health", G03:"Women's Health", G04:'Urology',
+  H01:'Thyroid', H02:'Corticosteroids', H03:'Thyroid', H04:'Diabetes',
+  H05:'Vitamins & Supplements',
+  J01:'Antibiotics', J02:'Antifungals', J04:'Antibiotics', J05:'Antivirals',
+  J06:'Antivirals', J07:'Antivirals',
+  L01:'Oncology', L02:'Oncology', L03:'Oncology', L04:'Corticosteroids',
+  M01:'Pain & Fever', M02:'Joints & Muscles', M03:'Joints & Muscles',
+  M04:'Joints & Muscles', M05:'Joints & Muscles', M09:'Joints & Muscles',
+  N01:'Pain & Fever', N02:'Pain & Fever', N03:'Neurology', N04:'Neurology',
+  N05:'Sleep & Sedation', N06:'Antidepressants', N07:'Nervous System',
+  P01:'Antiparasitics', P02:'Antiparasitics', P03:'Antiparasitics',
+  R01:'Cough & Cold', R02:'Cough & Cold', R03:'Lungs & Asthma',
+  R04:'Cough & Cold', R05:'Cough & Cold', R06:'Allergy', R07:'Lungs & Asthma',
+  S01:'Eye & Ear', S02:'Eye & Ear', S03:'Eye & Ear',
+  V03:'First Aid', V06:'Vitamins & Supplements', V07:'First Aid', V08:'First Aid',
 };
-
-function atcToCategory(atcCode) {
-  if (!atcCode) return null;
-  const key = atcCode.trim().substring(0, 3).toUpperCase();
-  return ATC_MAP[key] || null;
+function atcToCategory(atc) {
+  if (!atc) return null;
+  // ATC kan zijn: "A02BC01", "A02BC", "A02" — neem altijd de eerste 3 chars
+  return ATC_MAP[atc.trim().substring(0, 3).toUpperCase()] || null;
 }
 
 // ================================================================
-// FARMACEUTISCHE VORM MAPPING
+// VORM MAPPING
 // ================================================================
 const FORM_MAP = [
-  [/tablet|tabl\b|tablette/i,              'Tablet'],
-  [/capsule|cap\b|capsul/i,               'Capsule'],
   [/bruistablet|effervesc/i,              'Effervescent tablet'],
   [/smelttablet|orodispers|dispergeer/i,  'Dispersible tablet'],
+  [/oogdruppels|collyre|eye.?drop/i,      'Eye drops'],
+  [/oordruppels|otic|ear.?drop/i,         'Ear drops'],
+  [/neusspray|nasal.?spray|spray.?nasal/i,'Nasal spray'],
+  [/inhalator|inhaler|aerosol/i,          'Inhaler'],
+  [/tablet|tabl\b|tablette/i,             'Tablet'],
+  [/capsule|cap\b|capsul/i,               'Capsule'],
   [/siroop|sirop|syrup|drank/i,           'Syrup'],
-  [/druppels|druppel\b|drops|gouttes/i,   'Drops'],
-  [/oogdruppels|collyre|eye drop/i,       'Eye drops'],
-  [/oordruppels|otic|ear drop/i,          'Ear drops'],
-  [/neusspray|nasal spray|spray nasal/i,  'Nasal spray'],
-  [/inhalator|inhaler|aerosol|poeder.*inhal/i,'Inhaler'],
+  [/druppels|drops|gouttes/i,             'Drops'],
   [/crème|cream|creme/i,                  'Cream'],
   [/zalf|ointment|pommade/i,              'Ointment'],
   [/gel\b/i,                              'Gel'],
   [/pleister|patch|transderm/i,           'Patch'],
   [/spray\b/i,                            'Spray'],
-  [/inject|infuus|infusion|oplossing.*inj/i,'Injection'],
+  [/inject|infuus|infusion/i,             'Injection'],
   [/zetpil|suppositoire|suppos/i,         'Suppository'],
   [/poeder|powder|poudre/i,               'Powder'],
   [/suspensie|suspension/i,               'Suspension'],
   [/oplossing|solution/i,                 'Solution'],
-  [/mondwater|mouthwash|bain de bouche/i, 'Mouthwash'],
-  [/kauwgom|gum/i,                        'Chewing gum'],
+  [/mondwater|mouthwash/i,                'Mouthwash'],
+  [/kauwgom|chewing.?gum/i,              'Chewing gum'],
   [/zuigtablet|pastille|lozenge/i,        'Lozenge'],
   [/klysma|enema/i,                       'Enema'],
   [/ampul|ampoule/i,                      'Ampoule'],
 ];
-
 function mapForm(text) {
   if (!text) return 'Tablet';
-  for (const [re, form] of FORM_MAP) {
-    if (re.test(text)) return form;
-  }
+  for (const [re, form] of FORM_MAP) if (re.test(text)) return form;
   return 'Tablet';
 }
 
 // ================================================================
-// HULPFUNCTIES
+// HELPERS
 // ================================================================
 function fetchBinary(url, dest) {
   return new Promise((resolve, reject) => {
     const file = fs.createWriteStream(dest);
-    const proto = url.startsWith('https') ? https : http;
     const go = (u) => {
-      proto.get(u, { headers: { 'User-Agent': 'apoHouze-updater/3.0' } }, res => {
+      const proto = u.startsWith('https') ? https : http;
+      proto.get(u, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 apoHouze-updater/4.0',
+          'Accept': '*/*',
+        }
+      }, res => {
         if ([301, 302, 303, 307, 308].includes(res.statusCode)) {
           file.close();
-          return go(res.headers.location);
+          const loc = res.headers.location;
+          const nextUrl = loc.startsWith('http') ? loc : new URL(loc, u).href;
+          return go(nextUrl);
         }
         if (res.statusCode !== 200) {
+          file.close();
           return reject(new Error(`HTTP ${res.statusCode} — ${u}`));
         }
         res.pipe(file);
         file.on('finish', () => { file.close(); resolve(); });
+        file.on('error', reject);
+      }).on('error', reject);
+    };
+    go(url);
+  });
+}
+
+function fetchText(url) {
+  return new Promise((resolve, reject) => {
+    const go = (u) => {
+      const proto = u.startsWith('https') ? https : http;
+      proto.get(u, { headers: { 'User-Agent': 'apoHouze-updater/4.0' } }, res => {
+        if ([301, 302, 303, 307, 308].includes(res.statusCode)) {
+          const loc = res.headers.location;
+          return go(loc.startsWith('http') ? loc : new URL(loc, u).href);
+        }
+        let data = '';
+        res.on('data', c => data += c);
+        res.on('end', () => resolve(data));
       }).on('error', reject);
     };
     go(url);
@@ -235,326 +172,306 @@ function appendMedicines(code, medicines) {
 }
 
 // ================================================================
-// BELGIË — SAM v2 XML Export
-// De SAM-export is een ZIP-bestand met meerdere XML-bestanden.
-// We gebruiken het AMP-bestand dat merk+stof+ATC+vorm bevat.
+// BELGIË — SAM v2
+// De SAM-pagina laadt links via JavaScript. We proberen bekende
+// URL-patronen rechtstreeks. De export-URL bevat een timestamp
+// in milliseconden die we via de REST-endpoint ophalen.
 // ================================================================
 async function updateBE() {
   console.log('\n🇧🇪 België — SAM v2 ophalen...');
-  
-  // Stap 1: download de SAM-exportpagina om de actuele ZIP-URL te vinden
-  const pageUrl = 'https://www.vas.ehealth.fgov.be/websamcivics/samcivics/';
-  const pageDest = path.join(TMP_DIR, 'sam_page.html');
-  
-  try {
-    await fetchBinary(pageUrl, pageDest);
-  } catch (e) {
-    console.error(`  ❌ Kon SAM-pagina niet ophalen: ${e.message}`);
-    return 0;
-  }
-  
-  const pageContent = fs.readFileSync(pageDest, 'utf8');
-  
-  // Zoek de download-URL in de pagina (XSD versie 4 of 5 is stabielst)
-  // Patroon: links naar ZIP-bestanden in de tabel
-  const zipMatches = [...pageContent.matchAll(/href="([^"]*\.zip[^"]*)"/gi)];
-  let zipUrl = null;
-  
-  for (const m of zipMatches) {
-    const href = m[1];
-    // Voorkeur voor versie 4 of 5, niet versie 6 (meest recente kan instabiel zijn)
-    if (href.includes('samv2') || href.includes('sam_v2') || href.includes('export')) {
-      zipUrl = href.startsWith('http') ? href : 'https://www.vas.ehealth.fgov.be' + href;
-      break;
-    }
-  }
-  
-  // Fallback: gebruik bekende patroon-URL
-  if (!zipUrl) {
-    // De SAM-pagina gebruikt JavaScript om links te laden, we proberen de bekende URL
-    console.log('  ℹ️  Geen ZIP-link gevonden op pagina, probeer directe download...');
-    zipUrl = 'https://www.vas.ehealth.fgov.be/websamcivics/samcivics/download?version=4';
-  }
-  
-  // Stap 2: download en parse ZIP
-  const zipDest = path.join(TMP_DIR, 'sam_be.zip');
-  try {
-    await fetchBinary(zipUrl, zipDest);
-    console.log(`  ✅ SAM ZIP gedownload (${(fs.statSync(zipDest).size / 1024 / 1024).toFixed(1)} MB)`);
-  } catch (e) {
-    console.error(`  ❌ Download mislukt: ${e.message}`);
-    console.log('  💡 Probeer handmatig: https://www.vas.ehealth.fgov.be/websamcivics/samcivics/');
-    return 0;
-  }
+  const country = loadExistingNames('be');
+  if (!country) { console.error('  ❌ be.js niet gevonden'); return 0; }
 
-  // Stap 3: extraheer en parseer XML
-  return parseSAMZip(zipDest);
-}
+  // Probeer de export-lijst op te halen via het JSON-endpoint
+  // dat de JavaScript-pagina gebruikt
+  const apiUrls = [
+    'https://www.vas.ehealth.fgov.be/websamcivics/samcivics/rest/export/v4/latestId',
+    'https://www.vas.ehealth.fgov.be/websamcivics/samcivics/api/export/latest?version=4',
+    'https://www.vas.ehealth.fgov.be/websamcivics/samcivics/export/latest/4',
+  ];
 
-async function parseSAMZip(zipPath) {
-  // Probeer de ZIP te extraheren met het ingebouwde zlib of unzip
-  const AdmZip = (() => { try { return require('adm-zip'); } catch { return null; } })();
-  
-  if (!AdmZip) {
-    // Gebruik systeem unzip
-    const { execSync } = require('child_process');
-    const extractDir = path.join(TMP_DIR, 'sam_extract');
-    if (!fs.existsSync(extractDir)) fs.mkdirSync(extractDir);
+  let exportId = null;
+  for (const url of apiUrls) {
     try {
-      execSync(`unzip -o "${zipPath}" -d "${extractDir}" 2>/dev/null || true`);
-    } catch (e) {
-      console.error(`  ❌ Extraheren mislukt: ${e.message}`);
+      const text = await fetchText(url);
+      const match = text.match(/\d{10,}/);
+      if (match) { exportId = match[0]; break; }
+    } catch {}
+  }
+
+  // Probeer ZIP direct te downloaden met bekende patronen
+  const zipUrls = [];
+  if (exportId) {
+    zipUrls.push(
+      `https://www.vas.ehealth.fgov.be/websamcivics/samcivics/export/v4/${exportId}`,
+      `https://www.vas.ehealth.fgov.be/websamcivics/samcivics/download/v4/${exportId}`,
+    );
+  }
+  // Vaste URL-patronen als fallback
+  zipUrls.push(
+    'https://www.vas.ehealth.fgov.be/websamcivics/samcivics/rest/v4/export/full',
+    'https://www.vas.ehealth.fgov.be/websamcivics/samcivics/export?version=4&type=full',
+    'https://www.vas.ehealth.fgov.be/websamcivics/samcivics/v4/full.zip',
+    'https://www.vas.ehealth.fgov.be/websamcivics/samcivics/SAMv2Full_v4.zip',
+  );
+
+  const zipDest = path.join(TMP_DIR, 'sam_be.zip');
+  let downloaded = false;
+
+  for (const url of zipUrls) {
+    try {
+      await fetchBinary(url, zipDest);
+      const size = fs.statSync(zipDest).size;
+      if (size > 100000) { // minstens 100KB = echte ZIP
+        console.log(`  ✅ SAM ZIP gedownload van: ${url} (${(size/1024/1024).toFixed(1)} MB)`);
+        downloaded = true;
+        break;
+      }
+    } catch {}
+    if (fs.existsSync(zipDest)) fs.unlinkSync(zipDest);
+  }
+
+  if (!downloaded) {
+    console.error('  ❌ SAM ZIP kon niet automatisch gedownload worden.');
+    console.log('  💡 Ga naar https://www.vas.ehealth.fgov.be/websamcivics/samcivics/');
+    console.log('     Download de ZIP manueel en kopieer het bestand naar data/_tmp/sam_be.zip');
+    console.log('     Voer dan opnieuw uit: node update.js be');
+    // Controleer of er een manueel geplaatst bestand is
+    const manual = path.join(DATA_DIR, '..', 'sam_be.zip');
+    if (fs.existsSync(manual)) {
+      console.log('  📁 Manueel bestand gevonden! Verwerken...');
+      fs.copyFileSync(manual, zipDest);
+    } else {
       return 0;
     }
-    return parseSAMDirectory(extractDir);
   }
-  
-  const zip = new AdmZip(zipPath);
-  const extractDir = path.join(TMP_DIR, 'sam_extract');
-  zip.extractAllTo(extractDir, true);
-  return parseSAMDirectory(extractDir);
+
+  return parseSAMZip(zipDest, country);
 }
 
-function parseSAMDirectory(dir) {
-  // Zoek het AMP XML-bestand (bevat AMPs met ATCCode, naam, stof, farmaceutische vorm)
-  const xmlFiles = findFilesRecursive(dir, '.xml');
-  
-  // Filter: AMP-bestanden of het grootste XML-bestand
-  let ampFile = xmlFiles.find(f => /amp/i.test(path.basename(f))) 
-             || xmlFiles.sort((a,b) => fs.statSync(b).size - fs.statSync(a).size)[0];
-  
-  if (!ampFile) {
-    console.error('  ❌ Geen XML-bestand gevonden in SAM-export');
+function parseSAMZip(zipPath, country) {
+  const { execSync } = require('child_process');
+  const extractDir = path.join(TMP_DIR, 'sam_extract');
+  if (fs.existsSync(extractDir)) execSync(`rm -rf "${extractDir}"`);
+  fs.mkdirSync(extractDir);
+
+  try {
+    execSync(`unzip -o "${zipPath}" -d "${extractDir}" 2>/dev/null`);
+  } catch (e) {
+    console.error(`  ❌ ZIP extraheren mislukt: ${e.message}`);
     return 0;
   }
-  
-  console.log(`  📄 XML parsen: ${path.basename(ampFile)} (${(fs.statSync(ampFile).size/1024/1024).toFixed(1)} MB)`);
-  
-  const xml = fs.readFileSync(ampFile, 'utf8');
-  return extractMedicinesFromSAMXml(xml, 'be');
-}
 
-function extractMedicinesFromSAMXml(xml, code) {
-  const country = loadExistingNames(code);
-  if (!country) return 0;
-  
-  const newMedicines = [];
-  const seen = new Set(country.names);
-  
-  // SAM XML structuur: <AMP> bevat <Name>, <ATCCode>, actieve stof via <VMP>/<VTM>
-  // We parsen met reguliere expressies (geen zware XML-parser nodig)
-  
-  // Extract AMP blokken
-  const ampBlocks = xml.matchAll(/<AMP\b[^>]*>([\s\S]*?)<\/AMP>/gi);
-  let processed = 0;
-  
-  for (const block of ampBlocks) {
-    const inner = block[1];
-    
-    // Naam (Frans of Nederlands)
-    const nameFR = (inner.match(/<Fr>([^<]+)<\/Fr>/) || [])[1]?.trim();
-    const nameNL = (inner.match(/<Nl>([^<]+)<\/Nl>/) || [])[1]?.trim();
-    const name = nameNL || nameFR;
-    if (!name) continue;
-    if (seen.has(name.toLowerCase())) continue;
-    
-    // Generieke naam / werkzame stof
-    const inn = (inner.match(/<Inn>([^<]+)<\/Inn>/) 
-              || inner.match(/<ActiveIngredient>([^<]+)<\/ActiveIngredient>/)
-              || [])[1]?.trim() || '';
-    
-    // ATC-code → categorie
-    const atc = (inner.match(/<ATCCode>([^<]+)<\/ATCCode>/) || [])[1]?.trim() || '';
-    const category = atcToCategory(atc);
-    if (!category) continue; // overgeslagen zonder ATC-mapping
-    
-    // Farmaceutische vorm
-    const formRaw = (inner.match(/<PharmaceuticalFormFr>([^<]+)<\/PharmaceuticalFormFr>/)
-                  || inner.match(/<PharmaceuticalFormNl>([^<]+)<\/PharmaceuticalFormNl>/)
-                  || inner.match(/<PharmaceuticalForm>([^<]+)<\/PharmaceuticalForm>/)
-                  || [])[1]?.trim() || '';
-    const form = mapForm(formRaw);
-    
-    // Receptplichtig
-    const rxStr = (inner.match(/<PrescriptionRequired>([^<]+)<\/PrescriptionRequired>/) 
-                || inner.match(/<Rx>([^<]+)<\/Rx>/)
-                || [])[1]?.trim() || '';
-    const rx = /true|yes|1|oui|ja/i.test(rxStr);
-    
-    newMedicines.push({ name, generic: inn, category, form, rx });
-    seen.add(name.toLowerCase());
-    processed++;
-  }
-  
-  console.log(`  📊 ${processed} nieuwe medicijnen gevonden in SAM`);
-  const added = appendMedicines(code, newMedicines);
-  return added;
-}
-
-function findFilesRecursive(dir, ext) {
-  const results = [];
-  for (const entry of fs.readdirSync(dir)) {
-    const full = path.join(dir, entry);
-    if (fs.statSync(full).isDirectory()) {
-      results.push(...findFilesRecursive(full, ext));
-    } else if (entry.endsWith(ext)) {
-      results.push(full);
+  // Zoek AMP XML-bestand (bevat de Actual Medicinal Products)
+  const xmlFiles = [];
+  function findXml(dir) {
+    for (const f of fs.readdirSync(dir)) {
+      const full = path.join(dir, f);
+      if (fs.statSync(full).isDirectory()) findXml(full);
+      else if (f.endsWith('.xml')) xmlFiles.push(full);
     }
   }
-  return results;
+  findXml(extractDir);
+
+  if (!xmlFiles.length) {
+    console.error('  ❌ Geen XML-bestanden gevonden in ZIP');
+    console.log('  📁 Inhoud ZIP:', fs.readdirSync(extractDir).join(', '));
+    return 0;
+  }
+
+  // Kies het AMP-bestand (grootste XML of met "AMP" in naam)
+  const ampFile = xmlFiles.find(f => /AMP/i.test(path.basename(f)))
+               || xmlFiles.sort((a,b) => fs.statSync(b).size - fs.statSync(a).size)[0];
+
+  console.log(`  📄 Parsen: ${path.basename(ampFile)} (${(fs.statSync(ampFile).size/1024/1024).toFixed(1)} MB)`);
+
+  const xml = fs.readFileSync(ampFile, 'utf8');
+  const newMeds = [];
+  const seen = new Set(country.names);
+
+  // SAM AMP XML-elementen: <Amp>, <Name>, <Atc>, <AdministrationForm>
+  // Naam staat in <Name lang="NL"> of <Name lang="FR">
+  const ampRe = /<Amp\b[\s\S]*?<\/Amp>/gi;
+  let match;
+  while ((match = ampRe.exec(xml)) !== null) {
+    const block = match[0];
+
+    // Naam: voorkeur NL, anders FR
+    const nlName = (block.match(/lang="NL"[^>]*>([^<]+)</) || [])[1]?.trim();
+    const frName = (block.match(/lang="FR"[^>]*>([^<]+)</) || [])[1]?.trim();
+    const name = nlName || frName;
+    if (!name || seen.has(name.toLowerCase())) continue;
+
+    // ATC-code
+    const atc = (block.match(/<Atc>([^<]+)<\/Atc>/) || [])[1]?.trim() || '';
+    const category = atcToCategory(atc);
+    if (!category) continue;
+
+    // Werkzame stof
+    const inn = (block.match(/<Inn>([^<]+)<\/Inn>/) ||
+                 block.match(/<ActiveIngredient>([^<]+)<\/ActiveIngredient>/) || [])[1]?.trim() || '';
+
+    // Farmaceutische vorm
+    const formRaw = (block.match(/<AdministrationFormName[^>]*>([^<]+)</) ||
+                     block.match(/<PharmaceuticalForm[^>]*>([^<]+)</) || [])[1]?.trim() || '';
+    const form = mapForm(formRaw);
+
+    // Receptplichtig
+    const rxRaw = (block.match(/<PrescriptionRequired>([^<]+)<\/PrescriptionRequired>/) || [])[1] || '';
+    const rx = /true|yes|1/i.test(rxRaw);
+
+    newMeds.push({ name, generic: inn, category, form, rx });
+    seen.add(name.toLowerCase());
+  }
+
+  console.log(`  📊 ${newMeds.length} nieuwe medicijnen gevonden`);
+  return appendMedicines('be', newMeds);
 }
 
 // ================================================================
 // NEDERLAND — CBG Geneesmiddeleninformatiebank
-// Wekelijks bijgewerkt databestand (tab-gescheiden of XML)
+// Kolommen: registratienummer, productnaam, productnaam_link,
+//            atc, werkzame_stof, farmaceutische_vorm, ...
 // ================================================================
 async function updateNL() {
-  console.log('\n🇳🇱 Nederland — CBG Geneesmiddeleninformatiebank ophalen...');
-  
-  // CBG biedt een databestand aan — de URL is te vinden op de infopagina
-  // Actuele URL (wekelijks bijgewerkt, geen auth vereist):
+  console.log('\n🇳🇱 Nederland — CBG ophalen...');
+  const country = loadExistingNames('nl');
+  if (!country) { console.error('  ❌ nl.js niet gevonden'); return 0; }
+
+  // Bekende download-URLs voor het CBG-databestand
   const urls = [
-    'https://www.geneesmiddeleninformatiebank.nl/nl/cp130264',  // databestand pagina
+    // Open data via data.overheid.nl
+    'https://data.overheid.nl/community/application/geneesmiddelenrepertorium-cbg/download/databestand',
+    // Directe databestand download van CBG
+    'https://geneesmiddelenrepertorium.nl/ords/f?p=111:download:0::NO',
+    // Fallback: open state
     'https://data.openstate.eu/dataset/2e0055db-6f28-4b05-920b-a648ba026baa/resource/1efaa651-add9-40f5-8b0c-2c2f2d352e11/download/geneesmiddeleninformatiebank.csv',
   ];
-  
-  // Probeer de CBG pagina op te halen om de download-URL te vinden
-  const pageDest = path.join(TMP_DIR, 'cbg_page.html');
-  let downloadUrl = null;
-  
+
+  const dest = path.join(TMP_DIR, 'cbg_nl.csv');
+  let downloaded = false;
+
   for (const url of urls) {
     try {
-      await fetchBinary(url, pageDest);
-      const content = fs.readFileSync(pageDest, 'utf8');
-      
-      // Zoek direct download link
-      const csvMatch = content.match(/href="([^"]*(?:download|databestand|export)[^"]*\.(?:csv|txt|zip|xml)[^"]*)"/i);
-      if (csvMatch) {
-        downloadUrl = csvMatch[1].startsWith('http') ? csvMatch[1] 
-                    : 'https://www.geneesmiddeleninformatiebank.nl' + csvMatch[1];
-        break;
-      }
-      
-      // Als het al een CSV is (openstate.eu)
-      if (url.endsWith('.csv') && content.includes(',') || content.includes('\t')) {
-        downloadUrl = url;
+      await fetchBinary(url, dest);
+      const size = fs.statSync(dest).size;
+      if (size > 50000) {
+        console.log(`  ✅ CBG databestand gedownload (${(size/1024).toFixed(0)} KB) van: ${url}`);
+        downloaded = true;
         break;
       }
     } catch (e) {
       console.log(`  ⚠️  ${url}: ${e.message}`);
     }
+    if (fs.existsSync(dest)) fs.unlinkSync(dest);
   }
-  
-  if (!downloadUrl) {
-    console.error('  ❌ Kon geen download-URL vinden voor CBG-databestand');
-    console.log('  💡 Ga handmatig naar: https://www.geneesmiddeleninformatiebank.nl/nl/cp130264');
+
+  if (!downloaded) {
+    console.error('  ❌ CBG databestand kon niet gedownload worden');
     return 0;
   }
-  
-  // Download het databestand
-  const dataDest = path.join(TMP_DIR, 'cbg_nl.csv');
-  try {
-    await fetchBinary(downloadUrl, dataDest);
-    console.log(`  ✅ CBG databestand gedownload (${(fs.statSync(dataDest).size / 1024).toFixed(0)} KB)`);
-  } catch (e) {
-    console.error(`  ❌ Download mislukt: ${e.message}`);
-    return 0;
-  }
-  
-  return parseCBGData(dataDest);
+
+  return parseCBGData(dest, country);
 }
 
-function parseCBGData(filePath) {
-  const country = loadExistingNames('nl');
-  if (!country) return 0;
-  
-  const content = fs.readFileSync(filePath, 'utf8');
-  const lines = content.split('\n');
-  if (!lines.length) return 0;
-  
-  // Detecteer separator
-  const sep = lines[0].includes('\t') ? '\t' : ',';
-  const headers = lines[0].split(sep).map(h => h.trim().toLowerCase().replace(/"/g, ''));
-  
-  console.log(`  📋 Kolommen: ${headers.slice(0, 8).join(', ')}...`);
-  
-  // Zoek relevante kolommen
-  const nameIdx  = headers.findIndex(h => /naam|name|product/i.test(h));
-  const innIdx   = headers.findIndex(h => /inn|werkzame|actief|generic|substance/i.test(h));
-  const atcIdx   = headers.findIndex(h => /atc/i.test(h));
-  const formIdx  = headers.findIndex(h => /vorm|form|toedien/i.test(h));
-  const rxIdx    = headers.findIndex(h => /recept|prescri|rx|ur[p\b]/i.test(h));
-  
+function parseCBGData(filePath, country) {
+  // Lees bestand met UTF-8, strip BOM
+  let content = fs.readFileSync(filePath, 'utf8').replace(/^\uFEFF/, '');
+  const lines = content.split('\n').filter(l => l.trim());
+  if (lines.length < 2) return 0;
+
+  // Detecteer separator: tab, puntkomma of komma
+  const firstLine = lines[0];
+  const sep = firstLine.includes('\t') ? '\t'
+            : firstLine.includes(';')  ? ';'
+            : ',';
+
+  const rawHeaders = firstLine.split(sep).map(h => h.replace(/^"|"$/g, '').trim().toLowerCase());
+  console.log(`  📋 Kolommen (${rawHeaders.length}): ${rawHeaders.slice(0,8).join(', ')}...`);
+  console.log(`  📋 Separator: ${sep === '\t' ? 'TAB' : sep}`);
+
+  // Zoek kolom-indexen op basis van bekende CBG-kolomnamen
+  const find = (...patterns) => rawHeaders.findIndex(h => patterns.some(p => p.test(h)));
+
+  const nameIdx = find(/^productnaam$/, /^naam$/, /^product_name$/, /^name$/);
+  const innIdx  = find(/^werkzame_stof$/, /^inn$/, /^actieve_stof$/, /^substance$/);
+  const atcIdx  = find(/^atc$/, /^atc_code$/, /^atccode$/);
+  const formIdx = find(/^farmaceutische_vorm$/, /^vorm$/, /^pharmaceutical_form$/, /^toedieningsvorm$/);
+  const rxIdx   = find(/^afleverstatus$/, /^recept$/, /^rx$/, /^prescri/, /^ura$/);
+
+  console.log(`  📋 name:${nameIdx} inn:${innIdx} atc:${atcIdx} form:${formIdx} rx:${rxIdx}`);
+
   if (nameIdx === -1) {
-    console.error('  ❌ Naamkolom niet gevonden in CBG-data');
+    console.error('  ❌ Naamkolom niet gevonden. Beschikbare kolommen:');
+    console.error('    ', rawHeaders.join(', '));
     return 0;
   }
-  
-  const newMedicines = [];
+
+  const newMeds = [];
   const seen = new Set(country.names);
-  
+  let skippedNoAtc = 0, skippedExists = 0;
+
   for (let i = 1; i < lines.length; i++) {
     const line = lines[i].trim();
     if (!line) continue;
-    
     const cols = line.split(sep).map(c => c.replace(/^"|"$/g, '').trim());
-    
+
     const name = cols[nameIdx];
-    if (!name || seen.has(name.toLowerCase())) continue;
-    
-    const inn      = innIdx  >= 0 ? (cols[innIdx]  || '') : '';
-    const atcCode  = atcIdx  >= 0 ? (cols[atcIdx]  || '') : '';
-    const formRaw  = formIdx >= 0 ? (cols[formIdx]  || '') : '';
-    const rxRaw    = rxIdx   >= 0 ? (cols[rxIdx]   || '') : '';
-    
+    if (!name) continue;
+    if (seen.has(name.toLowerCase())) { skippedExists++; continue; }
+
+    const inn     = innIdx  >= 0 ? cols[innIdx]  || '' : '';
+    const atcCode = atcIdx  >= 0 ? cols[atcIdx]  || '' : '';
+    const formRaw = formIdx >= 0 ? cols[formIdx] || '' : '';
+    const rxRaw   = rxIdx   >= 0 ? cols[rxIdx]   || '' : '';
+
     const category = atcToCategory(atcCode);
-    if (!category) continue;
-    
+    if (!category) { skippedNoAtc++; continue; }
+
     const form = mapForm(formRaw);
-    const rx   = /UA|URA|recept|prescri|true|yes|1/i.test(rxRaw);
-    
-    newMedicines.push({ name, generic: inn, category, form, rx });
+    // UA = uitsluitend op recept (Netherlands)
+    const rx = /\bUA\b|\bURA\b|recept|prescri/i.test(rxRaw);
+
+    newMeds.push({ name, generic: inn, category, form, rx });
     seen.add(name.toLowerCase());
   }
-  
-  console.log(`  📊 ${newMedicines.length} nieuwe medicijnen gevonden in CBG`);
-  return appendMedicines('nl', newMedicines);
+
+  console.log(`  📊 Gevonden: ${newMeds.length} nieuw | Bestond al: ${skippedExists} | Geen ATC: ${skippedNoAtc}`);
+  return appendMedicines('nl', newMeds);
 }
 
 // ================================================================
 // HOOFD
 // ================================================================
 async function main() {
-  console.log('\n🔄 apoHouze Medicine Database Updater');
+  console.log('\n🔄 apoHouze Medicine Database Updater v4');
   console.log(`📅 ${new Date().toISOString()}`);
   if (DRY_RUN) console.log('🔍 DRY RUN — geen bestanden worden gewijzigd');
-  
+
   const log = { updated_at: new Date().toISOString(), dry_run: DRY_RUN, results: {} };
   let totalAdded = 0;
-  
+
   for (const target of targets) {
-    let added = 0;
     const before = loadExistingNames(target)?.names.size || 0;
-    
+    let added = 0;
+
     if (target === 'be') added = await updateBE();
     else if (target === 'nl') added = await updateNL();
     else { console.log(`⚠️  Onbekend land: ${target}`); continue; }
-    
+
     const after = loadExistingNames(target)?.names.size || 0;
     log.results[target] = { before, after, added: after - before };
     totalAdded += (after - before);
-    
-    console.log(`\n  ✅ ${target.toUpperCase()}: ${before} → ${after} medicijnen (+${after - before} nieuw)`);
+    console.log(`\n  ✅ ${target.toUpperCase()}: ${before} → ${after} medicijnen (+${after - before} nieuw)\n`);
   }
-  
+
   // Opruimen
-  try { fs.rmSync(TMP_DIR, { recursive: true, force: true }); } catch {}
-  
+  try { require('child_process').execSync(`rm -rf "${TMP_DIR}"`); } catch {}
+
   if (!DRY_RUN) fs.writeFileSync(LOG_FILE, JSON.stringify(log, null, 2));
-  
-  console.log(`\n🎉 Klaar! Totaal toegevoegd: ${totalAdded} nieuwe medicijnen`);
+
+  console.log(`🎉 Klaar! Totaal toegevoegd: ${totalAdded} nieuwe medicijnen`);
   if (totalAdded > 0 && !DRY_RUN) console.log('🚀 Commit en push om Docker rebuild te triggeren.');
-  
   process.exit(0);
 }
 
