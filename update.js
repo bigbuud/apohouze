@@ -98,12 +98,12 @@ function mapForm(text) {
 // ================================================================
 // HELPERS
 // ================================================================
-function fetchBinary(url, dest) {
+function fetchBinary(url, dest, timeoutMs = 30000) {
   return new Promise((resolve, reject) => {
     const file = fs.createWriteStream(dest);
     const go = (u) => {
       const proto = u.startsWith('https') ? https : http;
-      proto.get(u, {
+      const req = proto.get(u, {
         headers: {
           'User-Agent': 'Mozilla/5.0 apoHouze-updater/4.0',
           'Accept': '*/*',
@@ -123,6 +123,11 @@ function fetchBinary(url, dest) {
         file.on('finish', () => { file.close(); resolve(); });
         file.on('error', reject);
       }).on('error', reject);
+      req.setTimeout(timeoutMs, () => {
+        req.destroy();
+        file.close();
+        reject(new Error(`Timeout na ${timeoutMs/1000}s — ${u}`));
+      });
     };
     go(url);
   });
@@ -218,16 +223,30 @@ async function updateBE() {
   const zipDest = path.join(TMP_DIR, 'sam_be.zip');
   let downloaded = false;
 
-  for (const url of zipUrls) {
+  // Gebruik curl — betrouwbaarder in CI, heeft ingebouwde timeout
+  const { execSync } = require('child_process');
+  const curlUrls = zipUrls.slice(0, 4); // max 4 pogingen
+
+  for (const url of curlUrls) {
     try {
-      await fetchBinary(url, zipDest);
-      const size = fs.statSync(zipDest).size;
-      if (size > 100000) { // minstens 100KB = echte ZIP
-        console.log(`  ✅ SAM ZIP gedownload van: ${url} (${(size/1024/1024).toFixed(1)} MB)`);
+      console.log(`  🔗 Probeer: ${url}`);
+      execSync(
+        `curl -L --max-time 60 --connect-timeout 15 --silent --fail ` +
+        `--user-agent "apoHouze-updater/4.0" ` +
+        `-o "${zipDest}" "${url}"`,
+        { timeout: 70000 }
+      );
+      const size = fs.existsSync(zipDest) ? fs.statSync(zipDest).size : 0;
+      if (size > 100000) {
+        console.log(`  ✅ SAM ZIP gedownload (${(size/1024/1024).toFixed(1)} MB)`);
         downloaded = true;
         break;
+      } else {
+        console.log(`  ⚠️  Bestand te klein (${size} bytes) — geen geldige ZIP`);
       }
-    } catch {}
+    } catch (e) {
+      console.log(`  ⚠️  Mislukt: ${e.message.split('\n')[0]}`);
+    }
     if (fs.existsSync(zipDest)) fs.unlinkSync(zipDest);
   }
 
@@ -350,18 +369,25 @@ async function updateNL() {
 
   const dest = path.join(TMP_DIR, 'cbg_nl.csv');
   let downloaded = false;
+  const { execSync } = require('child_process');
 
   for (const url of urls) {
     try {
-      await fetchBinary(url, dest);
-      const size = fs.statSync(dest).size;
+      console.log(`  🔗 Probeer: ${url}`);
+      execSync(
+        `curl -L --max-time 60 --connect-timeout 15 --silent --fail ` +
+        `--user-agent "apoHouze-updater/4.0" ` +
+        `-o "${dest}" "${url}"`,
+        { timeout: 70000 }
+      );
+      const size = fs.existsSync(dest) ? fs.statSync(dest).size : 0;
       if (size > 50000) {
-        console.log(`  ✅ CBG databestand gedownload (${(size/1024).toFixed(0)} KB) van: ${url}`);
+        console.log(`  ✅ CBG databestand gedownload (${(size/1024).toFixed(0)} KB)`);
         downloaded = true;
         break;
       }
     } catch (e) {
-      console.log(`  ⚠️  ${url}: ${e.message}`);
+      console.log(`  ⚠️  ${url}: ${e.message.split('\n')[0]}`);
     }
     if (fs.existsSync(dest)) fs.unlinkSync(dest);
   }
