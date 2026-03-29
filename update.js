@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /**
- * apoHouze — Medicine Database Updater v4
+ * apoHouze — Medicine Database Updater v5
  * ========================================
- * BE: SAM v2 via directe bekende URL-patronen
- * NL: CBG Geneesmiddeleninformatiebank
+ * BE: medicinesdatabase.be (FAMHP) — officiële Belgische database, dagelijks bijgewerkt
+ * NL: CBG Geneesmiddeleninformatiebank — wekelijks bijgewerkt
  */
 'use strict';
 const fs    = require('fs');
@@ -21,7 +21,7 @@ const args    = process.argv.slice(2).filter(a => !a.startsWith('--'));
 const targets = args.length ? args.map(a => a.toLowerCase()) : ['be', 'nl'];
 
 // ================================================================
-// ATC-CODE MAPPING (eerste 3 chars)
+// ATC-CODE MAPPING
 // ================================================================
 const ATC_MAP = {
   A02:'Stomach & Intestine', A03:'Stomach & Intestine', A04:'Stomach & Intestine',
@@ -55,7 +55,6 @@ const ATC_MAP = {
 };
 function atcToCategory(atc) {
   if (!atc) return null;
-  // ATC kan zijn: "A02BC01", "A02BC", "A02" — neem altijd de eerste 3 chars
   return ATC_MAP[atc.trim().substring(0, 3).toUpperCase()] || null;
 }
 
@@ -68,7 +67,7 @@ const FORM_MAP = [
   [/oogdruppels|collyre|eye.?drop/i,      'Eye drops'],
   [/oordruppels|otic|ear.?drop/i,         'Ear drops'],
   [/neusspray|nasal.?spray|spray.?nasal/i,'Nasal spray'],
-  [/inhalator|inhaler|aerosol/i,          'Inhaler'],
+  [/inhalator|inhaler|aerosol|poeder.*inhal/i,'Inhaler'],
   [/tablet|tabl\b|tablette/i,             'Tablet'],
   [/capsule|cap\b|capsul/i,               'Capsule'],
   [/siroop|sirop|syrup|drank/i,           'Syrup'],
@@ -98,57 +97,15 @@ function mapForm(text) {
 // ================================================================
 // HELPERS
 // ================================================================
-function fetchBinary(url, dest, timeoutMs = 30000) {
-  return new Promise((resolve, reject) => {
-    const file = fs.createWriteStream(dest);
-    const go = (u) => {
-      const proto = u.startsWith('https') ? https : http;
-      const req = proto.get(u, {
-        headers: {
-          'User-Agent': 'Mozilla/5.0 apoHouze-updater/4.0',
-          'Accept': '*/*',
-        }
-      }, res => {
-        if ([301, 302, 303, 307, 308].includes(res.statusCode)) {
-          file.close();
-          const loc = res.headers.location;
-          const nextUrl = loc.startsWith('http') ? loc : new URL(loc, u).href;
-          return go(nextUrl);
-        }
-        if (res.statusCode !== 200) {
-          file.close();
-          return reject(new Error(`HTTP ${res.statusCode} — ${u}`));
-        }
-        res.pipe(file);
-        file.on('finish', () => { file.close(); resolve(); });
-        file.on('error', reject);
-      }).on('error', reject);
-      req.setTimeout(timeoutMs, () => {
-        req.destroy();
-        file.close();
-        reject(new Error(`Timeout na ${timeoutMs/1000}s — ${u}`));
-      });
-    };
-    go(url);
-  });
-}
-
-function fetchText(url) {
-  return new Promise((resolve, reject) => {
-    const go = (u) => {
-      const proto = u.startsWith('https') ? https : http;
-      proto.get(u, { headers: { 'User-Agent': 'apoHouze-updater/4.0' } }, res => {
-        if ([301, 302, 303, 307, 308].includes(res.statusCode)) {
-          const loc = res.headers.location;
-          return go(loc.startsWith('http') ? loc : new URL(loc, u).href);
-        }
-        let data = '';
-        res.on('data', c => data += c);
-        res.on('end', () => resolve(data));
-      }).on('error', reject);
-    };
-    go(url);
-  });
+function curlDownload(url, dest, maxTime = 120) {
+  const { execSync } = require('child_process');
+  execSync(
+    `curl -L --max-time ${maxTime} --connect-timeout 15 --silent --fail ` +
+    `--user-agent "Mozilla/5.0 apoHouze-updater/5.0" ` +
+    `-o "${dest}" "${url}"`,
+    { timeout: (maxTime + 10) * 1000 }
+  );
+  return fs.existsSync(dest) ? fs.statSync(dest).size : 0;
 }
 
 function loadExistingNames(code) {
@@ -176,301 +133,177 @@ function appendMedicines(code, medicines) {
   return medicines.length;
 }
 
-// ================================================================
-// BELGIË — SAM v2
-// De SAM-pagina laadt links via JavaScript. We proberen bekende
-// URL-patronen rechtstreeks. De export-URL bevat een timestamp
-// in milliseconden die we via de REST-endpoint ophalen.
-// ================================================================
-async function updateBE() {
-  console.log('\n🇧🇪 België — SAM v2 ophalen...');
-  const country = loadExistingNames('be');
-  if (!country) { console.error('  ❌ be.js niet gevonden'); return 0; }
+function processRows(rows, country, code) {
+  if (!rows.length) return 0;
+  const sample = rows[0];
+  const keys = Object.keys(sample).map(k => k.toLowerCase());
 
-  // Probeer de export-lijst op te halen via het JSON-endpoint
-  // dat de JavaScript-pagina gebruikt
-  const apiUrls = [
-    'https://www.vas.ehealth.fgov.be/websamcivics/samcivics/rest/export/v4/latestId',
-    'https://www.vas.ehealth.fgov.be/websamcivics/samcivics/api/export/latest?version=4',
-    'https://www.vas.ehealth.fgov.be/websamcivics/samcivics/export/latest/4',
-  ];
-
-  let exportId = null;
-  for (const url of apiUrls) {
-    try {
-      const text = await fetchText(url);
-      const match = text.match(/\d{10,}/);
-      if (match) { exportId = match[0]; break; }
-    } catch {}
-  }
-
-  // Probeer ZIP direct te downloaden met bekende patronen
-  const zipUrls = [];
-  if (exportId) {
-    zipUrls.push(
-      `https://www.vas.ehealth.fgov.be/websamcivics/samcivics/export/v4/${exportId}`,
-      `https://www.vas.ehealth.fgov.be/websamcivics/samcivics/download/v4/${exportId}`,
-    );
-  }
-  // Vaste URL-patronen als fallback
-  zipUrls.push(
-    'https://www.vas.ehealth.fgov.be/websamcivics/samcivics/rest/v4/export/full',
-    'https://www.vas.ehealth.fgov.be/websamcivics/samcivics/export?version=4&type=full',
-    'https://www.vas.ehealth.fgov.be/websamcivics/samcivics/v4/full.zip',
-    'https://www.vas.ehealth.fgov.be/websamcivics/samcivics/SAMv2Full_v4.zip',
-  );
-
-  const zipDest = path.join(TMP_DIR, 'sam_be.zip');
-  let downloaded = false;
-
-  // Gebruik curl — betrouwbaarder in CI, heeft ingebouwde timeout
-  const { execSync } = require('child_process');
-  const curlUrls = zipUrls.slice(0, 4); // max 4 pogingen
-
-  for (const url of curlUrls) {
-    try {
-      console.log(`  🔗 Probeer: ${url}`);
-      execSync(
-        `curl -L --max-time 60 --connect-timeout 15 --silent --fail ` +
-        `--user-agent "apoHouze-updater/4.0" ` +
-        `-o "${zipDest}" "${url}"`,
-        { timeout: 70000 }
-      );
-      const size = fs.existsSync(zipDest) ? fs.statSync(zipDest).size : 0;
-      if (size > 100000) {
-        console.log(`  ✅ SAM ZIP gedownload (${(size/1024/1024).toFixed(1)} MB)`);
-        downloaded = true;
-        break;
-      } else {
-        console.log(`  ⚠️  Bestand te klein (${size} bytes) — geen geldige ZIP`);
-      }
-    } catch (e) {
-      console.log(`  ⚠️  Mislukt: ${e.message.split('\n')[0]}`);
+  const findKey = (...patterns) => {
+    const orig = Object.keys(sample);
+    for (const k of orig) {
+      if (patterns.some(p => p.test(k.toLowerCase()))) return k;
     }
-    if (fs.existsSync(zipDest)) fs.unlinkSync(zipDest);
-  }
+    return null;
+  };
 
-  if (!downloaded) {
-    console.error('  ❌ SAM ZIP kon niet automatisch gedownload worden.');
-    console.log('  💡 Ga naar https://www.vas.ehealth.fgov.be/websamcivics/samcivics/');
-    console.log('     Download de ZIP manueel en kopieer het bestand naar data/_tmp/sam_be.zip');
-    console.log('     Voer dan opnieuw uit: node update.js be');
-    // Controleer of er een manueel geplaatst bestand is
-    const manual = path.join(DATA_DIR, '..', 'sam_be.zip');
-    if (fs.existsSync(manual)) {
-      console.log('  📁 Manueel bestand gevonden! Verwerken...');
-      fs.copyFileSync(manual, zipDest);
-    } else {
-      return 0;
-    }
-  }
+  const nameKey   = findKey(/^naam$/, /^productnaam$/, /^name$/, /^product/);
+  const innKey    = findKey(/werkzame/, /inn/, /actieve/, /generic/, /substance/);
+  const atcKey    = findKey(/^atc/);
+  const formKey   = findKey(/farmaceutische/, /^vorm$/, /pharmaceutical/, /toedien/);
+  const rxKey     = findKey(/afleverstatus/, /recept/, /^rx$/, /prescri/, /\bura\b/);
+  const statusKey = findKey(/status/, /vergunn/, /autoris/);
 
-  return parseSAMZip(zipDest, country);
-}
+  console.log(`  📋 name:${nameKey} inn:${innKey} atc:${atcKey} form:${formKey} rx:${rxKey}`);
 
-function parseSAMZip(zipPath, country) {
-  const { execSync } = require('child_process');
-  const extractDir = path.join(TMP_DIR, 'sam_extract');
-  if (fs.existsSync(extractDir)) execSync(`rm -rf "${extractDir}"`);
-  fs.mkdirSync(extractDir);
-
-  try {
-    execSync(`unzip -o "${zipPath}" -d "${extractDir}" 2>/dev/null`);
-  } catch (e) {
-    console.error(`  ❌ ZIP extraheren mislukt: ${e.message}`);
+  if (!nameKey) {
+    console.error('  ❌ Naamkolom niet gevonden. Beschikbare kolommen:', Object.keys(sample).join(', '));
     return 0;
   }
 
-  // Zoek AMP XML-bestand (bevat de Actual Medicinal Products)
-  const xmlFiles = [];
-  function findXml(dir) {
-    for (const f of fs.readdirSync(dir)) {
-      const full = path.join(dir, f);
-      if (fs.statSync(full).isDirectory()) findXml(full);
-      else if (f.endsWith('.xml')) xmlFiles.push(full);
-    }
-  }
-  findXml(extractDir);
-
-  if (!xmlFiles.length) {
-    console.error('  ❌ Geen XML-bestanden gevonden in ZIP');
-    console.log('  📁 Inhoud ZIP:', fs.readdirSync(extractDir).join(', '));
-    return 0;
-  }
-
-  // Kies het AMP-bestand (grootste XML of met "AMP" in naam)
-  const ampFile = xmlFiles.find(f => /AMP/i.test(path.basename(f)))
-               || xmlFiles.sort((a,b) => fs.statSync(b).size - fs.statSync(a).size)[0];
-
-  console.log(`  📄 Parsen: ${path.basename(ampFile)} (${(fs.statSync(ampFile).size/1024/1024).toFixed(1)} MB)`);
-
-  const xml = fs.readFileSync(ampFile, 'utf8');
   const newMeds = [];
   const seen = new Set(country.names);
+  let skippedStatus = 0, skippedAtc = 0, skippedExists = 0;
 
-  // SAM AMP XML-elementen: <Amp>, <Name>, <Atc>, <AdministrationForm>
-  // Naam staat in <Name lang="NL"> of <Name lang="FR">
-  const ampRe = /<Amp\b[\s\S]*?<\/Amp>/gi;
-  let match;
-  while ((match = ampRe.exec(xml)) !== null) {
-    const block = match[0];
+  for (const row of rows) {
+    // Filter ingetrokken/geweigerde medicijnen
+    if (statusKey) {
+      const s = String(row[statusKey] || '').toLowerCase();
+      if (/ingetrokk|geweigerd|geschorst|suspend|revoked|refused|withdrawn/i.test(s)) {
+        skippedStatus++; continue;
+      }
+    }
 
-    // Naam: voorkeur NL, anders FR
-    const nlName = (block.match(/lang="NL"[^>]*>([^<]+)</) || [])[1]?.trim();
-    const frName = (block.match(/lang="FR"[^>]*>([^<]+)</) || [])[1]?.trim();
-    const name = nlName || frName;
-    if (!name || seen.has(name.toLowerCase())) continue;
+    const name = String(row[nameKey] || '').trim();
+    if (!name) continue;
+    if (seen.has(name.toLowerCase())) { skippedExists++; continue; }
 
-    // ATC-code
-    const atc = (block.match(/<Atc>([^<]+)<\/Atc>/) || [])[1]?.trim() || '';
+    const atc     = atcKey   ? String(row[atcKey]   || '').trim() : '';
+    const inn     = innKey   ? String(row[innKey]   || '').trim() : '';
+    const formRaw = formKey  ? String(row[formKey]  || '').trim() : '';
+    const rxRaw   = rxKey    ? String(row[rxKey]    || '').trim() : '';
+
     const category = atcToCategory(atc);
-    if (!category) continue;
+    if (!category) { skippedAtc++; continue; }
 
-    // Werkzame stof
-    const inn = (block.match(/<Inn>([^<]+)<\/Inn>/) ||
-                 block.match(/<ActiveIngredient>([^<]+)<\/ActiveIngredient>/) || [])[1]?.trim() || '';
-
-    // Farmaceutische vorm
-    const formRaw = (block.match(/<AdministrationFormName[^>]*>([^<]+)</) ||
-                     block.match(/<PharmaceuticalForm[^>]*>([^<]+)</) || [])[1]?.trim() || '';
     const form = mapForm(formRaw);
-
-    // Receptplichtig
-    const rxRaw = (block.match(/<PrescriptionRequired>([^<]+)<\/PrescriptionRequired>/) || [])[1] || '';
-    const rx = /true|yes|1/i.test(rxRaw);
+    const rx   = /\bUA\b|\bURA\b|recept|prescri/i.test(rxRaw);
 
     newMeds.push({ name, generic: inn, category, form, rx });
     seen.add(name.toLowerCase());
   }
 
-  console.log(`  📊 ${newMeds.length} nieuwe medicijnen gevonden`);
-  return appendMedicines('be', newMeds);
+  console.log(`  📊 Nieuw: ${newMeds.length} | Bestond al: ${skippedExists} | Geen ATC: ${skippedAtc} | Ingetrokken: ${skippedStatus}`);
+  return appendMedicines(code, newMeds);
+}
+
+function parseFile(filePath, code, country) {
+  const { execSync } = require('child_process');
+  let mime = '';
+  try { mime = execSync(`file --mime-type "${filePath}"`, { encoding: 'utf8' }).toLowerCase(); } catch {}
+
+  if (mime.includes('zip') || mime.includes('excel') || mime.includes('openxml') || mime.includes('spreadsheet')) {
+    // Excel formaat
+    try {
+      const XLSX = require('xlsx');
+      const wb = XLSX.readFile(filePath);
+      const ws = wb.Sheets[wb.SheetNames[0]];
+      const rows = XLSX.utils.sheet_to_json(ws, { defval: '' });
+      console.log(`  📄 Excel: ${rows.length} rijen, ${Object.keys(rows[0]||{}).length} kolommen`);
+      return processRows(rows, country, code);
+    } catch (e) {
+      console.error(`  ❌ Excel parsen mislukt: ${e.message}`);
+      return 0;
+    }
+  } else {
+    // CSV/tekst formaat
+    let content = fs.readFileSync(filePath, 'utf8').replace(/^\uFEFF/, '');
+    const lines = content.split('\n').filter(l => l.trim());
+    if (lines.length < 2) { console.error('  ❌ Leeg bestand'); return 0; }
+
+    const sep = lines[0].includes('\t') ? '\t' : lines[0].includes(';') ? ';' : ',';
+    const headers = lines[0].split(sep).map(h => h.replace(/"/g, '').trim());
+    console.log(`  📄 CSV (${sep === '\t' ? 'TAB' : sep}): ${lines.length} rijen, kolommen: ${headers.slice(0,6).join(', ')}`);
+
+    const rows = [];
+    for (let i = 1; i < lines.length; i++) {
+      const cols = lines[i].split(sep).map(c => c.replace(/^"|"$/g, '').trim());
+      const row = {};
+      headers.forEach((h, idx) => { row[h] = cols[idx] || ''; });
+      rows.push(row);
+    }
+    return processRows(rows, country, code);
+  }
+}
+
+// ================================================================
+// BELGIË — medicinesdatabase.be (FAMHP)
+// Officiële database van alle vergunde Belgische medicijnen.
+// Dagelijks bijgewerkt, geen authenticatie nodig.
+// ================================================================
+async function updateBE() {
+  console.log('\n🇧🇪 België — medicinesdatabase.be (FAMHP) ophalen...');
+  const country = loadExistingNames('be');
+  if (!country) { console.error('  ❌ be.js niet gevonden'); return 0; }
+
+  const dest = path.join(TMP_DIR, 'be_medicines.bin');
+  const url = 'https://medicinesdatabase.be/download/human/medicines';
+
+  try {
+    console.log(`  📥 Downloaden...`);
+    const size = curlDownload(url, dest);
+    if (size < 1000) throw new Error(`Bestand te klein: ${size} bytes`);
+    console.log(`  ✅ Gedownload: ${(size/1024).toFixed(0)} KB`);
+  } catch (e) {
+    console.error(`  ❌ Download mislukt: ${e.message}`);
+    return 0;
+  }
+
+  return parseFile(dest, 'be', country);
 }
 
 // ================================================================
 // NEDERLAND — CBG Geneesmiddeleninformatiebank
-// Kolommen: registratienummer, productnaam, productnaam_link,
-//            atc, werkzame_stof, farmaceutische_vorm, ...
 // ================================================================
 async function updateNL() {
-  console.log('\n🇳🇱 Nederland — CBG ophalen...');
+  console.log('\n🇳🇱 Nederland — CBG Geneesmiddeleninformatiebank ophalen...');
   const country = loadExistingNames('nl');
   if (!country) { console.error('  ❌ nl.js niet gevonden'); return 0; }
 
-  // Bekende download-URLs voor het CBG-databestand
+  const dest = path.join(TMP_DIR, 'nl_medicines.bin');
   const urls = [
-    // Open data via data.overheid.nl
-    'https://data.overheid.nl/community/application/geneesmiddelenrepertorium-cbg/download/databestand',
-    // Directe databestand download van CBG
-    'https://geneesmiddelenrepertorium.nl/ords/f?p=111:download:0::NO',
-    // Fallback: open state
     'https://data.openstate.eu/dataset/2e0055db-6f28-4b05-920b-a648ba026baa/resource/1efaa651-add9-40f5-8b0c-2c2f2d352e11/download/geneesmiddeleninformatiebank.csv',
+    'https://www.geneesmiddeleninformatiebank.nl/nl/download',
   ];
 
-  const dest = path.join(TMP_DIR, 'cbg_nl.csv');
   let downloaded = false;
-  const { execSync } = require('child_process');
-
   for (const url of urls) {
     try {
-      console.log(`  🔗 Probeer: ${url}`);
-      execSync(
-        `curl -L --max-time 60 --connect-timeout 15 --silent --fail ` +
-        `--user-agent "apoHouze-updater/4.0" ` +
-        `-o "${dest}" "${url}"`,
-        { timeout: 70000 }
-      );
-      const size = fs.existsSync(dest) ? fs.statSync(dest).size : 0;
+      console.log(`  📥 Probeer: ${url}`);
+      const size = curlDownload(url, dest);
       if (size > 50000) {
-        console.log(`  ✅ CBG databestand gedownload (${(size/1024).toFixed(0)} KB)`);
+        console.log(`  ✅ Gedownload: ${(size/1024).toFixed(0)} KB`);
         downloaded = true;
         break;
       }
     } catch (e) {
-      console.log(`  ⚠️  ${url}: ${e.message.split('\n')[0]}`);
+      console.log(`  ⚠️  ${e.message.split('\n')[0]}`);
     }
     if (fs.existsSync(dest)) fs.unlinkSync(dest);
   }
 
   if (!downloaded) {
-    console.error('  ❌ CBG databestand kon niet gedownload worden');
+    console.error('  ❌ CBG download mislukt');
     return 0;
   }
 
-  return parseCBGData(dest, country);
-}
-
-function parseCBGData(filePath, country) {
-  // Lees bestand met UTF-8, strip BOM
-  let content = fs.readFileSync(filePath, 'utf8').replace(/^\uFEFF/, '');
-  const lines = content.split('\n').filter(l => l.trim());
-  if (lines.length < 2) return 0;
-
-  // Detecteer separator: tab, puntkomma of komma
-  const firstLine = lines[0];
-  const sep = firstLine.includes('\t') ? '\t'
-            : firstLine.includes(';')  ? ';'
-            : ',';
-
-  const rawHeaders = firstLine.split(sep).map(h => h.replace(/^"|"$/g, '').trim().toLowerCase());
-  console.log(`  📋 Kolommen (${rawHeaders.length}): ${rawHeaders.slice(0,8).join(', ')}...`);
-  console.log(`  📋 Separator: ${sep === '\t' ? 'TAB' : sep}`);
-
-  // Zoek kolom-indexen op basis van bekende CBG-kolomnamen
-  const find = (...patterns) => rawHeaders.findIndex(h => patterns.some(p => p.test(h)));
-
-  const nameIdx = find(/^productnaam$/, /^naam$/, /^product_name$/, /^name$/);
-  const innIdx  = find(/^werkzame_stof$/, /^inn$/, /^actieve_stof$/, /^substance$/);
-  const atcIdx  = find(/^atc$/, /^atc_code$/, /^atccode$/);
-  const formIdx = find(/^farmaceutische_vorm$/, /^vorm$/, /^pharmaceutical_form$/, /^toedieningsvorm$/);
-  const rxIdx   = find(/^afleverstatus$/, /^recept$/, /^rx$/, /^prescri/, /^ura$/);
-
-  console.log(`  📋 name:${nameIdx} inn:${innIdx} atc:${atcIdx} form:${formIdx} rx:${rxIdx}`);
-
-  if (nameIdx === -1) {
-    console.error('  ❌ Naamkolom niet gevonden. Beschikbare kolommen:');
-    console.error('    ', rawHeaders.join(', '));
-    return 0;
-  }
-
-  const newMeds = [];
-  const seen = new Set(country.names);
-  let skippedNoAtc = 0, skippedExists = 0;
-
-  for (let i = 1; i < lines.length; i++) {
-    const line = lines[i].trim();
-    if (!line) continue;
-    const cols = line.split(sep).map(c => c.replace(/^"|"$/g, '').trim());
-
-    const name = cols[nameIdx];
-    if (!name) continue;
-    if (seen.has(name.toLowerCase())) { skippedExists++; continue; }
-
-    const inn     = innIdx  >= 0 ? cols[innIdx]  || '' : '';
-    const atcCode = atcIdx  >= 0 ? cols[atcIdx]  || '' : '';
-    const formRaw = formIdx >= 0 ? cols[formIdx] || '' : '';
-    const rxRaw   = rxIdx   >= 0 ? cols[rxIdx]   || '' : '';
-
-    const category = atcToCategory(atcCode);
-    if (!category) { skippedNoAtc++; continue; }
-
-    const form = mapForm(formRaw);
-    // UA = uitsluitend op recept (Netherlands)
-    const rx = /\bUA\b|\bURA\b|recept|prescri/i.test(rxRaw);
-
-    newMeds.push({ name, generic: inn, category, form, rx });
-    seen.add(name.toLowerCase());
-  }
-
-  console.log(`  📊 Gevonden: ${newMeds.length} nieuw | Bestond al: ${skippedExists} | Geen ATC: ${skippedNoAtc}`);
-  return appendMedicines('nl', newMeds);
+  return parseFile(dest, 'nl', country);
 }
 
 // ================================================================
 // HOOFD
 // ================================================================
 async function main() {
-  console.log('\n🔄 apoHouze Medicine Database Updater v4');
+  console.log('\n🔄 apoHouze Medicine Database Updater v5');
   console.log(`📅 ${new Date().toISOString()}`);
   if (DRY_RUN) console.log('🔍 DRY RUN — geen bestanden worden gewijzigd');
 
@@ -488,10 +321,9 @@ async function main() {
     const after = loadExistingNames(target)?.names.size || 0;
     log.results[target] = { before, after, added: after - before };
     totalAdded += (after - before);
-    console.log(`\n  ✅ ${target.toUpperCase()}: ${before} → ${after} medicijnen (+${after - before} nieuw)\n`);
+    console.log(`  ✅ ${target.toUpperCase()}: ${before} → ${after} medicijnen (+${after - before} nieuw)\n`);
   }
 
-  // Opruimen
   try { require('child_process').execSync(`rm -rf "${TMP_DIR}"`); } catch {}
 
   if (!DRY_RUN) fs.writeFileSync(LOG_FILE, JSON.stringify(log, null, 2));
