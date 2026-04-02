@@ -1,37 +1,24 @@
 #!/usr/bin/env python3
 """
-apoHouze — Verenigd Koninkrijk Medicijnen Fetcher v1
+apoHouze — Verenigd Koninkrijk Medicijnen Fetcher v2
 =====================================================
 Bron: NHSBSA BNF Code Information (Current Year) — via CKAN API
   https://opendata.nhsbsa.net/dataset/bnf-code-information-current-year
 
-De NHSBSA (NHS Business Services Authority) publiceert maandelijks een
-volledige BNF (British National Formulary) code-dataset als open CSV.
-We gebruiken de CKAN API om dynamisch de nieuwste resource-URL te vinden
-en te downloaden — zo werkt het altijd, ook als de URL maandelijks wijzigt.
+Echte BNF CSV-kolommen (verified via NHSBSA documentatie):
+  BNF_CODE                     — 15-cijferig BNF-code (eerste 2 = chapter)
+  BNF_CHAPTER_DESCR            — chapternaam (bv. "Cardiovascular System")
+  BNF_SECTION_CODE             — sectie (4 cijfers)
+  BNF_SECTION_DESCR            — sectienaam
+  BNF_PARAGRAPH_DESCR          — paragraafnaam
+  BNF_SUBPARAGRAPH_DESCR       — subparagraafnaam
+  BNF_CHEMICAL_SUBSTANCE_DESCR — generieke stofnaam (= INN-equivalent)
+  BNF_PRODUCT_DESCR            — productnaam (merknaam of generiek)
+  BNF_PRESENTATION_DESCR       — volledige presentatienaam incl. sterkte/vorm
+  UNIT_OF_MEASURE              — eenheid
 
-BNF-kolommen die we gebruiken:
-  BNF_PRESENTATION_NAME  → merknaam / productnaam
-  BNF_CHEMICAL_SUBSTANCE → generieke naam (INN-equivalent)
-  BNF_CODE               → 15-cijferig code; eerste 2 cijfers = BNF-hoofdstuk
-  UNIT_OF_MEASURE        → farmaceutische vorm (beperkt)
-
-BNF-hoofdstuk → apoHouze-categorie mapping (BNF hoofdstukken 1-15):
-  1 = Stomach & Intestine
-  2 = Heart & Blood Pressure / Anticoagulants / Cholesterol
-  3 = Lungs & Asthma / Allergy / Cough & Cold
-  4 = Neurology / Pain & Fever / Sleep & Sedation / Antidepressants
-  5 = Antibiotics / Antivirals / Antiparasitics / Antifungals
-  6 = Diabetes / Thyroid / Corticosteroids
-  7 = Women's Health / Urology
-  8 = Oncology
-  9 = Vitamins & Supplements
-  10 = Joints & Muscles
-  11 = Eye & Ear
-  12 = Eye & Ear (ENT)
-  13 = Skin & Wounds
-  14 = Antivirals (vaccins)
-  15 = First Aid (anaesthetica)
+We gebruiken BNF_PRESENTATION_DESCR als naam en BNF_SECTION_CODE voor
+categoriemapping (eerste 4 cijfers van de code).
 
 Output: data/_tmp/gb_medicines.csv
   Kolommen: Name,INN,ATC,PharmaceuticalForm,RxStatus,Country
@@ -40,6 +27,7 @@ Gebruik: python3 fetch_gb_medicines.py [--debug]
 """
 
 import sys, os, re, csv, time, subprocess, json, urllib.request
+from urllib.parse import urlencode
 
 DEBUG = "--debug" in sys.argv
 SCRIPT_DIR  = os.path.dirname(os.path.abspath(__file__))
@@ -47,104 +35,110 @@ TMP_DIR     = os.path.join(SCRIPT_DIR, "data", "_tmp")
 OUTPUT_FILE = os.path.join(TMP_DIR, "gb_medicines.csv")
 os.makedirs(TMP_DIR, exist_ok=True)
 
-# CKAN API endpoints voor NHSBSA
 CKAN_BASE    = "https://opendata.nhsbsa.net/api/3/action"
-DATASET_ID   = "bnf-code-information-current-year"
-DATASET_HIST = "bnf-code-information-historic"  # fallback: vorig jaar
+DATASET_IDS  = [
+    "bnf-code-information-current-year",
+    "bnf-code-information-historic",
+]
 
-# BNF hoofdstuk (2 cijfers) → apoHouze categorie
-BNF_CHAPTER_MAP = {
-    "01": "Stomach & Intestine",
-    "02": "Heart & Blood Pressure",
-    "03": "Lungs & Asthma",
-    "04": "Neurology",
-    "05": "Antibiotics",
-    "06": "Diabetes",
-    "07": "Women's Health",
-    "08": "Oncology",
-    "09": "Vitamins & Supplements",
-    "10": "Joints & Muscles",
-    "11": "Eye & Ear",
-    "12": "Eye & Ear",
-    "13": "Skin & Wounds",
-    "14": "Antivirals",
-    "15": "First Aid",
-}
-
-# BNF sectie-overrides voor meer precisie (BNF code begint met deze prefix)
-BNF_SECTION_OVERRIDES = {
-    "0201": "Heart & Blood Pressure",   # hartmedicatie
-    "0202": "Heart & Blood Pressure",
-    "0203": "Heart & Blood Pressure",
-    "0204": "Heart & Blood Pressure",
-    "0205": "Heart & Blood Pressure",
-    "0206": "Heart & Blood Pressure",
-    "0208": "Anticoagulants",           # anticoagulantia
-    "0209": "Anticoagulants",
-    "0210": "Cholesterol",              # lipidenverlagers
-    "0301": "Lungs & Asthma",
-    "0302": "Lungs & Asthma",
-    "0303": "Allergy",                  # antihistaminica
-    "0304": "Cough & Cold",             # hoest & verkoudheid
+# BNF sectie (4 cijfers) → apoHouze categorie
+# Gebaseerd op BNF hoofdstukken 1-15 met sectie-overrides
+BNF_SECTION_MAP = {
+    # Hoofdstuk 01: Maag & Darmen
+    "0101": "Stomach & Intestine", "0102": "Stomach & Intestine",
+    "0103": "Stomach & Intestine", "0104": "Stomach & Intestine",
+    "0105": "Stomach & Intestine", "0106": "Stomach & Intestine",
+    "0107": "Stomach & Intestine", "0108": "Stomach & Intestine",
+    "0109": "Stomach & Intestine",
+    # Hoofdstuk 02: Hart & Vaatstelsel
+    "0201": "Heart & Blood Pressure", "0202": "Heart & Blood Pressure",
+    "0203": "Heart & Blood Pressure", "0204": "Heart & Blood Pressure",
+    "0205": "Heart & Blood Pressure", "0206": "Heart & Blood Pressure",
+    "0207": "Heart & Blood Pressure",
+    "0208": "Anticoagulants", "0209": "Anticoagulants",
+    "0210": "Cholesterol", "0211": "Heart & Blood Pressure",
+    "0212": "Cholesterol",
+    # Hoofdstuk 03: Luchtwegen
+    "0301": "Lungs & Asthma", "0302": "Lungs & Asthma",
+    "0303": "Allergy",
+    "0304": "Cough & Cold", "0305": "Cough & Cold",
+    # Hoofdstuk 04: Zenuwstelsel
     "0401": "Sleep & Sedation",
-    "0402": "Antidepressants",
-    "0403": "Antidepressants",
+    "0402": "Antidepressants", "0403": "Antidepressants",
     "0404": "Sleep & Sedation",
-    "0407": "Pain & Fever",             # analgetica
-    "0408": "Pain & Fever",
-    "0501": "Antibiotics",
-    "0502": "Antifungals",
-    "0503": "Antivirals",
-    "0504": "Antiparasitics",
-    "0601": "Diabetes",
-    "0602": "Thyroid",
+    "0405": "Neurology", "0406": "Neurology",
+    "0407": "Pain & Fever", "0408": "Pain & Fever", "0409": "Pain & Fever",
+    "0410": "Neurology", "0411": "Neurology",
+    # Hoofdstuk 05: Infecties
+    "0501": "Antibiotics", "0502": "Antifungals",
+    "0503": "Antivirals", "0504": "Antiparasitics",
+    "0505": "Antiparasitics",
+    # Hoofdstuk 06: Endocrien
+    "0601": "Diabetes", "0602": "Thyroid",
     "0603": "Corticosteroids",
-    "0604": "Women's Health",
-    "0605": "Thyroid",
-    "0606": "Women's Health",
-    "0607": "Urology",
-    "0608": "Women's Health",
-    "0901": "Vitamins & Supplements",
-    "0902": "Vitamins & Supplements",
-    "0904": "Vitamins & Supplements",
-    "1101": "Eye & Ear",
-    "1102": "Eye & Ear",
-    "1201": "Cough & Cold",             # neus/keel
-    "1202": "Eye & Ear",                # oor
-    "1203": "Cough & Cold",             # keel
-    "1301": "Skin & Wounds",
-    "1302": "Skin & Wounds",
-    "1303": "Skin & Wounds",
-    "1304": "Corticosteroids",
-    "1306": "Antifungals",
-    "1307": "Skin & Wounds",
+    "0604": "Women's Health", "0605": "Thyroid",
+    "0606": "Women's Health", "0607": "Urology",
+    "0608": "Women's Health", "0609": "Vitamins & Supplements",
+    # Hoofdstuk 07: Genitourinair
+    "0701": "Women's Health", "0702": "Women's Health",
+    "0703": "Women's Health", "0704": "Urology",
+    "0705": "Urology",
+    # Hoofdstuk 08: Oncologie
+    "0801": "Oncology", "0802": "Oncology",
+    "0803": "Oncology",
+    # Hoofdstuk 09: Voeding & Bloed
+    "0901": "Vitamins & Supplements", "0902": "Vitamins & Supplements",
+    "0903": "Vitamins & Supplements", "0904": "Vitamins & Supplements",
+    "0905": "Vitamins & Supplements", "0906": "Vitamins & Supplements",
+    # Hoofdstuk 10: Spier & Bot
+    "1001": "Pain & Fever", "1002": "Joints & Muscles",
+    "1003": "Joints & Muscles", "1004": "Joints & Muscles",
+    # Hoofdstuk 11: Oog
+    "1101": "Eye & Ear", "1102": "Eye & Ear",
+    "1103": "Eye & Ear", "1104": "Eye & Ear",
+    "1105": "Eye & Ear",
+    # Hoofdstuk 12: Oor, Neus, Orofarynx
+    "1201": "Cough & Cold", "1202": "Eye & Ear",
+    "1203": "Cough & Cold",
+    # Hoofdstuk 13: Huid
+    "1301": "Skin & Wounds", "1302": "Skin & Wounds",
+    "1303": "Skin & Wounds", "1304": "Corticosteroids",
+    "1305": "Skin & Wounds", "1306": "Antifungals",
+    "1307": "Skin & Wounds", "1308": "Skin & Wounds",
+    "1309": "Skin & Wounds", "1310": "Skin & Wounds",
+    # Hoofdstuk 14: Vaccinaties
+    "1401": "Antivirals", "1402": "Antivirals",
+    "1403": "Antivirals", "1404": "Antivirals",
+    # Hoofdstuk 15: Anaesthetica
+    "1501": "First Aid", "1502": "First Aid",
+    "1503": "First Aid", "1504": "First Aid",
 }
 
 APPLIANCE_BLACKLIST = re.compile(
-    r"\b(dressing|appliance|catheter|bandage|stoma|device|bag|cap|pad|"
-    r"syringe|needle|lancet|strip|test|monitor|machine|pump)\b", re.I
+    r"\b(dressing|catheter|bandage|stoma|bag|pad|syringe|needle|lancet|"
+    r"strip|monitor|machine|pump|splint|brace|glove|mask|suture|staple|"
+    r"wound|incontinence|colostomy|ileostomy|tracheostomy)\b", re.I
 )
 
 
-def bnf_to_category(bnf_code):
-    """Converteer BNF-code naar apoHouze-categorie."""
-    if not bnf_code or len(bnf_code) < 2:
+def bnf_code_to_category(bnf_code):
+    """BNF-code (15 cijfers) → categorie via sectie (4 cijfers)."""
+    if not bnf_code or len(bnf_code) < 4:
         return None
+    # Pseudo-hoofdstukken 19-23: dressings/appliances → skip
     chapter = bnf_code[:2]
-    # Pseudo-hoofdstukken 20-23 zijn verbandmiddelen — skip
-    if chapter in ("20","21","22","23","19"):
+    if chapter in ("19","20","21","22","23"):
         return None
-    section = bnf_code[:4] if len(bnf_code) >= 4 else ""
-    return BNF_SECTION_OVERRIDES.get(section) or BNF_CHAPTER_MAP.get(chapter)
+    section = bnf_code[:4]
+    return BNF_SECTION_MAP.get(section)
 
 
 def ckan_api(endpoint, params=None):
-    """Eenvoudige CKAN API-aanroep, geeft result-dict terug."""
+    """CKAN API aanroep."""
     url = f"{CKAN_BASE}/{endpoint}"
     if params:
-        from urllib.parse import urlencode
         url += "?" + urlencode(params)
-    if DEBUG: print(f"  🌐 CKAN: {url}")
+    if DEBUG: print(f"  🌐 {url}")
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 apoHouze-updater/5.0"})
     with urllib.request.urlopen(req, timeout=30) as r:
         data = json.loads(r.read())
@@ -153,64 +147,59 @@ def ckan_api(endpoint, params=None):
     return data["result"]
 
 
-def get_latest_csv_url():
-    """
-    Haal de nieuwste CSV resource-URL op via CKAN API.
-    Probeert eerst de current-year dataset, dan de historic als fallback.
-    """
-    for dataset_id in [DATASET_ID, DATASET_HIST]:
+def get_csv_url():
+    """Haal de meest recente CSV-URL op via CKAN API."""
+    for dataset_id in DATASET_IDS:
         try:
-            print(f"  🔍 CKAN package_show: {dataset_id}")
+            print(f"  🔍 CKAN: {dataset_id}")
             result = ckan_api("package_show", {"id": dataset_id})
             resources = result.get("resources", [])
-            if DEBUG: print(f"  🔍 {len(resources)} resources gevonden")
-            # Selecteer CSV-resources en neem de meest recente (eerste)
-            csv_resources = [r for r in resources if r.get("format","").upper() == "CSV"
-                             and r.get("url","").endswith(".csv")]
-            if not csv_resources:
-                # Probeer op url-extensie alleen
-                csv_resources = [r for r in resources if ".csv" in r.get("url","").lower()]
-            if csv_resources:
-                url = csv_resources[0]["url"]
-                name = csv_resources[0].get("name","?")
-                print(f"  ✅ Gevonden: {name}")
-                print(f"  🔗 {url}")
-                return url
+            # Filter op CSV, neem de eerste (meest recent)
+            for r in resources:
+                url = r.get("url","")
+                fmt = r.get("format","").upper()
+                if fmt == "CSV" or url.lower().endswith(".csv"):
+                    print(f"  ✅ Resource: {r.get('name','?')}")
+                    print(f"  🔗 {url}")
+                    return url
         except Exception as e:
-            print(f"  ⚠️  {dataset_id} mislukt: {e}")
-    raise RuntimeError("Geen CSV-resource gevonden via CKAN API")
+            print(f"  ⚠️  {dataset_id}: {e}")
+    raise RuntimeError("Geen CSV gevonden via CKAN API")
 
 
 def curl_download(url, dest, max_time=300):
-    cmd = ["curl","-L","--max-time",str(max_time),"--connect-timeout","20",
-           "--silent","--fail","--user-agent","Mozilla/5.0 apoHouze-updater/5.0","-o",dest,url]
+    cmd = [
+        "curl", "-L", "--max-time", str(max_time), "--connect-timeout", "20",
+        "--silent", "--fail",
+        "--user-agent", "Mozilla/5.0 apoHouze-updater/5.0",
+        "-o", dest, url,
+    ]
     for attempt in range(3):
         try:
-            subprocess.run(cmd, timeout=max_time+15, check=True)
+            subprocess.run(cmd, timeout=max_time + 15, check=True)
             size = os.path.getsize(dest)
-            print(f"  ✅ {size//1024} KB gedownload")
+            print(f"  ✅ {size // 1024} KB gedownload")
             return size
         except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as e:
             print(f"  ⚠️  Poging {attempt+1}/3 mislukt: {e}")
             if attempt < 2: time.sleep(5)
-    raise RuntimeError(f"Download mislukt na 3 pogingen: {url}")
+    return 0
 
 
 def process_bnf_csv(path):
     """
-    Verwerk de NHSBSA BNF CSV.
+    Verwerk NHSBSA BNF CSV.
 
-    Verwachte kolommen (niet hoofdlettergevoelig):
-      BNF_PRESENTATION_NAME   — volledige productnaam incl. sterkte/vorm
-      BNF_CHEMICAL_SUBSTANCE  — generieke stofnaam
-      BNF_CODE                — 15-cijferig BNF-code
-      UNIT_OF_MEASURE         — eenheid (optioneel voor vorm)
+    Echte kolomnamen (lowercase gezocht):
+      BNF_CODE                     → 15-cijferig code
+      BNF_PRESENTATION_DESCR       → volledige naam (bv. "Amoxicillin 500mg capsules")
+      BNF_CHEMICAL_SUBSTANCE_DESCR → generieke naam (bv. "Amoxicillin")
+      BNF_PRODUCT_DESCR            → productnaam
     """
     print(f"  📖 CSV lezen...")
     with open(path, "r", encoding="utf-8-sig", errors="replace") as f:
         sample = f.read(8192)
         f.seek(0)
-        # Detecteer separator
         sep = "\t" if sample.count("\t") > sample.count(",") else ","
         reader = csv.DictReader(f, delimiter=sep)
         rows = list(reader)
@@ -218,13 +207,15 @@ def process_bnf_csv(path):
     if not rows:
         raise RuntimeError("CSV is leeg")
 
-    print(f"  📊 {len(rows)} rijen geladen")
-    if DEBUG: print(f"  🔍 Kolommen: {list(rows[0].keys())[:10]}")
-
-    # Normaliseer kolomnamen naar uppercase voor consistente lookup
+    # Normaliseer kolomnamen
     def norm(d):
-        return {k.upper().strip(): v for k,v in d.items()}
+        return {k.strip().upper(): v for k, v in d.items()}
     rows = [norm(r) for r in rows]
+
+    if DEBUG and rows:
+        print(f"  🔍 Kolomnamen: {list(rows[0].keys())}")
+    else:
+        print(f"  📊 {len(rows)} rijen | Kolommen: {list(rows[0].keys())[:6]}")
 
     results = []
     skipped_bl  = 0
@@ -232,37 +223,46 @@ def process_bnf_csv(path):
     seen        = set()
 
     for row in rows:
-        # Probeer kolomnamen flexibel
-        name = (row.get("BNF_PRESENTATION_NAME") or row.get("PRESENTATION_NAME") or
-                row.get("BNF PRESENTATION NAME") or row.get("PRESENTATION") or "").strip()
-        inn  = (row.get("BNF_CHEMICAL_SUBSTANCE") or row.get("CHEMICAL_SUBSTANCE") or
-                row.get("BNF CHEMICAL SUBSTANCE") or row.get("SUBSTANCE") or "").strip()
-        code = (row.get("BNF_CODE") or row.get("BNF CODE") or row.get("BNFCODE") or "").strip()
-        uom  = (row.get("UNIT_OF_MEASURE") or row.get("UNIT OF MEASURE") or "").strip()
+        # Flexibele kolomzoekstrategie — meerdere mogelijke namen
+        code = (row.get("BNF_CODE") or row.get("BNFCODE") or
+                row.get("BNF CODE") or "").strip()
 
-        if not name: continue
+        # Naam: voorkeur voor volledige presentatienaam
+        name = (row.get("BNF_PRESENTATION_DESCR") or
+                row.get("BNF_PRODUCT_DESCR") or
+                row.get("BNF_PRESENTATION_NAME") or
+                row.get("BNF_DESCRIPTION") or
+                row.get("PRESENTATION_DESCR") or "").strip()
 
-        # Filter hulpmiddelen/verbandmiddelen
+        inn  = (row.get("BNF_CHEMICAL_SUBSTANCE_DESCR") or
+                row.get("CHEMICAL_SUBSTANCE_DESCR") or
+                row.get("BNF_CHEMICAL_SUBSTANCE") or "").strip()
+
+        if not name or not code:
+            continue
+
+        # Filter hulpmiddelen
         if APPLIANCE_BLACKLIST.search(name):
             skipped_bl += 1
             continue
 
-        category = bnf_to_category(code)
+        category = bnf_code_to_category(code)
         if not category:
             skipped_cat += 1
             continue
 
-        # Deduplicatie op naam (case-insensitive)
+        # Deduplicatie op naam
         key = name.lower()
-        if key in seen: continue
+        if key in seen:
+            continue
         seen.add(key)
 
         results.append({
             "Name":               name,
             "INN":                inn,
-            "ATC":                code[:7] if code else "",  # BNF-code als pseudo-ATC
-            "PharmaceuticalForm": uom,
-            "RxStatus":           "Rx",   # BNF-data maakt geen OTC-onderscheid
+            "ATC":                code[:7] if code else "",
+            "PharmaceuticalForm": "",
+            "RxStatus":           "Rx",
             "Country":            "GB",
         })
 
@@ -273,39 +273,36 @@ def process_bnf_csv(path):
 def save_csv(rows):
     fields = ["Name","INN","ATC","PharmaceuticalForm","RxStatus","Country"]
     with open(OUTPUT_FILE,"w",newline="",encoding="utf-8") as f:
-        w = csv.DictWriter(f,fieldnames=fields,extrasaction="ignore")
+        w = csv.DictWriter(f, fieldnames=fields, extrasaction="ignore")
         w.writeheader(); w.writerows(rows)
     print(f"\n✅ {len(rows)} medicijnen opgeslagen → {OUTPUT_FILE}")
 
 
 def main():
-    print("🇬🇧 apoHouze — Verenigd Koninkrijk Medicijnen Fetcher v1")
+    print("🇬🇧 apoHouze — Verenigd Koninkrijk Medicijnen Fetcher v2")
     print("=" * 56)
-    print("📌 Bron: NHSBSA BNF Code Information (CKAN open data)")
+    print("📌 Bron: NHSBSA BNF Code Information (CKAN open data)\n")
 
-    print(f"\n[1/3] Nieuwste CSV-URL ophalen via CKAN API...")
+    print("[1/3] CSV-URL ophalen via CKAN API...")
     try:
-        csv_url = get_latest_csv_url()
+        csv_url = get_csv_url()
     except Exception as e:
-        print(f"\n❌ CKAN API mislukt: {e}"); sys.exit(1)
+        print(f"❌ CKAN API mislukt: {e}"); sys.exit(1)
 
     dest = os.path.join(TMP_DIR, "gb_bnf_raw.csv")
     print(f"\n[2/3] CSV downloaden...")
-    try:
-        size = curl_download(csv_url, dest)
-        if size < 10_000:
-            raise RuntimeError(f"Bestand te klein ({size}B)")
-    except Exception as e:
-        print(f"\n❌ Download mislukt: {e}"); sys.exit(1)
+    size = curl_download(csv_url, dest)
+    if size < 5_000:
+        print(f"❌ Download mislukt of bestand te klein ({size}B)"); sys.exit(1)
 
     print(f"\n[3/3] Verwerken & opslaan...")
     try:
         results = process_bnf_csv(dest)
     except Exception as e:
-        print(f"\n❌ CSV verwerking mislukt: {e}"); sys.exit(1)
+        print(f"❌ CSV verwerking mislukt: {e}"); sys.exit(1)
 
     if not results:
-        print("\n❌ Geen geldige medicijnen na filtering"); sys.exit(1)
+        print("❌ Geen geldige medicijnen na filtering"); sys.exit(1)
 
     save_csv(results)
 
