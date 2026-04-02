@@ -11831,6 +11831,10 @@ const MEDICINES = [
   { name: "Byesilor 6 mg/ml inj. sol. s.c. pre-filled pen", generic: "", category: "Diabetes", form: "Injection", rx: false },
   { name: "Otulfi 45 mg inj. sol. s.c. pre-filled pen", generic: "", category: "Corticosteroids", form: "Injection", rx: false },
   { name: "Otulfi 90 mg inj. sol. s.c. pre-filled pen", generic: "", category: "Corticosteroids", form: "Injection", rx: false },
+  { name: "Streptozocine Esteve 1 g inj. sol. (pwdr., conc.) i.v. vial", generic: "", category: "Oncology", form: "Injection", rx: false },
+  { name: "Toularynx Codeine Forte 20 mg/15 ml syrup", generic: "", category: "Cough & Cold", form: "Syrup", rx: false },
+  { name: "Kerendia 40 mg film-coat. tabl.", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

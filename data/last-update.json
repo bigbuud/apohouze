@@ -1,11 +1,16 @@
 {
-  "updated_at": "2026-04-02T14:59:23.216Z",
+  "updated_at": "2026-04-02T17:26:34.270Z",
   "dry_run": false,
   "results": {
+    "be": {
+      "before": 11828,
+      "after": 11831,
+      "added": 3
+    },
     "nl": {
       "before": 3860,
-      "after": 3860,
-      "added": 0
+      "after": 20038,
+      "added": 16178
     }
   }
 }
