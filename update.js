@@ -267,6 +267,110 @@ async function updateNL() {
 }
 
 // ================================================================
+// DUITSLAND — EMA + BfArM via Python fetch script
+// Duitsland heeft geen centrale publieke CSV-download zoals BE/NL.
+// Het Python script fetch_de_medicines.py combineert:
+//   1. EMA (gecentraliseerde EU-vergunningen, heeft ATC-codes)
+//   2. BfArM AMIS (nationale vergunningen, indien beschikbaar)
+// Output: data/_tmp/de_medicines.csv → zelfde parseFile() flow als BE/NL
+// ================================================================
+async function updateDE() {
+  console.log('\n🇩🇪 Duitsland — EMA + BfArM ophalen via Python script...');
+  const country = loadExistingNames('de');
+  if (!country) { console.error('  ❌ de.js niet gevonden'); return 0; }
+
+  const { execSync } = require('child_process');
+  const script = path.join(__dirname, 'fetch_de_medicines.py');
+
+  if (!fs.existsSync(script)) {
+    console.error('  ❌ fetch_de_medicines.py niet gevonden');
+    return 0;
+  }
+
+  // Controleer of python3 beschikbaar is
+  let python = 'python3';
+  try { execSync('python3 --version', { stdio: 'ignore' }); }
+  catch { try { execSync('python --version', { stdio: 'ignore' }); python = 'python'; } catch { console.error('  ❌ Python niet gevonden'); return 0; } }
+
+  // Installeer openpyxl indien nodig
+  try {
+    execSync(`${python} -c "import openpyxl"`, { stdio: 'ignore' });
+  } catch {
+    console.log('  📦 openpyxl installeren...');
+    try { execSync(`${python} -m pip install openpyxl --quiet`, { stdio: 'pipe' }); }
+    catch { console.log('  ⚠️  openpyxl installatie mislukt, pandas als fallback...'); }
+  }
+
+  console.log('  🐍 Python fetch script uitvoeren...');
+  try {
+    execSync(`${python} "${script}"`, {
+      stdio: 'inherit',
+      timeout: 300_000,
+      cwd: __dirname,
+    });
+  } catch (e) {
+    console.error(`  ❌ Python script mislukt: ${e.message}`);
+    return 0;
+  }
+
+  const dest = path.join(TMP_DIR, 'de_medicines.csv');
+  if (!fs.existsSync(dest)) {
+    console.error('  ❌ de_medicines.csv niet aangemaakt door script');
+    return 0;
+  }
+
+  const size = fs.statSync(dest).size;
+  if (size < 1000) { console.error(`  ❌ CSV te klein: ${size} bytes`); return 0; }
+  console.log(`  ✅ CSV gereed: ${(size/1024).toFixed(0)} KB`);
+
+  return parseFile(dest, 'de', country);
+}
+
+// ================================================================
+// VERENIGD KONINKRIJK — MHRA Product Information Database
+// MHRA publiceert een publieke CSV van alle vergunde producten.
+// URL: https://products.mhra.gov.uk/downloads/
+// Bestand: products.csv (~50MB, geen authenticatie)
+// ================================================================
+async function updateGB() {
+  console.log('\n🇬🇧 Verenigd Koninkrijk — MHRA Products Database ophalen...');
+  const country = loadExistingNames('gb');
+  if (!country) { console.error('  ❌ gb.js niet gevonden'); return 0; }
+
+  const dest = path.join(TMP_DIR, 'gb_medicines.csv');
+
+  // MHRA publiceert products.csv als open data
+  // Kolomstructuur: Product Name, Active Ingredient, ATC Code, Pharmaceutical Form, Legal Category
+  const urls = [
+    'https://products.mhra.gov.uk/api/download/csv',
+    'https://products.mhra.gov.uk/downloads/products.csv',
+    'https://www.gov.uk/guidance/product-licences-pls/products-csv',
+  ];
+
+  let downloaded = false;
+  for (const url of urls) {
+    try {
+      console.log(`  📥 Proberen: ${url}`);
+      const size = curlDownload(url, dest, 180);
+      if (size > 10000) {
+        console.log(`  ✅ Gedownload: ${(size/1024).toFixed(0)} KB`);
+        downloaded = true;
+        break;
+      }
+    } catch (e) {
+      console.log(`  ⚠️  URL mislukt: ${e.message}`);
+    }
+  }
+
+  if (!downloaded) {
+    console.error('  ❌ MHRA download mislukt — alle URLs geprobeerd');
+    return 0;
+  }
+
+  return parseFile(dest, 'gb', country);
+}
+
+// ================================================================
 // HOOFD
 // ================================================================
 async function main() {
@@ -283,7 +387,9 @@ async function main() {
 
     if (target === 'be') added = await updateBE();
     else if (target === 'nl') added = await updateNL();
-    else { console.log(`⚠️  Onbekend land: ${target}`); continue; }
+    else if (target === 'de') added = await updateDE();
+    else if (target === 'gb') added = await updateGB();
+    else { console.log(`⚠️  Onbekend land: ${target} (ondersteund: be, nl, de, gb)`); continue; }
 
     const after = loadExistingNames(target)?.names.size || 0;
     log.results[target] = { before, after, added: after - before };
