@@ -20042,6 +20042,8 @@ const MEDICINES = [
   { name: "Linefor 50 mg, harde capsules", generic: "PREGABALINE", category: "Pain & Fever", form: "Capsule", rx: true },
   { name: "Lixiana 15 mg filmomhulde tabletten", generic: "EDOXABANTOSILAAT 1-WATER", category: "Anticoagulants", form: "Tablet", rx: true },
 
+  { name: "Nitro \"Pohl\" Infus voor perfusorpompsystemen 1mg/ml, oplossing voor infusie", generic: "NITROGLYCERINE", category: "Heart & Blood Pressure", form: "Solution", rx: true },
+
 ];
 
 const CATEGORIES = [
