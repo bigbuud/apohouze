@@ -122,7 +122,6 @@ function appendMedicines(code, medicines) {
   if (!medicines.length) return 0;
   const fp = path.join(DATA_DIR, `${code}.js`);
   let content = fs.readFileSync(fp, 'utf8');
-  // Zoek de ]; die de MEDICINES array sluit — altijd de EERSTE ]; in het bestand
   const insertAt = content.indexOf('\n];');
   if (insertAt === -1) return 0;
   const lines = medicines.map(m =>
@@ -166,7 +165,6 @@ function processRows(rows, country, code) {
   let skippedStatus = 0, skippedAtc = 0, skippedExists = 0;
 
   for (const row of rows) {
-    // Filter ingetrokken/geweigerde medicijnen
     if (statusKey) {
       const s = String(row[statusKey] || '').toLowerCase();
       if (/ingetrokk|geweigerd|geschorst|suspend|revoked|refused|withdrawn/i.test(s)) {
@@ -198,42 +196,24 @@ function processRows(rows, country, code) {
 }
 
 function parseFile(filePath, code, country) {
-  const { execSync } = require('child_process');
-  let mime = '';
-  try { mime = execSync(`file --mime-type "${filePath}"`, { encoding: 'utf8' }).toLowerCase(); } catch {}
+  let content = fs.readFileSync(filePath, 'utf8').replace(/^\uFEFF/, '');
+  const lines = content.split('\n').filter(l => l.trim());
+  if (lines.length < 2) { console.error('  ❌ Leeg bestand'); return 0; }
 
-  if (mime.includes('zip') || mime.includes('excel') || mime.includes('openxml') || mime.includes('spreadsheet')) {
-    // Excel formaat
-    try {
-      const XLSX = require('xlsx');
-      const wb = XLSX.readFile(filePath);
-      const ws = wb.Sheets[wb.SheetNames[0]];
-      const rows = XLSX.utils.sheet_to_json(ws, { defval: '' });
-      console.log(`  📄 Excel: ${rows.length} rijen, ${Object.keys(rows[0]||{}).length} kolommen`);
-      return processRows(rows, country, code);
-    } catch (e) {
-      console.error(`  ❌ Excel parsen mislukt: ${e.message}`);
-      return 0;
-    }
-  } else {
-    // CSV/tekst formaat
-    let content = fs.readFileSync(filePath, 'utf8').replace(/^\uFEFF/, '');
-    const lines = content.split('\n').filter(l => l.trim());
-    if (lines.length < 2) { console.error('  ❌ Leeg bestand'); return 0; }
+  // Detecteer het scheidingsteken
+  const firstLine = lines[0];
+  let sep = firstLine.includes('|') ? '|' : firstLine.includes('\t') ? '\t' : firstLine.includes(';') ? ';' : ',';
+  const headers = firstLine.split(sep).map(h => h.replace(/"/g, '').trim());
+  console.log(`  📄 CSV (${sep}): ${lines.length} rijen, kolommen: ${headers.slice(0,6).join(', ')}`);
 
-    const sep = lines[0].includes('\t') ? '\t' : lines[0].includes(';') ? ';' : ',';
-    const headers = lines[0].split(sep).map(h => h.replace(/"/g, '').trim());
-    console.log(`  📄 CSV (${sep === '\t' ? 'TAB' : sep}): ${lines.length} rijen, kolommen: ${headers.slice(0,6).join(', ')}`);
-
-    const rows = [];
-    for (let i = 1; i < lines.length; i++) {
-      const cols = lines[i].split(sep).map(c => c.replace(/^"|"$/g, '').trim());
-      const row = {};
-      headers.forEach((h, idx) => { row[h] = cols[idx] || ''; });
-      rows.push(row);
-    }
-    return processRows(rows, country, code);
+  const rows = [];
+  for (let i = 1; i < lines.length; i++) {
+    const cols = lines[i].split(sep).map(c => c.replace(/^"|"$/g, '').trim());
+    const row = {};
+    headers.forEach((h, idx) => { row[h] = cols[idx] || ''; });
+    rows.push(row);
   }
+  return processRows(rows, country, code);
 }
 
 // ================================================================
@@ -271,7 +251,6 @@ async function updateNL() {
   if (!country) { console.error('  ❌ nl.js niet gevonden'); return 0; }
 
   const dest = path.join(TMP_DIR, 'nl_medicines.bin');
-  // Officiële CBG download — alle vergunde NL medicijnen, wekelijks bijgewerkt
   const url = 'https://www.geneesmiddeleninformatiebank.nl/metadata.csv';
 
   try {
