@@ -8,9 +8,9 @@ on:
   workflow_dispatch:
     inputs:
       countries:
-        description: 'Landen om te updaten: "be", "nl", of "be nl" voor beide'
+        description: 'Landen om te updaten: "be", "nl", "de", "gb" of combinaties bv. "be nl de gb"'
         required: false
-        default: 'be nl'
+        default: 'be nl de gb'
       dry_run:
         description: 'Dry run (alleen preview, geen bestanden aanpassen)'
         type: boolean
@@ -19,7 +19,7 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     permissions:
       contents: write
 
@@ -32,12 +32,20 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Installeer dependencies
+      - name: Setup Python (voor DE fetch script)
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Installeer Python dependencies (voor DE)
+        run: pip install openpyxl --quiet
+
+      - name: Installeer Node dependencies
         run: npm install
 
       - name: Update medicijndatabases
         run: |
-          COUNTRIES="${{ github.event.inputs.countries || 'be nl' }}"
+          COUNTRIES="${{ github.event.inputs.countries || 'be nl de gb' }}"
           DRY="${{ github.event.inputs.dry_run || 'false' }}"
           if [ "$DRY" = "true" ]; then
             node update.js $COUNTRIES --dry-run
