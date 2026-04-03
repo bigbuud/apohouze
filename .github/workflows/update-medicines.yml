@@ -1,25 +1,23 @@
 name: 🔄 Update Medicine Databases
 
 on:
-  # Elke 4 maanden: 1 januari, 1 mei, 1 september om 03:00 UTC
   schedule:
-    - cron: '0 3 1 1,5,9 *'
-  # Handmatig starten via Actions tab
+    - cron: '0 3 1 */2 *'
   workflow_dispatch:
     inputs:
       countries:
-        description: 'Landen om te updaten: "be", "nl", "de", "gb" of combinaties bv. "be nl de gb"'
+        description: 'Landen om te updaten: "be nl de gb fr"'
         required: false
-        default: 'be nl de gb'
+        default: 'be nl de gb fr'
       dry_run:
-        description: 'Dry run (alleen preview, geen bestanden aanpassen)'
+        description: 'Dry run (alleen preview)'
         type: boolean
         default: false
 
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     permissions:
       contents: write
 
@@ -32,20 +30,20 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Setup Python (voor DE fetch script)
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Installeer Python dependencies (voor DE)
-        run: pip install openpyxl --quiet
+      - name: Installeer Python dependencies (DE + FR)
+        run: pip install openpyxl requests --quiet
 
       - name: Installeer Node dependencies
         run: npm install
 
       - name: Update medicijndatabases
         run: |
-          COUNTRIES="${{ github.event.inputs.countries || 'be nl de gb' }}"
+          COUNTRIES="${{ github.event.inputs.countries || 'be nl de gb fr' }}"
           DRY="${{ github.event.inputs.dry_run || 'false' }}"
           if [ "$DRY" = "true" ]; then
             node update.js $COUNTRIES --dry-run
