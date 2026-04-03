@@ -366,6 +366,41 @@ async function updateGB() {
 }
 
 // ================================================================
+// Frankrijk=======================================================
+async function updateFR() {
+  console.log('\n🇫🇷 Frankrijk — ANSM via Python script...');
+  const country = loadExistingNames('fr');
+  if (!country) { console.error('  ❌ fr.js niet gevonden'); return 0; }
+
+  const { execSync } = require('child_process');
+  const scriptPath = path.join(__dirname, 'fetch_fr_medicines.py');
+  const csvDest = path.join(TMP_DIR, 'fr_medicines.csv');
+
+  if (!fs.existsSync(scriptPath)) {
+    console.error('  ❌ fetch_fr_medicines.py niet gevonden');
+    return 0;
+  }
+
+  try {
+    console.log('  🐍 Python script uitvoeren...');
+    execSync(`FR_OUTPUT="${csvDest}" python3 "${scriptPath}"`, {
+      timeout: 180000,
+      stdio: 'inherit',
+    });
+  } catch (e) {
+    console.error(`  ❌ Python script mislukt`);
+    return 0;
+  }
+
+  if (!fs.existsSync(csvDest)) {
+    console.error('  ❌ Geen CSV output');
+    return 0;
+  }
+
+  return parseFile(csvDest, 'fr', country);
+}
+
+// ================================================================
 // HOOFD
 // ================================================================
 async function main() {
@@ -380,6 +415,7 @@ async function main() {
     be: updateBE,
     nl: updateNL,
     de: updateDE,
+    fr: updateFR, // ✅ NIEUW
     gb: updateGB,
   };
 
