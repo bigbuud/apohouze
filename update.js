@@ -122,6 +122,7 @@ function appendMedicines(code, medicines) {
   if (!medicines.length) return 0;
   const fp = path.join(DATA_DIR, `${code}.js`);
   let content = fs.readFileSync(fp, 'utf8');
+  // Zoek de ]; die de MEDICINES array sluit — altijd de EERSTE ]; in het bestand
   const insertAt = content.indexOf('\n];');
   if (insertAt === -1) return 0;
   const lines = medicines.map(m =>
@@ -136,7 +137,6 @@ function appendMedicines(code, medicines) {
 function processRows(rows, country, code) {
   if (!rows.length) return 0;
   const sample = rows[0];
-  const keys = Object.keys(sample).map(k => k.toLowerCase());
 
   const findKey = (...patterns) => {
     const orig = Object.keys(sample);
@@ -146,14 +146,16 @@ function processRows(rows, country, code) {
     return null;
   };
 
-  const nameKey   = findKey(/^naam$/, /^productnaam$/, /^name$/, /^product/);
-  const innKey    = findKey(/werkzame/, /inn/, /actieve/, /generic/, /substance/);
-  const atcKey    = findKey(/^atc/);
-  const formKey   = findKey(/farmaceutische/, /^vorm$/, /pharmaceutical/, /toedien/);
-  const rxKey     = findKey(/afleverstatus/, /recept/, /^rx$/, /prescri/, /\bura\b/);
-  const statusKey = findKey(/status/, /vergunn/, /autoris/);
+  const nameKey     = findKey(/^naam$/, /^productnaam$/, /^name$/, /^product/);
+  const innKey      = findKey(/werkzame/, /inn/, /actieve/, /generic/, /substance/);
+  const atcKey      = findKey(/^atc/);
+  const formKey     = findKey(/farmaceutische/, /^vorm$/, /pharmaceutical/, /toedien/, /pharmaceuticalform/);
+  const rxKey       = findKey(/afleverstatus/, /recept/, /^rx$/, /prescri/, /\bura\b/);
+  const statusKey   = findKey(/status/, /vergunn/, /autoris/);
+  // Python scripts emit a pre-resolved Category column — use it directly if present
+  const categoryKey = findKey(/^category$/);
 
-  console.log(`  📋 name:${nameKey} inn:${innKey} atc:${atcKey} form:${formKey} rx:${rxKey}`);
+  console.log(`  📋 name:${nameKey} inn:${innKey} atc:${atcKey} form:${formKey} cat:${categoryKey}`);
 
   if (!nameKey) {
     console.error('  ❌ Naamkolom niet gevonden. Beschikbare kolommen:', Object.keys(sample).join(', '));
@@ -181,39 +183,61 @@ function processRows(rows, country, code) {
     const formRaw = formKey  ? String(row[formKey]  || '').trim() : '';
     const rxRaw   = rxKey    ? String(row[rxKey]    || '').trim() : '';
 
-    const category = atcToCategory(atc);
+    // Use pre-resolved Category from Python script, or fall back to ATC mapping
+    const category = categoryKey
+      ? String(row[categoryKey] || '').trim() || atcToCategory(atc)
+      : atcToCategory(atc);
+
     if (!category) { skippedAtc++; continue; }
 
-    const form = mapForm(formRaw);
+    const form = mapForm(formRaw || name);
     const rx   = /\bUA\b|\bURA\b|recept|prescri/i.test(rxRaw);
 
     newMeds.push({ name, generic: inn, category, form, rx });
     seen.add(name.toLowerCase());
   }
 
-  console.log(`  📊 Nieuw: ${newMeds.length} | Bestond al: ${skippedExists} | Geen ATC: ${skippedAtc} | Ingetrokken: ${skippedStatus}`);
+  console.log(`  📊 Nieuw: ${newMeds.length} | Bestond al: ${skippedExists} | Geen ATC/cat: ${skippedAtc} | Ingetrokken: ${skippedStatus}`);
   return appendMedicines(code, newMeds);
 }
 
 function parseFile(filePath, code, country) {
-  let content = fs.readFileSync(filePath, 'utf8').replace(/^\uFEFF/, '');
-  const lines = content.split('\n').filter(l => l.trim());
-  if (lines.length < 2) { console.error('  ❌ Leeg bestand'); return 0; }
+  const { execSync } = require('child_process');
+  let mime = '';
+  try { mime = execSync(`file --mime-type "${filePath}"`, { encoding: 'utf8' }).toLowerCase(); } catch {}
 
-  // Detecteer het scheidingsteken
-  const firstLine = lines[0];
-  let sep = firstLine.includes('|') ? '|' : firstLine.includes('\t') ? '\t' : firstLine.includes(';') ? ';' : ',';
-  const headers = firstLine.split(sep).map(h => h.replace(/"/g, '').trim());
-  console.log(`  📄 CSV (${sep}): ${lines.length} rijen, kolommen: ${headers.slice(0,6).join(', ')}`);
+  if (mime.includes('zip') || mime.includes('excel') || mime.includes('openxml') || mime.includes('spreadsheet')) {
+    // Excel formaat
+    try {
+      const XLSX = require('xlsx');
+      const wb = XLSX.readFile(filePath);
+      const ws = wb.Sheets[wb.SheetNames[0]];
+      const rows = XLSX.utils.sheet_to_json(ws, { defval: '' });
+      console.log(`  📄 Excel: ${rows.length} rijen, ${Object.keys(rows[0]||{}).length} kolommen`);
+      return processRows(rows, country, code);
+    } catch (e) {
+      console.error(`  ❌ Excel parsen mislukt: ${e.message}`);
+      return 0;
+    }
+  } else {
+    // CSV/tekst formaat
+    let content = fs.readFileSync(filePath, 'utf8').replace(/^\uFEFF/, '');
+    const lines = content.split('\n').filter(l => l.trim());
+    if (lines.length < 2) { console.error('  ❌ Leeg bestand'); return 0; }
 
-  const rows = [];
-  for (let i = 1; i < lines.length; i++) {
-    const cols = lines[i].split(sep).map(c => c.replace(/^"|"$/g, '').trim());
-    const row = {};
-    headers.forEach((h, idx) => { row[h] = cols[idx] || ''; });
-    rows.push(row);
+    const sep = lines[0].includes('\t') ? '\t' : lines[0].includes(';') ? ';' : ',';
+    const headers = lines[0].split(sep).map(h => h.replace(/"/g, '').trim());
+    console.log(`  📄 CSV (${sep === '\t' ? 'TAB' : sep}): ${lines.length} rijen, kolommen: ${headers.slice(0,6).join(', ')}`);
+
+    const rows = [];
+    for (let i = 1; i < lines.length; i++) {
+      const cols = lines[i].split(sep).map(c => c.replace(/^"|"$/g, '').trim());
+      const row = {};
+      headers.forEach((h, idx) => { row[h] = cols[idx] || ''; });
+      rows.push(row);
+    }
+    return processRows(rows, country, code);
   }
-  return processRows(rows, country, code);
 }
 
 // ================================================================
@@ -251,6 +275,7 @@ async function updateNL() {
   if (!country) { console.error('  ❌ nl.js niet gevonden'); return 0; }
 
   const dest = path.join(TMP_DIR, 'nl_medicines.bin');
+  // Officiële CBG download — alle vergunde NL medicijnen, wekelijks bijgewerkt
   const url = 'https://www.geneesmiddeleninformatiebank.nl/metadata.csv';
 
   try {
@@ -267,12 +292,8 @@ async function updateNL() {
 }
 
 // ================================================================
-// DUITSLAND — EMA + BfArM via Python fetch script
-// Duitsland heeft geen centrale publieke CSV-download zoals BE/NL.
-// Het Python script fetch_de_medicines.py combineert:
-//   1. EMA (gecentraliseerde EU-vergunningen, heeft ATC-codes)
-//   2. BfArM AMIS (nationale vergunningen, indien beschikbaar)
-// Output: data/_tmp/de_medicines.csv → zelfde parseFile() flow als BE/NL
+// DUITSLAND — EMA JSON (centraal vergunde EU-medicijnen)
+// Python script: fetch_de_medicines.py
 // ================================================================
 async function updateDE() {
   console.log('\n🇩🇪 Duitsland — EMA + BfArM ophalen via Python script...');
@@ -280,57 +301,36 @@ async function updateDE() {
   if (!country) { console.error('  ❌ de.js niet gevonden'); return 0; }
 
   const { execSync } = require('child_process');
-  const script = path.join(__dirname, 'fetch_de_medicines.py');
+  const scriptPath = path.join(__dirname, 'fetch_de_medicines.py');
+  const csvDest = path.join(TMP_DIR, 'de_medicines.csv');
 
-  if (!fs.existsSync(script)) {
+  if (!fs.existsSync(scriptPath)) {
     console.error('  ❌ fetch_de_medicines.py niet gevonden');
     return 0;
   }
 
-  // Controleer of python3 beschikbaar is
-  let python = 'python3';
-  try { execSync('python3 --version', { stdio: 'ignore' }); }
-  catch { try { execSync('python --version', { stdio: 'ignore' }); python = 'python'; } catch { console.error('  ❌ Python niet gevonden'); return 0; } }
-
-  // Installeer openpyxl indien nodig
   try {
-    execSync(`${python} -c "import openpyxl"`, { stdio: 'ignore' });
-  } catch {
-    console.log('  📦 openpyxl installeren...');
-    try { execSync(`${python} -m pip install openpyxl --quiet`, { stdio: 'pipe' }); }
-    catch { console.log('  ⚠️  openpyxl installatie mislukt, pandas als fallback...'); }
-  }
-
-  console.log('  🐍 Python fetch script uitvoeren...');
-  try {
-    execSync(`${python} "${script}"`, {
+    console.log('  🐍 Python fetch script uitvoeren...');
+    execSync(`DE_OUTPUT="${csvDest}" python3 "${scriptPath}"`, {
+      timeout: 180000,
       stdio: 'inherit',
-      timeout: 300_000,
-      cwd: __dirname,
     });
   } catch (e) {
-    console.error(`  ❌ Python script mislukt: ${e.message}`);
+    console.error(`  ❌ Python script mislukt: ${e.message.split('\n')[0]}`);
     return 0;
   }
 
-  const dest = path.join(TMP_DIR, 'de_medicines.csv');
-  if (!fs.existsSync(dest)) {
-    console.error('  ❌ de_medicines.csv niet aangemaakt door script');
+  if (!fs.existsSync(csvDest)) {
+    console.error('  ❌ Geen output CSV van Python script');
     return 0;
   }
 
-  const size = fs.statSync(dest).size;
-  if (size < 1000) { console.error(`  ❌ CSV te klein: ${size} bytes`); return 0; }
-  console.log(`  ✅ CSV gereed: ${(size/1024).toFixed(0)} KB`);
-
-  return parseFile(dest, 'de', country);
+  return parseFile(csvDest, 'de', country);
 }
 
 // ================================================================
-// VERENIGD KONINKRIJK — MHRA Product Information Database
-// MHRA publiceert een publieke CSV van alle vergunde producten.
-// URL: https://products.mhra.gov.uk/downloads/
-// Bestand: products.csv (~50MB, geen authenticatie)
+// VERENIGD KONINKRIJK — NHSBSA BNF Code Information
+// Python script: fetch_gb_medicines.py
 // ================================================================
 async function updateGB() {
   console.log('\n🇬🇧 Verenigd Koninkrijk — NHSBSA BNF Code Information ophalen...');
@@ -338,67 +338,63 @@ async function updateGB() {
   if (!country) { console.error('  ❌ gb.js niet gevonden'); return 0; }
 
   const { execSync } = require('child_process');
-  const script = path.join(__dirname, 'fetch_gb_medicines.py');
+  const scriptPath = path.join(__dirname, 'fetch_gb_medicines.py');
+  const csvDest = path.join(TMP_DIR, 'gb_medicines.csv');
 
-  if (!fs.existsSync(script)) {
+  if (!fs.existsSync(scriptPath)) {
     console.error('  ❌ fetch_gb_medicines.py niet gevonden');
     return 0;
   }
 
-  let python = 'python3';
-  try { execSync('python3 --version', { stdio: 'ignore' }); }
-  catch { try { execSync('python --version', { stdio: 'ignore' }); python = 'python'; } catch { console.error('  ❌ Python niet gevonden'); return 0; } }
-
-  console.log('  🐍 Python fetch script uitvoeren (NHSBSA CKAN API)...');
   try {
-    execSync(`${python} "${script}"`, {
+    console.log('  🐍 Python fetch script uitvoeren (NHSBSA CKAN API)...');
+    execSync(`GB_OUTPUT="${csvDest}" python3 "${scriptPath}"`, {
+      timeout: 180000,
       stdio: 'inherit',
-      timeout: 360_000,
-      cwd: __dirname,
     });
   } catch (e) {
-    console.error(`  ❌ Python script mislukt: ${e.message}`);
+    console.error(`  ❌ Python script mislukt: ${e.message.split('\n')[0]}`);
     return 0;
   }
 
-  const dest = path.join(TMP_DIR, 'gb_medicines.csv');
-  if (!fs.existsSync(dest)) {
-    console.error('  ❌ gb_medicines.csv niet aangemaakt door script');
+  if (!fs.existsSync(csvDest)) {
+    console.error('  ❌ Geen output CSV van Python script');
     return 0;
   }
 
-  const size = fs.statSync(dest).size;
-  if (size < 1000) { console.error(`  ❌ CSV te klein: ${size} bytes`); return 0; }
-  console.log(`  ✅ CSV gereed: ${(size/1024).toFixed(0)} KB`);
-
-  return parseFile(dest, 'gb', country);
+  return parseFile(csvDest, 'gb', country);
 }
 
 // ================================================================
 // HOOFD
 // ================================================================
 async function main() {
-  console.log('\n🔄 apoHouze Medicine Database Updater v5');
+  console.log('\n🔄 apoHouze Medicine Database Updater v6');
   console.log(`📅 ${new Date().toISOString()}`);
   if (DRY_RUN) console.log('🔍 DRY RUN — geen bestanden worden gewijzigd');
 
   const log = { updated_at: new Date().toISOString(), dry_run: DRY_RUN, results: {} };
   let totalAdded = 0;
 
+  const HANDLERS = {
+    be: updateBE,
+    nl: updateNL,
+    de: updateDE,
+    gb: updateGB,
+  };
+
   for (const target of targets) {
+    const handler = HANDLERS[target];
+    if (!handler) { console.log(`⚠️  Geen handler voor land: ${target}`); continue; }
+
     const before = loadExistingNames(target)?.names.size || 0;
-    let added = 0;
-
-    if (target === 'be') added = await updateBE();
-    else if (target === 'nl') added = await updateNL();
-    else if (target === 'de') added = await updateDE();
-    else if (target === 'gb') added = await updateGB();
-    else { console.log(`⚠️  Onbekend land: ${target} (ondersteund: be, nl, de, gb)`); continue; }
-
+    await handler();
     const after = loadExistingNames(target)?.names.size || 0;
-    log.results[target] = { before, after, added: after - before };
-    totalAdded += (after - before);
-    console.log(`  ✅ ${target.toUpperCase()}: ${before} → ${after} medicijnen (+${after - before} nieuw)\n`);
+    const delta = after - before;
+
+    log.results[target] = { before, after, added: delta };
+    totalAdded += delta;
+    console.log(`  ✅ ${target.toUpperCase()}: ${before} → ${after} medicijnen (+${delta} nieuw)\n`);
   }
 
   try { require('child_process').execSync(`rm -rf "${TMP_DIR}"`); } catch {}
