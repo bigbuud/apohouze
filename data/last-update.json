@@ -1,10 +1,35 @@
 {
-  "updated_at": "2026-04-12T14:11:36.314Z",
+  "updated_at": "2026-04-12T14:33:07.683Z",
   "dry_run": false,
   "results": {
+    "be": {
+      "before": 11831,
+      "after": 11837,
+      "added": 6
+    },
+    "nl": {
+      "before": 20038,
+      "after": 20055,
+      "added": 17
+    },
+    "de": {
+      "before": 6958,
+      "after": 6958,
+      "added": 0
+    },
+    "gb": {
+      "before": 32094,
+      "after": 32094,
+      "added": 0
+    },
     "us": {
       "before": 3906,
       "after": 3906,
+      "added": 0
+    },
+    "ca": {
+      "before": 10969,
+      "after": 10969,
       "added": 0
     }
   }

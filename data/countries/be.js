@@ -11835,6 +11835,13 @@ const MEDICINES = [
   { name: "Toularynx Codeine Forte 20 mg/15 ml syrup", generic: "", category: "Cough & Cold", form: "Syrup", rx: false },
   { name: "Kerendia 40 mg film-coat. tabl.", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
 
+  { name: "Dimethyl Fumarate Eurogenerics  120 mg hard gastro-resist. caps.", generic: "", category: "Corticosteroids", form: "Capsule", rx: false },
+  { name: "Eurneffy 1 mg nas. spray sol. spray cont.", generic: "", category: "Heart & Blood Pressure", form: "Nasal spray", rx: false },
+  { name: "Dafalgan Fasttabs 500 mg film-coat. tabl.", generic: "", category: "Pain & Fever", form: "Tablet", rx: false },
+  { name: "Dafalgan Fasttabs Forte 1 g tabl.", generic: "", category: "Pain & Fever", form: "Tablet", rx: false },
+  { name: "Ankreta 10 000 U hard gastro-resist. caps.", generic: "", category: "Stomach & Intestine", form: "Capsule", rx: false },
+  { name: "Ankreta 25 000 U hard gastro-resist. caps.", generic: "", category: "Stomach & Intestine", form: "Capsule", rx: false },
+
 ];
 
 const CATEGORIES = [

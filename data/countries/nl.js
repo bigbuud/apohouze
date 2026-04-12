@@ -20044,6 +20044,25 @@ const MEDICINES = [
 
   { name: "Nitro \"Pohl\" Infus voor perfusorpompsystemen 1mg/ml, oplossing voor infusie", generic: "NITROGLYCERINE", category: "Heart & Blood Pressure", form: "Solution", rx: true },
 
+  { name: "Curalyn Paracetamol 500 mg, tabletten", generic: "PARACETAMOL", category: "Pain & Fever", form: "Tablet", rx: true },
+  { name: "Tenofoviralafenamide Devatis 25 mg, filmomhulde tabletten", generic: "TENOFOVIRALAFENAMIDEMONOFUMARAAT", category: "Antivirals", form: "Tablet", rx: true },
+  { name: "Dapagliflozine Sandoz 5 mg, filmomhulde tabletten", generic: "DAPAGLIFLOZINE", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Diclofenac kalium Spharma 12,5 mg, zachte capsules", generic: "DICLOFENAC KALIUM", category: "Pain & Fever", form: "Capsule", rx: true },
+  { name: "Nitro \"Pohl\" Infus voor perfusorpompsystemen 1mg/ml, oplossing voor infusie", generic: "NITROGLYCERINE", category: "Heart & Blood Pressure", form: "Solution", rx: true },
+  { name: "Tranexaminezuur Midas 1000 mg, omhuld granulaat in sachet", generic: "TRANEXAMINEZUUR", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "RIZEGMEF 5 mg, filmomhulde tabletten", generic: "DAPAGLIFLOZINE", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Dapagliflozine Sandoz 10 mg, filmomhulde tabletten", generic: "DAPAGLIFLOZINE", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Paracetamol tablet Sanias 500 mg, tabletten", generic: "PARACETAMOL", category: "Pain & Fever", form: "Tablet", rx: true },
+  { name: "RIZEGMEF 10 mg, filmomhulde tabletten", generic: "DAPAGLIFLOZINE", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Lisdexamfetamine Sandoz 50 mg, harde capsules", generic: "DEXAMFETAMINE#LISDEXAMFETAMINEDIMESILAAT", category: "Antidepressants", form: "Capsule", rx: true },
+  { name: "Diclofenac kalium Spharma 25 mg, zachte capsules", generic: "DICLOFENAC KALIUM", category: "Pain & Fever", form: "Capsule", rx: false },
+  { name: "Lisdexamfetamine Sandoz 70 mg, harde capsules", generic: "DEXAMFETAMINE#LISDEXAMFETAMINEDIMESILAAT", category: "Antidepressants", form: "Capsule", rx: true },
+  { name: "Lisdexamfetamine Sandoz 20 mg, harde capsules", generic: "DEXAMFETAMINE#LISDEXAMFETAMINEDIMESILAAT", category: "Antidepressants", form: "Capsule", rx: true },
+  { name: "Carmustine Vivanta 100 mg, poeder en oplosmiddel voor concentraat voor oplossing voor infusie", generic: "CARMUSTINE", category: "Oncology", form: "Powder", rx: true },
+  { name: "Lisdexamfetamine Sandoz 40 mg, harde capsules", generic: "DEXAMFETAMINE#LISDEXAMFETAMINEDIMESILAAT", category: "Antidepressants", form: "Capsule", rx: true },
+  { name: "Lisdexamfetamine Sandoz 30 mg, harde capsules", generic: "LISDEXAMFETAMINE#LISDEXAMFETAMINEDIMESILAAT", category: "Antidepressants", form: "Capsule", rx: true },
+  { name: "Lisdexamfetamine Sandoz 60 mg, harde capsules", generic: "DEXAMFETAMINE#LISDEXAMFETAMINEDIMESILAAT", category: "Antidepressants", form: "Capsule", rx: true },
+
 ];
 
 const CATEGORIES = [
