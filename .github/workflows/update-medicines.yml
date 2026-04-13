@@ -8,9 +8,9 @@ on:
   workflow_dispatch:
     inputs:
       countries:
-        description: 'Landen om te updaten: "be", "nl", "de", "gb", "us", "ca" of combinaties'
+        description: 'Landen: be, nl, de, gb, us, ca, fr, it of combinaties'
         required: false
-        default: 'be nl de gb us ca'
+        default: 'be nl de gb us ca fr it'
       dry_run:
         description: 'Dry run (alleen preview, geen bestanden aanpassen)'
         type: boolean
