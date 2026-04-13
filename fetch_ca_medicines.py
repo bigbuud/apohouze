@@ -30,8 +30,10 @@ Gebruik: python3 fetch_ca_medicines.py [--debug]
 import sys, os, re, csv, time, subprocess, zipfile, io
 
 DEBUG = "--debug" in sys.argv
-SCRIPT_DIR  = os.path.dirname(os.path.abspath(__file__))
-TMP_DIR     = os.path.join(SCRIPT_DIR, "data", "_tmp")
+# Gebruik os.getcwd() want update.js roept dit script aan met cwd=repo_root
+# os.path.dirname(__file__) kan afwijken als Python het pad anders resolvet
+REPO_ROOT   = os.getcwd()
+TMP_DIR     = os.path.join(REPO_ROOT, "data", "_tmp")
 OUTPUT_FILE = os.path.join(TMP_DIR, "ca_medicines.csv")
 os.makedirs(TMP_DIR, exist_ok=True)
 

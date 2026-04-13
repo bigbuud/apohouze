@@ -20,8 +20,10 @@ Verwacht resultaat: 15.000-30.000 unieke entries
 import sys, os, re, csv, time, subprocess, json, zipfile, io, urllib.request
 
 DEBUG = "--debug" in sys.argv
-SCRIPT_DIR  = os.path.dirname(os.path.abspath(__file__))
-TMP_DIR     = os.path.join(SCRIPT_DIR, "data", "_tmp")
+# Gebruik os.getcwd() want update.js roept dit script aan met cwd=repo_root
+# os.path.dirname(__file__) kan afwijken als Python het pad anders resolvet
+REPO_ROOT   = os.getcwd()
+TMP_DIR     = os.path.join(REPO_ROOT, "data", "_tmp")
 OUTPUT_FILE = os.path.join(TMP_DIR, "us_medicines.csv")
 os.makedirs(TMP_DIR, exist_ok=True)
 
@@ -438,7 +440,8 @@ def process_partition(path, seen):
                 seen.add(key)
                 entries.append({"Name": brand, "INN": generic, "ATC": "",
                                  "PharmaceuticalForm": form,
-                                 "RxStatus": "Rx" if rx else "OTC", "Country": "US"})
+                                 "RxStatus": "Rx" if rx else "OTC",
+                                 "Country": "US", "Category": category})
             else:
                 sk_dup += 1
 
@@ -449,7 +452,8 @@ def process_partition(path, seen):
                 seen.add(key)
                 entries.append({"Name": generic, "INN": generic, "ATC": "",
                                  "PharmaceuticalForm": form,
-                                 "RxStatus": "Rx" if rx else "OTC", "Country": "US"})
+                                 "RxStatus": "Rx" if rx else "OTC",
+                                 "Country": "US", "Category": category})
             else:
                 sk_dup += 1
 
@@ -459,7 +463,7 @@ def process_partition(path, seen):
 
 
 def save_csv(rows):
-    fields = ["Name", "INN", "ATC", "PharmaceuticalForm", "RxStatus", "Country"]
+    fields = ["Name", "INN", "ATC", "PharmaceuticalForm", "RxStatus", "Country", "Category"]
     with open(OUTPUT_FILE, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=fields, extrasaction="ignore")
         w.writeheader()

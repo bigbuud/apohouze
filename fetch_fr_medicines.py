@@ -33,16 +33,33 @@ Output: data/_tmp/fr_medicines.csv
 import sys, os, re, csv, time, subprocess, io
 
 DEBUG = "--debug" in sys.argv
-SCRIPT_DIR  = os.path.dirname(os.path.abspath(__file__))
-TMP_DIR     = os.path.join(SCRIPT_DIR, "data", "_tmp")
+# Gebruik os.getcwd() want update.js roept dit script aan met cwd=repo_root
+# os.path.dirname(__file__) kan afwijken als Python het pad anders resolvet
+REPO_ROOT   = os.getcwd()
+TMP_DIR     = os.path.join(REPO_ROOT, "data", "_tmp")
 OUTPUT_FILE = os.path.join(TMP_DIR, "fr_medicines.csv")
 os.makedirs(TMP_DIR, exist_ok=True)
 
-BDPM_BASE = "https://base-donnees-publique.medicaments.gouv.fr/telechargement.php?fichier="
-URLS = {
-    "cis":   BDPM_BASE + "CIS_bdpm.txt",
-    "compo": BDPM_BASE + "CIS_COMPO_bdpm.txt",
-    "cpd":   BDPM_BASE + "CIS_CPD_bdpm.txt",
+# ANSM BDPM - meerdere URL-varianten (primair + fallbacks)
+# De oude base-donnees-publique.medicaments.gouv.fr blokkeert CI-omgevingen.
+# bdpm.ansm.sante.fr is de nieuwe officiële URL (sinds 2024).
+# esante.gouv.fr host een mirror van de bestanden.
+BDPM_URLS = {
+    "cis": [
+        "https://bdpm.ansm.sante.fr/download/file/CIS_bdpm.txt",
+        "https://base-donnees-publique.medicaments.gouv.fr/index.php/download/file/CIS_bdpm.txt",
+        "https://esante.gouv.fr/sites/default/files/media_entity/documents/CIS_bdpm.txt",
+    ],
+    "compo": [
+        "https://bdpm.ansm.sante.fr/download/file/CIS_COMPO_bdpm.txt",
+        "https://base-donnees-publique.medicaments.gouv.fr/index.php/download/file/CIS_COMPO_bdpm.txt",
+        "https://esante.gouv.fr/sites/default/files/media_entity/documents/CIS_COMPO_bdpm.txt",
+    ],
+    "cpd": [
+        "https://bdpm.ansm.sante.fr/download/file/CIS_CPD_bdpm.txt",
+        "https://base-donnees-publique.medicaments.gouv.fr/index.php/download/file/CIS_CPD_bdpm.txt",
+        "https://esante.gouv.fr/sites/default/files/media_entity/documents/CIS_CPD_bdpm.txt",
+    ],
 }
 
 ATC_MAP = {
@@ -109,14 +126,21 @@ def main():
     print("=" * 48)
     print("📌 Bron: ANSM BDPM (base-donnees-publique.medicaments.gouv.fr)\n")
 
-    # Download de drie bestanden
+    # Download de drie bestanden (probeer meerdere URLs per bestand)
     files = {}
-    for key, url in URLS.items():
+    for key, urls in BDPM_URLS.items():
         dest = os.path.join(TMP_DIR, f"fr_{key}.txt")
-        print(f"  📥 {key}: {url}")
-        size = curl_download(url, dest)
-        if size < 1000:
-            print(f"❌ Download mislukt voor {key}"); sys.exit(1)
+        downloaded = False
+        for url in urls:
+            print(f"  📥 {key}: {url}")
+            size = curl_download(url, dest)
+            if size > 1000:
+                downloaded = True
+                break
+            print(f"  ⚠️  Te klein ({size}B), volgende URL proberen...")
+        if not downloaded:
+            print(f"❌ Download mislukt voor {key} — alle URLs geprobeerd")
+            sys.exit(1)
         files[key] = dest
 
     print("\n[2/3] Verwerken...")

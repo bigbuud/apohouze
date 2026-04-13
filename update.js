@@ -149,6 +149,7 @@ function processRows(rows, country, code) {
   const nameKey   = findKey(/^naam$/, /^productnaam$/, /^name$/, /^product/);
   const innKey    = findKey(/werkzame/, /inn/, /actieve/, /generic/, /substance/);
   const atcKey    = findKey(/^atc/);
+  const catKey    = findKey(/^category$/);  // directe categorie-kolom (bv. US, IT)
   const formKey   = findKey(/farmaceutische/, /^vorm$/, /pharmaceutical/, /toedien/);
   const rxKey     = findKey(/afleverstatus/, /recept/, /^rx$/, /prescri/, /\bura\b/);
   const statusKey = findKey(/status/, /vergunn/, /autoris/);
@@ -181,11 +182,14 @@ function processRows(rows, country, code) {
     const formRaw = formKey  ? String(row[formKey]  || '').trim() : '';
     const rxRaw   = rxKey    ? String(row[rxKey]    || '').trim() : '';
 
-    const category = atcToCategory(atc);
+    // Gebruik directe category-kolom als ATC leeg is (bv. US openFDA data)
+    const directCat = catKey ? String(row[catKey] || '').trim() : '';
+    const category = atcToCategory(atc) || directCat || null;
     if (!category) { skippedAtc++; continue; }
 
     const form = mapForm(formRaw);
-    const rx   = /\bUA\b|\bURA\b|recept|prescri/i.test(rxRaw);
+    // Rx: UA/URA = Belgisch/Nederlands; "Rx" = directe waarde (US/CA/FR/IT scripts)
+    const rx   = /\bUA\b|\bURA\b|recept|prescri/i.test(rxRaw) || rxRaw.trim() === 'Rx';
 
     newMeds.push({ name, generic: inn, category, form, rx });
     seen.add(name.toLowerCase());
