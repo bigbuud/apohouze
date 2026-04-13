@@ -20063,6 +20063,8 @@ const MEDICINES = [
   { name: "Lisdexamfetamine Sandoz 30 mg, harde capsules", generic: "LISDEXAMFETAMINE#LISDEXAMFETAMINEDIMESILAAT", category: "Antidepressants", form: "Capsule", rx: true },
   { name: "Lisdexamfetamine Sandoz 60 mg, harde capsules", generic: "DEXAMFETAMINE#LISDEXAMFETAMINEDIMESILAAT", category: "Antidepressants", form: "Capsule", rx: true },
 
+  { name: "Nitro \"Pohl\" Infus voor perfusorpompsystemen 1mg/ml, oplossing voor infusie", generic: "NITROGLYCERINE", category: "Heart & Blood Pressure", form: "Solution", rx: true },
+
 ];
 
 const CATEGORIES = [
