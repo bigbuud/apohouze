@@ -627,7 +627,7 @@ async function updateES() {
   try { execSync('python3 --version', { stdio: 'ignore' }); }
   catch { try { execSync('python --version', { stdio: 'ignore' }); python = 'python'; } catch { console.error('  ❌ Python niet gevonden'); return 0; } }
   try {
-    execSync(`${python} "${script}" es`, { stdio: 'inherit', timeout: 300_000, cwd: __dirname });
+    execSync(`${python} "${script}" es`, { stdio: 'inherit', timeout: 600_000, cwd: __dirname });
   } catch (e) {
     console.error(`  ❌ Script mislukt: ${e.message}`); return 0;
   }
