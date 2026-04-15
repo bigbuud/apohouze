@@ -776,6 +776,54 @@ async function updateSE() {
   console.log(`  ✅ CSV gereed: ${(size/1024).toFixed(0)} KB`);
   return parseFile(dest, 'se', country);
 }
+
+// ================================================================
+// NIEUWE EU-LANDEN (CZ, SK, HR, SI, HU, RO, GR, LU)
+// Gebruikt fetch_new_eu_medicines.py <landcode>
+// ================================================================
+async function updateNewEuCountry(code, label) {
+  console.log(`\n${label} — fetch_new_eu_medicines.py ${code.toUpperCase()} ophalen...`);
+  const country = loadExistingNames(code);
+  if (!country) { console.error(`  ❌ ${code}.js niet gevonden`); return 0; }
+
+  const { execSync } = require('child_process');
+  const script = path.join(__dirname, 'fetch_new_eu_medicines.py');
+  if (!fs.existsSync(script)) { console.error('  ❌ fetch_new_eu_medicines.py niet gevonden'); return 0; }
+
+  let python = 'python3';
+  try { execSync('python3 --version', { stdio: 'ignore' }); }
+  catch { try { execSync('python --version', { stdio: 'ignore' }); python = 'python'; } catch { console.error('  ❌ Python niet gevonden'); return 0; } }
+
+  try { execSync(`${python} -c "import openpyxl"`, { stdio: 'ignore' }); }
+  catch {
+    console.log('  📦 openpyxl installeren...');
+    try { execSync(`${python} -m pip install openpyxl --quiet`, { stdio: 'pipe' }); } catch {}
+  }
+
+  console.log(`  🐍 fetch_new_eu_medicines.py ${code.toUpperCase()} uitvoeren...`);
+  try {
+    execSync(`${python} "${script}" ${code.toUpperCase()}`, {
+      stdio: 'inherit', timeout: 300_000, cwd: __dirname,
+    });
+  } catch (e) { console.error(`  ❌ Script mislukt: ${e.message}`); return 0; }
+
+  const dest = path.join(TMP_DIR, `${code}_medicines.csv`);
+  if (!fs.existsSync(dest)) { console.error(`  ❌ ${code}_medicines.csv niet aangemaakt`); return 0; }
+  const size = fs.statSync(dest).size;
+  if (size < 500) { console.error(`  ❌ CSV te klein: ${size}B`); return 0; }
+  console.log(`  ✅ CSV gereed: ${(size/1024).toFixed(0)} KB`);
+  return parseFile(dest, code, country);
+}
+
+async function updateCZ() { return updateNewEuCountry('cz', '🇨🇿 Tsjechië'); }
+async function updateSK() { return updateNewEuCountry('sk', '🇸🇰 Slowakije'); }
+async function updateHR() { return updateNewEuCountry('hr', '🇭🇷 Kroatië'); }
+async function updateSI() { return updateNewEuCountry('si', '🇸🇮 Slovenië'); }
+async function updateHU() { return updateNewEuCountry('hu', '🇭🇺 Hongarije'); }
+async function updateRO() { return updateNewEuCountry('ro', '🇷🇴 Roemenië'); }
+async function updateGR() { return updateNewEuCountry('gr', '🇬🇷 Griekenland'); }
+async function updateLU() { return updateNewEuCountry('lu', '🇱🇺 Luxemburg'); }
+
 // ================================================================
 // HOOFD
 // ================================================================
@@ -809,6 +857,14 @@ async function main() {
     else if (target === 'pl') added = await updatePL();
     else if (target === 'pt') added = await updatePT();
     else if (target === 'se') added = await updateSE();
+    else if (target === 'cz') added = await updateCZ();
+    else if (target === 'sk') added = await updateSK();
+    else if (target === 'hr') added = await updateHR();
+    else if (target === 'si') added = await updateSI();
+    else if (target === 'hu') added = await updateHU();
+    else if (target === 'ro') added = await updateRO();
+    else if (target === 'gr') added = await updateGR();
+    else if (target === 'lu') added = await updateLU();
     else { console.log(`⚠️  Onbekend land: ${target}`); continue; }
 
     const after = loadExistingNames(target)?.names.size || 0;
