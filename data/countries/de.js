@@ -6965,6 +6965,8 @@ const MEDICINES = [
 
   { name: "EMEA/H/C/006674", generic: "A/California/07/2009 (H1N1)pdm09-like strain (A/California/07/2009);A/Texas/50/2012 (H3N2)-like strain (A/Texas/50/2012);B/Brisbane/60/2008-like strain (B/Brisbane/60/2008)", category: "Antivirals", form: "Tablet", rx: false },
 
+  { name: "Vysribli (previously Denosumab Intas)", generic: "denosumab", category: "Joints & Muscles", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

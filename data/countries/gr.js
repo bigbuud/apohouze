@@ -1561,6 +1561,8 @@ const MEDICINES = [
   { name: "Vitamin D3 1000 IU", generic: "Cholecalciferol", category: "Vitamins & Supplements", form: "Capsule", rx: false },
   { name: "Zolpidem 10mg δισκία", generic: "Zolpidem", category: "Sleep & Sedation", form: "Tablet", rx: true },
 
+  { name: "Vysribli (previously Denosumab Intas)", generic: "denosumab", category: "Joints & Muscles", form: "Tablet", rx: true },
+
 ];
 
 module.exports = { MEDICINES };

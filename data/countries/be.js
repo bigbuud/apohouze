@@ -12284,6 +12284,22 @@ const MEDICINES = [
   { name: "Kayshild 1.7 mg inj. sol. s.c. pre-filled pen", generic: "", category: "Diabetes", form: "Injection", rx: false },
   { name: "Kayshild 2.4 mg inj. sol. s.c. pre-filled pen", generic: "", category: "Diabetes", form: "Injection", rx: false },
 
+  { name: "Nicorette Invisipatch 15 mg transderm. patch sachet", generic: "", category: "Nervous System", form: "Patch", rx: false },
+  { name: "Nicorette Invisipatch  10 mg transderm. patch sachet", generic: "", category: "Nervous System", form: "Patch", rx: false },
+  { name: "Nicorette Invisipatch 25 mg transderm. patch sachet", generic: "", category: "Nervous System", form: "Patch", rx: false },
+  { name: "Vysribli 60 mg inj. sol. s.c. pre-filled syr.", generic: "", category: "Joints & Muscles", form: "Injection", rx: false },
+  { name: "Livmarli 19 mg/ml or. sol.", generic: "", category: "Stomach & Intestine", form: "Solution", rx: false },
+  { name: "Livmarli 10 mg tabl.", generic: "", category: "Stomach & Intestine", form: "Tablet", rx: false },
+  { name: "Livmarli 15 mg tabl.", generic: "", category: "Stomach & Intestine", form: "Tablet", rx: false },
+  { name: "Livmarli 20 mg tabl.", generic: "", category: "Stomach & Intestine", form: "Tablet", rx: false },
+  { name: "Livmarli 30 mg tabl.", generic: "", category: "Stomach & Intestine", form: "Tablet", rx: false },
+  { name: "Opdivo 300 mg inj. sol. s.c. vial", generic: "", category: "Oncology", form: "Injection", rx: false },
+  { name: "Enflonsia 105 mg inj. sol. i.m. pre-filled syr.", generic: "", category: "Antivirals", form: "Injection", rx: false },
+  { name: "Camcevi 21 mg inj. susp. prol.-rel. s.c. pre-filled syr.", generic: "", category: "Oncology", form: "Injection", rx: false },
+  { name: "Dapagliflozin Sandoz 5 mg film-coat. tabl.", generic: "", category: "Diabetes", form: "Tablet", rx: false },
+  { name: "Dapagliflozin Sandoz 10 mg film-coat. tabl.", generic: "", category: "Diabetes", form: "Tablet", rx: false },
+  { name: "Mirabegron Zentiva 25 mg tabl. prol.-rel.", generic: "", category: "Urology", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

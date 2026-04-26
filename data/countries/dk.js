@@ -5404,6 +5404,8 @@ const MEDICINES = [
   { name: "Trazec", generic: "nateglinide", category: "Diabetes", form: "Tablet", rx: false },
   { name: "Posaconazole SP", generic: "posaconazole", category: "Antifungals", form: "Tablet", rx: false },
 
+  { name: "Vysribli (previously Denosumab Intas)", generic: "denosumab", category: "Joints & Muscles", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

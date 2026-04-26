@@ -1554,6 +1554,8 @@ const MEDICINES = [
   { name: "Clotrimazol 1% krém", generic: "Clotrimazole", category: "Antifungals", form: "Cream", rx: false },
   { name: "Vitamin D3 1000 IU", generic: "Cholecalciferol", category: "Vitamins & Supplements", form: "Capsule", rx: false },
 
+  { name: "Vysribli (previously Denosumab Intas)", generic: "denosumab", category: "Joints & Muscles", form: "Tablet", rx: true },
+
 ];
 
 module.exports = { MEDICINES };

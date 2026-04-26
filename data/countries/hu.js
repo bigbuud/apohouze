@@ -1564,6 +1564,8 @@ const MEDICINES = [
   { name: "Magnézium-citrát tabletta", generic: "Magnesium", category: "Vitamins & Supplements", form: "Tablet", rx: false },
   { name: "Zolpidem AL 10mg filmtabletta", generic: "Zolpidem", category: "Sleep & Sedation", form: "Tablet", rx: true },
 
+  { name: "Vysribli (previously Denosumab Intas)", generic: "denosumab", category: "Joints & Muscles", form: "Tablet", rx: true },
+
 ];
 
 module.exports = { MEDICINES };

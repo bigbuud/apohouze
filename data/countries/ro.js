@@ -1564,6 +1564,8 @@ const MEDICINES = [
   { name: "Magne B6 comprimate", generic: "Magnesium/Vitamin B6", category: "Vitamins & Supplements", form: "Tablet", rx: false },
   { name: "Zolpidem Sandoz 10mg comprimate", generic: "Zolpidem", category: "Sleep & Sedation", form: "Tablet", rx: true },
 
+  { name: "Vysribli (previously Denosumab Intas)", generic: "denosumab", category: "Joints & Muscles", form: "Tablet", rx: true },
+
 ];
 
 module.exports = { MEDICINES };

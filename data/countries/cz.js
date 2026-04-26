@@ -1572,6 +1572,8 @@ const MEDICINES = [
   { name: "Vitamin D3 Zentiva 1000 IU", generic: "Cholecalciferol", category: "Vitamins & Supplements", form: "Capsule", rx: false },
   { name: "Calcium D3 Ratiopharm", generic: "Calcium/Vitamin D", category: "Vitamins & Supplements", form: "Tablet", rx: false },
 
+  { name: "Vysribli (previously Denosumab Intas)", generic: "denosumab", category: "Joints & Muscles", form: "Tablet", rx: true },
+
 ];
 
 module.exports = { MEDICINES };

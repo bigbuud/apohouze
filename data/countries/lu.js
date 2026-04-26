@@ -1571,6 +1571,8 @@ const MEDICINES = [
   { name: "Hydrocortisone 1% Crème", generic: "Hydrocortisone", category: "Corticosteroids", form: "Cream", rx: false },
   { name: "Clotrimazole 1% Crème", generic: "Clotrimazole", category: "Antifungals", form: "Cream", rx: false },
 
+  { name: "Vysribli (previously Denosumab Intas)", generic: "denosumab", category: "Joints & Muscles", form: "Tablet", rx: true },
+
 ];
 
 module.exports = { MEDICINES };

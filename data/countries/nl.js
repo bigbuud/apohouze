@@ -20182,6 +20182,24 @@ const MEDICINES = [
 
   { name: "Nitro \"Pohl\" Infus voor perfusorpompsystemen 1mg/ml, oplossing voor infusie", generic: "NITROGLYCERINE", category: "Heart & Blood Pressure", form: "Solution", rx: true },
 
+  { name: "Minoxidil Intermed 50 mg/g schuim voor cutaan gebruik", generic: "MINOXIDIL", category: "Skin & Wounds", form: "Tablet", rx: false },
+  { name: "Gliclazide retard Teva 30 mg, tabletten met gereguleerde afgifte", generic: "GLICLAZIDE", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Kayshild 0,5 mg oplossing voor injectie in een voorgevulde pen", generic: "SEMAGLUTIDE", category: "Diabetes", form: "Injection", rx: true },
+  { name: "Kayshild 1,7 mg oplossing voor injectie in een voorgevulde pen", generic: "SEMAGLUTIDE", category: "Diabetes", form: "Injection", rx: true },
+  { name: "Jorveza 0,2 mg/ml suspensie voor oraal gebruik", generic: "BUDESONIDE", category: "Stomach & Intestine", form: "Suspension", rx: true },
+  { name: "Nitro \"Pohl\" Infus voor perfusorpompsystemen 1mg/ml, oplossing voor infusie", generic: "NITROGLYCERINE", category: "Heart & Blood Pressure", form: "Solution", rx: true },
+  { name: "Dexmedetomidine Noridem 100 microgram/ml, concentraat voor oplossing voor infusie", generic: "DEXMEDETOMIDINEHYDROCHLORIDE", category: "Sleep & Sedation", form: "Solution", rx: true },
+  { name: "Kayshild 1 mg oplossing voor injectie in een voorgevulde pen", generic: "SEMAGLUTIDE", category: "Diabetes", form: "Injection", rx: true },
+  { name: "Rybrevant 2240 mg, oplossing voor injectie", generic: "AMIVANTAMAB", category: "Oncology", form: "Injection", rx: true },
+  { name: "Irbesartan Hydrochlorothiazide Zentiva 150 mg/12,5 mg filmomhulde tabletten", generic: "HYDROCHLOORTHIAZIDE#IRBESARTAN", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
+  { name: "Obracin 80 mg/2 ml, oplossing voor injectie / infusie 40 mg/ml", generic: "TOBRAMYCINESULFAAT", category: "Antibiotics", form: "Injection", rx: true },
+  { name: "Kayshild 0,25 mg oplossing voor injectie in een voorgevulde pen", generic: "SEMAGLUTIDE", category: "Diabetes", form: "Injection", rx: true },
+  { name: "REZUROCK 200 mg, filmomhulde tabletten", generic: "BELUMOSUDILMESILAAT", category: "Corticosteroids", form: "Tablet", rx: true },
+  { name: "Irbesartan Hydrochlorothiazide Zentiva 300 mg/12,5 mg filmomhulde tabletten", generic: "HYDROCHLOORTHIAZIDE#IRBESARTAN", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
+  { name: "Supemtek oplossing voor injectie in een voorgevulde spuit, Trivalent griepvaccin (recombinant, bereid in celkweek)", generic: "A-DISTRICT OF COLUMBIA-27-2023 (H3N2)-ACHTIGE STAM (A-DISTRICT OF COLOMBIA-27-2023)#A-WISCONSIN-67-2022 (H1N1)PDM09-ACHTIGE STAM (A-WEST VIRGINIA-30-22)#B-AUSTRIA-1359417-2021-ACHTIGE STAM (B-AUSTRIA-1359417-2021)", category: "Antivirals", form: "Injection", rx: true },
+  { name: "Kayshild 2,4 mg oplossing voor injectie in een voorgevulde pen", generic: "SEMAGLUTIDE", category: "Diabetes", form: "Injection", rx: true },
+  { name: "Rybrevant 1600 mg, oplossing voor injectie", generic: "AMIVANTAMAB", category: "Oncology", form: "Injection", rx: true },
+
 ];
 
 const CATEGORIES = [

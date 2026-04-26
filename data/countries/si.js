@@ -1559,6 +1559,8 @@ const MEDICINES = [
   { name: "Zolpidem Sandoz 10mg tablete", generic: "Zolpidem", category: "Sleep & Sedation", form: "Tablet", rx: true },
   { name: "Kalcij + Vitamin D3 Sandoz", generic: "Calcium/Vitamin D", category: "Vitamins & Supplements", form: "Tablet", rx: false },
 
+  { name: "Vysribli (previously Denosumab Intas)", generic: "denosumab", category: "Joints & Muscles", form: "Tablet", rx: true },
+
 ];
 
 module.exports = { MEDICINES };
