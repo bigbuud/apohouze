@@ -8881,6 +8881,11 @@ const MEDICINES = [
   { name: "VALACICLOVIR CLORIDRATO", generic: "VALACICLOVIR CLORIDRATO", category: "Antivirals", form: "Tablet", rx: false },
   { name: "VIREAD", generic: "TENOFOVIR DISOPROXIL FUMARATO", category: "Antivirals", form: "Tablet", rx: false },
 
+  { name: "EMEA/H/C/006498", generic: "onasemnogene abeparvovec", category: "Joints & Muscles", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/006624", generic: "Palbociclib", category: "Oncology", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/006579", generic: "plozasiran", category: "Cholesterol", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/006634", generic: "ranibizumab", category: "Eye & Ear", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

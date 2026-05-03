@@ -20200,6 +20200,18 @@ const MEDICINES = [
   { name: "Kayshild 2,4 mg oplossing voor injectie in een voorgevulde pen", generic: "SEMAGLUTIDE", category: "Diabetes", form: "Injection", rx: true },
   { name: "Rybrevant 1600 mg, oplossing voor injectie", generic: "AMIVANTAMAB", category: "Oncology", form: "Injection", rx: true },
 
+  { name: "Aripiprazol GLORAMP 15 mg orodispergeerbare tabletten", generic: "ARIPIPRAZOL", category: "Sleep & Sedation", form: "Dispersible tablet", rx: true },
+  { name: "Brazier 97 mg/103 mg filmomhulde tabletten", generic: "SACUBITRIL NATRIUM#VALSARTAN DINATRIUM", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
+  { name: "Resonium A, poeder voor suspensie voor oraal/rectaal", generic: "POLYSTYREENSULFONAAT NATRIUM", category: "First Aid", form: "Powder", rx: true },
+  { name: "Aripiprazol GLORAMP 10 mg orodispergeerbare tabletten", generic: "ARIPIPRAZOL", category: "Sleep & Sedation", form: "Dispersible tablet", rx: true },
+  { name: "Nitro \"Pohl\" Infus voor perfusorpompsystemen 1mg/ml, oplossing voor infusie", generic: "NITROGLYCERINE", category: "Heart & Blood Pressure", form: "Solution", rx: true },
+  { name: "Precifit 5 mg/1,25 mg, dispergeerbare tabletten voor dosisdispenser", generic: "CARBIDOPA 1-WATER#LEVODOPA", category: "Neurology", form: "Dispersible tablet", rx: true },
+  { name: "Citalopram Medcor 40 mg/ml druppels voor oraal gebruik, oplossing", generic: "CITALOPRAMHYDROCHLORIDE", category: "Antidepressants", form: "Drops", rx: true },
+  { name: "Zaldiar 37,5 mg/325 mg, filmomhulde tabletten", generic: "PARACETAMOL#TRAMADOLHYDROCHLORIDE", category: "Pain & Fever", form: "Tablet", rx: true },
+  { name: "Otrivin XylometazolineHCl Care 0,5 mg/ ml neusspray, oplossing", generic: "XYLOMETAZOLINEHYDROCHLORIDE", category: "Cough & Cold", form: "Nasal spray", rx: false },
+  { name: "Brazier 49 mg/51 mg filmomhulde tabletten", generic: "SACUBITRIL NATRIUM#VALSARTAN DINATRIUM", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
+  { name: "Amypha 100 mg harde capsules", generic: "AMANTADINEHYDROCHLORIDE", category: "Neurology", form: "Capsule", rx: true },
+
 ];
 
 const CATEGORIES = [

@@ -1560,6 +1560,11 @@ const MEDICINES = [
 
   { name: "Vysribli (previously Denosumab Intas)", generic: "denosumab", category: "Joints & Muscles", form: "Tablet", rx: true },
 
+  { name: "Itvisma", generic: "onasemnogene abeparvovec", category: "Joints & Muscles", form: "Tablet", rx: true },
+  { name: "Palbociclib Viatris", generic: "Palbociclib", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Redemplo", generic: "plozasiran", category: "Cholesterol", form: "Tablet", rx: true },
+  { name: "Rexatilux", generic: "ranibizumab", category: "Eye & Ear", form: "Tablet", rx: true },
+
 ];
 
 module.exports = { MEDICINES };

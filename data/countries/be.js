@@ -12300,6 +12300,13 @@ const MEDICINES = [
   { name: "Dapagliflozin Sandoz 10 mg film-coat. tabl.", generic: "", category: "Diabetes", form: "Tablet", rx: false },
   { name: "Mirabegron Zentiva 25 mg tabl. prol.-rel.", generic: "", category: "Urology", form: "Tablet", rx: false },
 
+  { name: "Sodium Chloride 0,9 % B. Braun inf. sol. i.v.", generic: "", category: "Heart & Blood Pressure", form: "Injection", rx: false },
+  { name: "Zilbrysq 23 mg inj. sol. s.c. pre-filled pen", generic: "", category: "Corticosteroids", form: "Injection", rx: false },
+  { name: "Oczyesa 20 mg inj. sol. prol.-rel. s.c. pre-filled pen", generic: "", category: "Thyroid", form: "Tablet", rx: false },
+  { name: "Scemblix 100 mg film-coat. tabl.", generic: "", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Dazublys 420 mg inj. sol. (pwdr., conc.) i.v. vial", generic: "", category: "Oncology", form: "Injection", rx: false },
+  { name: "Mirabegron EG 25 mg tabl. prol.-rel.", generic: "", category: "Urology", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [
