@@ -12307,6 +12307,20 @@ const MEDICINES = [
   { name: "Dazublys 420 mg inj. sol. (pwdr., conc.) i.v. vial", generic: "", category: "Oncology", form: "Injection", rx: false },
   { name: "Mirabegron EG 25 mg tabl. prol.-rel.", generic: "", category: "Urology", form: "Tablet", rx: false },
 
+  { name: "Bisolangin 20 mg lozenge", generic: "", category: "Cough & Cold", form: "Lozenge", rx: false },
+  { name: "Itovebi 3 mg film-coat. tabl.", generic: "", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Itovebi 9 mg film-coat. tabl.", generic: "", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Jorveza 0.2 mg/ml or. susp.", generic: "", category: "Stomach & Intestine", form: "Suspension", rx: false },
+  { name: "Nicardipine Hikma 1 mg/ml inf. sol. i.v. amp.", generic: "", category: "Heart & Blood Pressure", form: "Injection", rx: false },
+  { name: "Bupropion EG 300 mg tabl. modif.-rel.", generic: "", category: "Antidepressants", form: "Tablet", rx: false },
+  { name: "Zilbrysq 16.6 mg inj. sol. s.c. pre-filled pen", generic: "", category: "Corticosteroids", form: "Injection", rx: false },
+  { name: "Zilbrysq 32.4 mg inj. sol. s.c. pre-filled pen", generic: "", category: "Corticosteroids", form: "Injection", rx: false },
+  { name: "Bimervax LP.8.1 inj. emuls. i.m. pre-filled syr.", generic: "", category: "Antivirals", form: "Tablet", rx: false },
+  { name: "Olumiant 2 mg/ml or. susp.", generic: "", category: "Corticosteroids", form: "Suspension", rx: false },
+  { name: "Palsonify 20 mg film-coat. tabl.", generic: "", category: "Thyroid", form: "Tablet", rx: false },
+  { name: "Palsonify 30 mg film-coat. tabl.", generic: "", category: "Thyroid", form: "Tablet", rx: false },
+  { name: "Rhapsido 25 mg film-coat. tabl.", generic: "", category: "Corticosteroids", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

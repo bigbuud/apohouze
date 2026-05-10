@@ -20212,6 +20212,25 @@ const MEDICINES = [
   { name: "Brazier 49 mg/51 mg filmomhulde tabletten", generic: "SACUBITRIL NATRIUM#VALSARTAN DINATRIUM", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
   { name: "Amypha 100 mg harde capsules", generic: "AMANTADINEHYDROCHLORIDE", category: "Neurology", form: "Capsule", rx: true },
 
+  { name: "Trekpleister Ibuprofen Bruis 400 mg sinaasappel, bruisgranulaat", generic: "IBUPROFEN", category: "Pain & Fever", form: "Tablet", rx: true },
+  { name: "Mirabegron Glenmark 25 mg tabletten met verlengde afgifte", generic: "MIRABEGRON", category: "Urology", form: "Tablet", rx: true },
+  { name: "Opdivo 300 mg oplossing voor injectie", generic: "NIVOLUMAB", category: "Oncology", form: "Injection", rx: true },
+  { name: "Mirabegron CF 25 mg, tabletten met verlengde afgifte", generic: "MIRABEGRON", category: "Urology", form: "Tablet", rx: true },
+  { name: "Gabapentine Teva 400 mg, harde capsules", generic: "GABAPENTINE", category: "Pain & Fever", form: "Capsule", rx: true },
+  { name: "Amifampridine Xiromed 10 mg tabletten", generic: "AMIFAMPRIDINEFOSFAAT", category: "Nervous System", form: "Tablet", rx: true },
+  { name: "Empagliflozine/Metformine HCl HCS 12,5 mg/1000 mg filmomhulde tabletten", generic: "EMPAGLIFLOZINE#METFORMINEHYDROCHLORIDE", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Gabapentine Teva 300 mg, harde capsules", generic: "GABAPENTINE", category: "Pain & Fever", form: "Capsule", rx: true },
+  { name: "Empagliflozine/Metformine HCl HCS 5 mg/850 mg filmomhulde tabletten", generic: "EMPAGLIFLOZINE#METFORMINEHYDROCHLORIDE", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Oxytocine Eureco-Pharma 5 IE/ml, concentraat voor oplossing voor infusie, oplossing voor injectie", generic: "OXYTOCINE", category: "Thyroid", form: "Injection", rx: true },
+  { name: "Prograft 1 mg harde capsules", generic: "TACROLIMUS 1-WATER", category: "Corticosteroids", form: "Capsule", rx: true },
+  { name: "Nitro \"Pohl\" Infus voor perfusorpompsystemen 1mg/ml, oplossing voor infusie", generic: "NITROGLYCERINE", category: "Heart & Blood Pressure", form: "Solution", rx: true },
+  { name: "Ethinylestradiol/Drospirenon 0,02 mg/3 mg León, filmomhulde tabletten", generic: "DROSPIRENON#ETHINYLESTRADIOL", category: "Women's Health", form: "Tablet", rx: true },
+  { name: "Hydroxycarbamide Devatis 500mg, harde capsules", generic: "HYDROXYCARBAMIDE", category: "Oncology", form: "Capsule", rx: true },
+  { name: "Empagliflozine/Metformine HCl HCS 5 mg/1000 mg filmomhulde tabletten", generic: "EMPAGLIFLOZINE#METFORMINEHYDROCHLORIDE", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Gabapentine Teva 100 mg, harde capsules", generic: "GABAPENTINE", category: "Pain & Fever", form: "Capsule", rx: true },
+  { name: "Empagliflozine/Metformine HCl HCS 12,5 mg/850 mg filmomhulde tabletten", generic: "EMPAGLIFLOZINE#METFORMINEHYDROCHLORIDE", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Prograft 0,5 mg harde capsules", generic: "TACROLIMUS 1-WATER", category: "Corticosteroids", form: "Capsule", rx: true },
+
 ];
 
 const CATEGORIES = [
