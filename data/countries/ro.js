@@ -1571,6 +1571,8 @@ const MEDICINES = [
   { name: "Redemplo", generic: "plozasiran", category: "Cholesterol", form: "Tablet", rx: true },
   { name: "Rexatilux", generic: "ranibizumab", category: "Eye & Ear", form: "Tablet", rx: true },
 
+  { name: "Xolremdi", generic: "mavorixafor", category: "Oncology", form: "Tablet", rx: true },
+
 ];
 
 module.exports = { MEDICINES };

@@ -8886,6 +8886,8 @@ const MEDICINES = [
   { name: "EMEA/H/C/006579", generic: "plozasiran", category: "Cholesterol", form: "Tablet", rx: false },
   { name: "EMEA/H/C/006634", generic: "ranibizumab", category: "Eye & Ear", form: "Tablet", rx: false },
 
+  { name: "EMEA/H/C/006496", generic: "mavorixafor", category: "Oncology", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

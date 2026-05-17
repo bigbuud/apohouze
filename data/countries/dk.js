@@ -5411,6 +5411,8 @@ const MEDICINES = [
   { name: "Redemplo", generic: "plozasiran", category: "Cholesterol", form: "Tablet", rx: false },
   { name: "Rexatilux", generic: "ranibizumab", category: "Eye & Ear", form: "Tablet", rx: false },
 
+  { name: "Xolremdi", generic: "mavorixafor", category: "Oncology", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

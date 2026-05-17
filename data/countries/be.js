@@ -12321,6 +12321,14 @@ const MEDICINES = [
   { name: "Palsonify 30 mg film-coat. tabl.", generic: "", category: "Thyroid", form: "Tablet", rx: false },
   { name: "Rhapsido 25 mg film-coat. tabl.", generic: "", category: "Corticosteroids", form: "Tablet", rx: false },
 
+  { name: "Amlodipine Teva  5 mg tabl.", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "Amlodipine Teva  10 mg tabl.", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "Aqneursa 1 g or. susp. (gran.) sachet", generic: "", category: "Nervous System", form: "Suspension", rx: false },
+  { name: "Seroquel  200 mg (PI Pharma) film-coat. tabl.", generic: "", category: "Sleep & Sedation", form: "Tablet", rx: false },
+  { name: "Seroquel  300 mg (PI Pharma) film-coat. tabl.", generic: "", category: "Sleep & Sedation", form: "Tablet", rx: false },
+  { name: "Omlyclo 300 mg inj. sol. s.c. pre-filled pen", generic: "", category: "Lungs & Asthma", form: "Injection", rx: false },
+  { name: "Xolremdi 100 mg hard caps.", generic: "", category: "Oncology", form: "Capsule", rx: false },
+
 ];
 
 const CATEGORIES = [

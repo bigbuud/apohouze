@@ -20231,6 +20231,28 @@ const MEDICINES = [
   { name: "Empagliflozine/Metformine HCl HCS 12,5 mg/850 mg filmomhulde tabletten", generic: "EMPAGLIFLOZINE#METFORMINEHYDROCHLORIDE", category: "Diabetes", form: "Tablet", rx: true },
   { name: "Prograft 0,5 mg harde capsules", generic: "TACROLIMUS 1-WATER", category: "Corticosteroids", form: "Capsule", rx: true },
 
+  { name: "Broomfenac Rafarm 0,9 mg/ml oogdruppels, oplossing", generic: "BROOMFENAC NATRIUM 1,5-WATER", category: "Eye & Ear", form: "Eye drops", rx: true },
+  { name: "Pirfenidon Glenmark 267 mg filmomhulde tabletten", generic: "PIRFENIDON", category: "Corticosteroids", form: "Tablet", rx: true },
+  { name: "Zolmitriptan Medcor 5 mg orodispergeerbare tabletten", generic: "ZOLMITRIPTAN", category: "Pain & Fever", form: "Dispersible tablet", rx: true },
+  { name: "Ibuprofen Alkaloid-INT 400 mg, filmomhulde tabletten", generic: "IBUPROFEN-(D,L)-LYSINE", category: "Pain & Fever", form: "Tablet", rx: true },
+  { name: "Rebif 22 microgram/0,5ml, oplossing voor injectie in een patroon", generic: "INTERFERON BETA-1A", category: "Oncology", form: "Injection", rx: true },
+  { name: "Rebif 44 microgram, oplossing voor injectie", generic: "INTERFERON BETA-1A", category: "Oncology", form: "Injection", rx: true },
+  { name: "Rebif 22 microgram, oplossing voor injectie", generic: "INTERFERON BETA-1A", category: "Oncology", form: "Injection", rx: true },
+  { name: "Rebif 44 microgram/0,5ml, oplossing voor injectie in een patroon", generic: "INTERFERON BETA-1A", category: "Oncology", form: "Injection", rx: true },
+  { name: "Tranylcypromine Activase 10 mg omhulde tabletten", generic: "TRANYLCYPROMINESULFAAT", category: "Antidepressants", form: "Tablet", rx: true },
+  { name: "Isoprenaline HCl Unicorn Pharma 0,2 mg/ml concentraat voor oplossing voor infusie", generic: "ISOPRENALINEHYDROCHLORIDE", category: "Heart & Blood Pressure", form: "Solution", rx: true },
+  { name: "CAMCEVI 21 mg suspensie voor injectie met verlengde afgifte", generic: "LEUPRORELINEMESILAAT", category: "Oncology", form: "Injection", rx: true },
+  { name: "Cytisinicline Medcor 1,5 mg, tabletten", generic: "CYTISINICLINE", category: "Nervous System", form: "Tablet", rx: true },
+  { name: "Nitro \"Pohl\" Infus voor perfusorpompsystemen 1mg/ml, oplossing voor infusie", generic: "NITROGLYCERINE", category: "Heart & Blood Pressure", form: "Solution", rx: true },
+  { name: "Zilbrysq 23 mg oplossing voor injectie in een voorgevulde pen", generic: "ZILUCOPLAN TETRANATRIUM", category: "Corticosteroids", form: "Injection", rx: true },
+  { name: "Aripiprazol CF 400 mg, poeder en oplosmiddel voor suspensie voor injectie met verlengde afgifte", generic: "ARIPIPRAZOL 1-WATER", category: "Sleep & Sedation", form: "Injection", rx: true },
+  { name: "Zilbrysq 32,4 mg oplossing voor injectie in een voorgevulde pen", generic: "ZILUCOPLAN TETRANATRIUM", category: "Corticosteroids", form: "Injection", rx: true },
+  { name: "Broomfenac NTC 0,9 mg/ml oogdruppels, oplossing", generic: "BROOMFENAC NATRIUM 1,5-WATER", category: "Eye & Ear", form: "Eye drops", rx: true },
+  { name: "Pirfenidon Glenmark 801 mg filmomhulde tabletten", generic: "PIRFENIDON", category: "Corticosteroids", form: "Tablet", rx: true },
+  { name: "Empressine 20 IE/ml, concentraat voor oplossing voor infusie", generic: "ARGIPRESSINEACETAAT", category: "Thyroid", form: "Solution", rx: true },
+  { name: "Zilbrysq 16,6 mg oplossing voor injectie in een voorgevulde pen", generic: "ZILUCOPLAN TETRANATRIUM", category: "Corticosteroids", form: "Injection", rx: true },
+  { name: "Olumiant 2 mg/ml suspensie voor oraal gebruik", generic: "BARICITINIB", category: "Corticosteroids", form: "Suspension", rx: true },
+
 ];
 
 const CATEGORIES = [
