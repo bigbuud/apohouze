@@ -6974,6 +6974,13 @@ const MEDICINES = [
 
   { name: "Xolremdi", generic: "mavorixafor", category: "Oncology", form: "Tablet", rx: false },
 
+  { name: "Colchicine Agepha Pharma", generic: "colchicine", category: "Joints & Muscles", form: "Tablet", rx: false },
+  { name: "Ablymico", generic: "liraglutide", category: "Diabetes", form: "Tablet", rx: false },
+  { name: "Liraglutide STADA", generic: "liraglutide", category: "Diabetes", form: "Tablet", rx: false },
+  { name: "Vijoice", generic: "alpelisib", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Vislyfa", generic: "ranibizumab", category: "Eye & Ear", form: "Tablet", rx: false },
+  { name: "Etcamah", generic: "camizestrant", category: "Oncology", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

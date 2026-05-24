@@ -8888,6 +8888,13 @@ const MEDICINES = [
 
   { name: "EMEA/H/C/006496", generic: "mavorixafor", category: "Oncology", form: "Tablet", rx: false },
 
+  { name: "EMEA/H/C/006653", generic: "colchicine", category: "Joints & Muscles", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/006620", generic: "liraglutide", category: "Diabetes", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/006615", generic: "liraglutide", category: "Diabetes", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/006539", generic: "alpelisib", category: "Oncology", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/006926", generic: "ranibizumab", category: "Eye & Ear", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/006494", generic: "camizestrant", category: "Oncology", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

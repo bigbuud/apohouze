@@ -12329,6 +12329,24 @@ const MEDICINES = [
   { name: "Omlyclo 300 mg inj. sol. s.c. pre-filled pen", generic: "", category: "Lungs & Asthma", form: "Injection", rx: false },
   { name: "Xolremdi 100 mg hard caps.", generic: "", category: "Oncology", form: "Capsule", rx: false },
 
+  { name: "Omeprazol Sandoz 40 mg hard gastro-resist. caps.", generic: "", category: "Stomach & Intestine", form: "Capsule", rx: false },
+  { name: "Omeprazol Sandoz 10 mg hard gastro-resist. caps.", generic: "", category: "Stomach & Intestine", form: "Capsule", rx: false },
+  { name: "Omeprazol Sandoz 20 mg hard gastro-resist. caps.", generic: "", category: "Stomach & Intestine", form: "Capsule", rx: false },
+  { name: "Ceprotin 1 000 IU inj. sol. (pwdr. + solv.) i.v. vial", generic: "", category: "Anticoagulants", form: "Injection", rx: false },
+  { name: "Ceprotin 500 IU inj. sol. (pwdr. + solv.) i.v. vial", generic: "", category: "Anticoagulants", form: "Injection", rx: false },
+  { name: "Ixchiq inj. sol. (pwdr. + solv.) i.m. pre-filled syr. vial", generic: "", category: "Antivirals", form: "Injection", rx: false },
+  { name: "Ojemda 100 mg film-coat. tabl.", generic: "", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Ojemda 25 mg/ml or. susp. (pwdr.)", generic: "", category: "Oncology", form: "Powder", rx: false },
+  { name: "Usrenty 45 mg inj. sol. s.c. pre-filled pen", generic: "", category: "Corticosteroids", form: "Injection", rx: false },
+  { name: "Usrenty 90 mg inj. sol. s.c. pre-filled pen", generic: "", category: "Corticosteroids", form: "Injection", rx: false },
+  { name: "Arexvy inj. susp. (pwdr. + susp.) i.m. pre-filled syr. vial", generic: "", category: "Antivirals", form: "Injection", rx: false },
+  { name: "Cyclophosphamide Hikma 200 mg inj./inf. sol. (pwdr.) i.v. vial", generic: "", category: "Oncology", form: "Injection", rx: false },
+  { name: "Cyclophosphamide Hikma 500 mg inj./inf. sol. (pwdr.) i.v. vial", generic: "", category: "Oncology", form: "Injection", rx: false },
+  { name: "Dazparda 100 U/ml inj. sol. s.c. pre-filled pen", generic: "", category: "Diabetes", form: "Injection", rx: false },
+  { name: "Tuyory 20 mg/ml inf. sol. (conc.) i.v. vial", generic: "", category: "Corticosteroids", form: "Injection", rx: false },
+  { name: "Tuyory 162 mg inj. sol. s.c. pre-filled syr.", generic: "", category: "Corticosteroids", form: "Tablet", rx: false },
+  { name: "Tuyory 162 mg inj. sol. s.c. pre-filled pen", generic: "", category: "Corticosteroids", form: "Injection", rx: false },
+
 ];
 
 const CATEGORIES = [

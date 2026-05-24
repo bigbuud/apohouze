@@ -1563,6 +1563,13 @@ const MEDICINES = [
 
   { name: "Xolremdi", generic: "mavorixafor", category: "Oncology", form: "Tablet", rx: true },
 
+  { name: "Colchicine Agepha Pharma", generic: "colchicine", category: "Joints & Muscles", form: "Tablet", rx: true },
+  { name: "Ablymico", generic: "liraglutide", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Liraglutide STADA", generic: "liraglutide", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Vijoice", generic: "alpelisib", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Vislyfa", generic: "ranibizumab", category: "Eye & Ear", form: "Tablet", rx: true },
+  { name: "Etcamah", generic: "camizestrant", category: "Oncology", form: "Tablet", rx: true },
+
 ];
 
 module.exports = { MEDICINES };
