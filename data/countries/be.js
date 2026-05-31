@@ -12347,6 +12347,17 @@ const MEDICINES = [
   { name: "Tuyory 162 mg inj. sol. s.c. pre-filled syr.", generic: "", category: "Corticosteroids", form: "Tablet", rx: false },
   { name: "Tuyory 162 mg inj. sol. s.c. pre-filled pen", generic: "", category: "Corticosteroids", form: "Injection", rx: false },
 
+  { name: "Lercanidipine Mylan 10 mg film-coat. tabl.", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "Lercanidipine Mylan 20 mg film-coat. tabl.", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "Ahzantive 40 mg/ml inj. sol. i.vitr. pre-filled syr.", generic: "", category: "Eye & Ear", form: "Injection", rx: false },
+  { name: "Cyclophosphamide Hikma 1 000 mg inj./inf. sol. (pwdr.) i.v. vial", generic: "", category: "Oncology", form: "Injection", rx: false },
+  { name: "Cyclophosphamide Hikma 2 000 mg inj./inf. sol. (pwdr.) i.v. vial", generic: "", category: "Oncology", form: "Injection", rx: false },
+  { name: "Flector 20 mg/g gel", generic: "", category: "Joints & Muscles", form: "Gel", rx: false },
+  { name: "Metformin Activase  500 mg film-coat. tabl.", generic: "", category: "Diabetes", form: "Tablet", rx: false },
+  { name: "Metformin Activase  850 mg film-coat. tabl.", generic: "", category: "Diabetes", form: "Tablet", rx: false },
+  { name: "Metformin Activase  1 000 mg film-coat. tabl.", generic: "", category: "Diabetes", form: "Tablet", rx: false },
+  { name: "Ropivacaïne HCl Hikma 2 mg/ml inj. sol. epidur. vial", generic: "", category: "Pain & Fever", form: "Injection", rx: false },
+
 ];
 
 const CATEGORIES = [

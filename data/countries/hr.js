@@ -1574,6 +1574,9 @@ const MEDICINES = [
   { name: "Vislyfa", generic: "ranibizumab", category: "Eye & Ear", form: "Tablet", rx: true },
   { name: "Etcamah", generic: "camizestrant", category: "Oncology", form: "Tablet", rx: true },
 
+  { name: "Joenja", generic: "leniolisib phosphate", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Koselugo", generic: "selumetinib sulfate", category: "Oncology", form: "Tablet", rx: true },
+
 ];
 
 module.exports = { MEDICINES };

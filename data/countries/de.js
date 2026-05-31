@@ -6981,6 +6981,9 @@ const MEDICINES = [
   { name: "Vislyfa", generic: "ranibizumab", category: "Eye & Ear", form: "Tablet", rx: false },
   { name: "Etcamah", generic: "camizestrant", category: "Oncology", form: "Tablet", rx: false },
 
+  { name: "Joenja", generic: "leniolisib phosphate", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Koselugo", generic: "selumetinib sulfate", category: "Oncology", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

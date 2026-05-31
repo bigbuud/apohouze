@@ -8895,6 +8895,9 @@ const MEDICINES = [
   { name: "EMEA/H/C/006926", generic: "ranibizumab", category: "Eye & Ear", form: "Tablet", rx: false },
   { name: "EMEA/H/C/006494", generic: "camizestrant", category: "Oncology", form: "Tablet", rx: false },
 
+  { name: "EMEA/H/C/005927", generic: "leniolisib phosphate", category: "Oncology", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/005244", generic: "selumetinib sulfate", category: "Oncology", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

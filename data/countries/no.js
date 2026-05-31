@@ -6967,6 +6967,9 @@ const MEDICINES = [
   { name: "Etcamah", generic: "camizestrant", category: "Oncology", form: "Tablet", rx: false },
   { name: "Ixchiq", generic: "Chikungunya virus", category: "Rx", form: "Tablet", rx: false },
 
+  { name: "Joenja", generic: "leniolisib phosphate", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Koselugo", generic: "selumetinib sulfate", category: "Oncology", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [
