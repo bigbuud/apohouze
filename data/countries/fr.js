@@ -9549,6 +9549,21 @@ const MEDICINES = [
   { name: "PARACETAMOL GNR 1 g", generic: "comprimé sécable", category: "FR", form: "Tablet", rx: false },
   { name: "PARACETAMOL GNR 500 mg", generic: "comprimé", category: "FR", form: "Tablet", rx: false },
 
+  { name: "ADAPALENE/PEROXYDE DE BENZOYLE BAILLEUL 0", generic: "1 %/2", category: "Gel", form: "Gel", rx: false },
+  { name: "AMOXICILLINE/ACIDE CLAVULANIQUE REIG JOFRE 1 g/200 mg", generic: "poudre pour solution injectable/pour perfusion", category: "FR", form: "Tablet", rx: false },
+  { name: "AMOXICILLINE/ACIDE CLAVULANIQUE REIG JOFRE 2 g/200 mg", generic: "poudre pour solution pour perfusion", category: "FR", form: "Tablet", rx: false },
+  { name: "BILASTINE ZENTIVA 20 mg", generic: "comprimé", category: "FR", form: "Tablet", rx: false },
+  { name: "DUTASTERIDE BGR 0", generic: "5 mg", category: "Rx", form: "Tablet", rx: false },
+  { name: "ELUMIBUS 0", generic: "1 mg/g", category: "Rx", form: "Tablet", rx: false },
+  { name: "GABAPENTINE TEVA SANTE 100 mg", generic: "gélule", category: "FR", form: "Tablet", rx: false },
+  { name: "LOPRESSOR LP 200 mg", generic: "comprimé sécable à libération prolongée", category: "FR", form: "Tablet", rx: false },
+  { name: "OMEZELIS", generic: "comprimé pelliculé", category: "FR", form: "Tablet", rx: false },
+  { name: "OXYCODONE BGR LP 10 mg", generic: "comprimé pelliculé à libération prolongée", category: "FR", form: "Tablet", rx: false },
+  { name: "OXYCODONE BGR LP 5 mg", generic: "comprimé pelliculé à libération prolongée", category: "FR", form: "Tablet", rx: false },
+  { name: "TICAGRELOR ARROW 90 mg", generic: "comprimé pelliculé", category: "FR", form: "Tablet", rx: false },
+  { name: "TOTYLEM 60 mg/0", generic: "4 mg", category: "OTC", form: "Tablet", rx: false },
+  { name: "ZOPICLONE EVOLUGEN 7", generic: "5 mg", category: "Rx", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

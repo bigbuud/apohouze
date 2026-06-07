@@ -20337,6 +20337,20 @@ const MEDICINES = [
   { name: "Empagliflozine Synthon 25 mg, filmomhulde tabletten", generic: "EMPAGLIFLOZINE", category: "Diabetes", form: "Tablet", rx: true },
   { name: "Pitaz 4 g/0,5 g poeder voor oplossing voor infusie", generic: "PIPERACILLINE NATRIUM 0-WATER#TAZOBACTAM NATRIUM", category: "Antibiotics", form: "Powder", rx: true },
 
+  { name: "Barnidipine HCl Medcor Retard 10 mg, harde capsules met gereguleerde afgifte", generic: "BARNIDIPINEHYDROCHLORIDE", category: "Heart & Blood Pressure", form: "Capsule", rx: true },
+  { name: "Curalyn Paracetamol/Coffeine 500/50 mg, tabletten", generic: "COFFEINE 0-WATER#PARACETAMOL", category: "Pain & Fever", form: "Tablet", rx: true },
+  { name: "Bysumlog 100 eenheden/ml oplossing voor injectie in een voorgevulde pen", generic: "INSULINE LISPRO", category: "Diabetes", form: "Injection", rx: true },
+  { name: "Ivacaftor STADA 150 mg, filmomhulde tabletten", generic: "IVACAFTOR", category: "Lungs & Asthma", form: "Tablet", rx: true },
+  { name: "Nilotinib Cipla 200 mg harde capsules", generic: "NILOTINIB D-TARTRAAT", category: "Oncology", form: "Capsule", rx: true },
+  { name: "Barnidipine HCl Medcor Retard 20 mg, harde capsules met gereguleerde afgifte", generic: "BARNIDIPINEHYDROCHLORIDE", category: "Heart & Blood Pressure", form: "Capsule", rx: true },
+  { name: "Zithromax 500, 500 mg Filmomhulde tabletten", generic: "AZITROMYCINE 2-WATER", category: "Antibiotics", form: "Tablet", rx: true },
+  { name: "Curalyn Paracetamol liquid caps 500 mg, zachte capsules", generic: "PARACETAMOL", category: "Pain & Fever", form: "Capsule", rx: true },
+  { name: "Nitro \"Pohl\" Infus voor perfusorpompsystemen 1mg/ml, oplossing voor infusie", generic: "NITROGLYCERINE", category: "Heart & Blood Pressure", form: "Solution", rx: true },
+  { name: "Nilotinib Cipla 150 mg harde capsules", generic: "NILOTINIB D-TARTRAAT", category: "Oncology", form: "Capsule", rx: true },
+  { name: "Zithromax 250, 250 mg Filmomhulde tabletten", generic: "AZITROMYCINE 2-WATER", category: "Antibiotics", form: "Tablet", rx: true },
+  { name: "Nilotinib Cipla 50 mg harde capsules", generic: "NILOTINIB D-TARTRAAT", category: "Oncology", form: "Capsule", rx: true },
+  { name: "Teriparatide Cipla 20 microgram/80 microliter, oplossing voor injectie in voorgevulde pen", generic: "TERIPARATIDEACETAAT", category: "Vitamins & Supplements", form: "Injection", rx: true },
+
 ];
 
 const CATEGORIES = [

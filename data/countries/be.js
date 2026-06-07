@@ -12358,6 +12358,28 @@ const MEDICINES = [
   { name: "Metformin Activase  1 000 mg film-coat. tabl.", generic: "", category: "Diabetes", form: "Tablet", rx: false },
   { name: "Ropivacaïne HCl Hikma 2 mg/ml inj. sol. epidur. vial", generic: "", category: "Pain & Fever", form: "Injection", rx: false },
 
+  { name: "Streptuss Heeskruid lozenge", generic: "", category: "Cough & Cold", form: "Lozenge", rx: false },
+  { name: "Poherdy 420 mg inf. sol. (conc.) i.v. vial", generic: "", category: "Oncology", form: "Injection", rx: false },
+  { name: "Joenja 70 mg film-coat. tabl.", generic: "", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Namuscla 83 mg hard caps.", generic: "", category: "Heart & Blood Pressure", form: "Capsule", rx: false },
+  { name: "Namuscla 62 mg hard caps.", generic: "", category: "Heart & Blood Pressure", form: "Capsule", rx: false },
+  { name: "Fubelv 25 mg inj. sol. s.c. pre-filled syr.", generic: "", category: "Corticosteroids", form: "Injection", rx: false },
+  { name: "Fubelv 50 mg inj. sol. s.c. pre-filled syr.", generic: "", category: "Corticosteroids", form: "Injection", rx: false },
+  { name: "Fubelv 50 mg inj. sol. s.c. pre-filled pen", generic: "", category: "Corticosteroids", form: "Injection", rx: false },
+  { name: "Zandoriah 20 µg/80 µl inj. sol. s.c. pre-filled pen", generic: "", category: "Vitamins & Supplements", form: "Injection", rx: false },
+  { name: "Pregabalin Grindeks 25 mg hard caps.", generic: "", category: "Pain & Fever", form: "Capsule", rx: false },
+  { name: "Pregabalin Grindeks 75 mg hard caps.", generic: "", category: "Pain & Fever", form: "Capsule", rx: false },
+  { name: "Pregabalin Grindeks 150 mg hard caps.", generic: "", category: "Pain & Fever", form: "Capsule", rx: false },
+  { name: "Pregabalin Grindeks 300 mg hard caps.", generic: "", category: "Pain & Fever", form: "Capsule", rx: false },
+  { name: "Pulsairis 21.7 % v/v medicin. gas (compressed) gas cylindre bundle gas cylinder", generic: "", category: "First Aid", form: "Tablet", rx: false },
+  { name: "Pulsairis 21.7 % v/v medicin. gas (compressed) gas cylindre bundle", generic: "", category: "First Aid", form: "Tablet", rx: false },
+  { name: "Empagliflozine/Metformine HCl HCS 5 mg - 850 mg film-coat. tabl.", generic: "", category: "Diabetes", form: "Tablet", rx: false },
+  { name: "Empagliflozine/Metformine HCl HCS 5 mg - 1 000 mg film-coat. tabl.", generic: "", category: "Diabetes", form: "Tablet", rx: false },
+  { name: "Empagliflozine/Metformine HCl HCS 12.5 mg - 850 mg film-coat. tabl.", generic: "", category: "Diabetes", form: "Tablet", rx: false },
+  { name: "Ivacaftor AB 150 mg film-coat. tabl.", generic: "", category: "Lungs & Asthma", form: "Tablet", rx: false },
+  { name: "Apixlets 2.5 mg hard caps.", generic: "", category: "Anticoagulants", form: "Capsule", rx: false },
+  { name: "Apixlets 5 mg hard caps.", generic: "", category: "Anticoagulants", form: "Capsule", rx: false },
+
 ];
 
 const CATEGORIES = [
