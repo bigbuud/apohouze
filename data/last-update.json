@@ -1,16 +1,16 @@
 {
-  "updated_at": "2026-06-07T07:05:44.091Z",
+  "updated_at": "2026-06-14T07:22:49.307Z",
   "dry_run": false,
   "results": {
     "be": {
-      "before": 12345,
-      "after": 12366,
-      "added": 21
+      "before": 12366,
+      "after": 12384,
+      "added": 18
     },
     "nl": {
-      "before": 20299,
-      "after": 20311,
-      "added": 12
+      "before": 20311,
+      "after": 20342,
+      "added": 31
     },
     "de": {
       "before": 6973,
@@ -23,9 +23,9 @@
       "added": 0
     },
     "fr": {
-      "before": 9544,
+      "before": 9558,
       "after": 9558,
-      "added": 14
+      "added": 0
     },
     "it": {
       "before": 8886,
@@ -33,9 +33,9 @@
       "added": 0
     },
     "us": {
-      "before": 18687,
-      "after": 18753,
-      "added": 66
+      "before": 18753,
+      "after": 18783,
+      "added": 30
     },
     "ca": {
       "before": 10978,

@@ -12380,6 +12380,25 @@ const MEDICINES = [
   { name: "Apixlets 2.5 mg hard caps.", generic: "", category: "Anticoagulants", form: "Capsule", rx: false },
   { name: "Apixlets 5 mg hard caps.", generic: "", category: "Anticoagulants", form: "Capsule", rx: false },
 
+  { name: "Paracetamol Fresenius 10 mg/ml inf. sol. i.v.", generic: "", category: "Pain & Fever", form: "Injection", rx: false },
+  { name: "Letrozole Teva 2.5 mg (Orifarm) film-coat. tabl.", generic: "", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Zepzelca 2 mg inj. sol. (pwdr., conc.) i.v. vial", generic: "", category: "Oncology", form: "Injection", rx: false },
+  { name: "Zepzelca 4 mg inj. sol. (pwdr., conc.) i.v. vial", generic: "", category: "Oncology", form: "Injection", rx: false },
+  { name: "Vistabel  4 U/0.1 ml (Orifarm) inj. sol. (pwdr.) i.m. vial", generic: "", category: "Joints & Muscles", form: "Injection", rx: false },
+  { name: "Dapagliflozin AB 5 mg film-coat. tabl.", generic: "", category: "Diabetes", form: "Tablet", rx: false },
+  { name: "Dapagliflozin AB 10 mg film-coat. tabl.", generic: "", category: "Diabetes", form: "Tablet", rx: false },
+  { name: "Atenativ 500 IU inf. sol. (pwdr. + solv.) i.v. vial", generic: "", category: "Anticoagulants", form: "Injection", rx: false },
+  { name: "Atenativ 1 000 IU inf. sol. (pwdr. + solv.) i.v. vial", generic: "", category: "Anticoagulants", form: "Injection", rx: false },
+  { name: "EpiPen Next Junior 150 µg inj. sol. i.m. pre-filled pen", generic: "", category: "Heart & Blood Pressure", form: "Injection", rx: false },
+  { name: "EpiPen Next 300 µg inj. sol. i.m. pre-filled pen", generic: "", category: "Heart & Blood Pressure", form: "Injection", rx: false },
+  { name: "Vestilora 16.2 mg/g transderm. gel met. pump", generic: "", category: "Women's Health", form: "Gel", rx: false },
+  { name: "Finasteride Viatris Pharma 5 mg film-coat. tabl.", generic: "", category: "Urology", form: "Tablet", rx: false },
+  { name: "Methylfenidaat Infarama 10 mg hard caps. modif.-rel.", generic: "", category: "Antidepressants", form: "Capsule", rx: false },
+  { name: "Methylfenidaat Infarama 20 mg hard caps. modif.-rel.", generic: "", category: "Antidepressants", form: "Capsule", rx: false },
+  { name: "Methylfenidaat Infarama 30 mg hard caps. modif.-rel.", generic: "", category: "Antidepressants", form: "Capsule", rx: false },
+  { name: "Methylfenidaat Infarama 40 mg hard caps. modif.-rel.", generic: "", category: "Antidepressants", form: "Capsule", rx: false },
+  { name: "Methylfenidaat Infarama 60 mg hard caps. modif.-rel.", generic: "", category: "Antidepressants", form: "Capsule", rx: false },
+
 ];
 
 const CATEGORIES = [
