@@ -12399,6 +12399,11 @@ const MEDICINES = [
   { name: "Methylfenidaat Infarama 40 mg hard caps. modif.-rel.", generic: "", category: "Antidepressants", form: "Capsule", rx: false },
   { name: "Methylfenidaat Infarama 60 mg hard caps. modif.-rel.", generic: "", category: "Antidepressants", form: "Capsule", rx: false },
 
+  { name: "Venlafaxin Retard Sandoz  150 mg (Orifarm) hard caps. prol.-rel.", generic: "", category: "Antidepressants", form: "Capsule", rx: false },
+  { name: "Tadalafil AB 5 mg (Orifarm) film-coat. tabl.", generic: "", category: "Urology", form: "Tablet", rx: false },
+  { name: "Bysumlog 100 U/ml inj. sol. s.c. pre-filled pen", generic: "", category: "Diabetes", form: "Injection", rx: false },
+  { name: "Mucophyl pastille", generic: "", category: "Cough & Cold", form: "Lozenge", rx: false },
+
 ];
 
 const CATEGORIES = [
