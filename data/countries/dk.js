@@ -5425,6 +5425,13 @@ const MEDICINES = [
   { name: "Joenja", generic: "leniolisib phosphate", category: "Oncology", form: "Tablet", rx: false },
   { name: "Koselugo", generic: "selumetinib sulfate", category: "Oncology", form: "Tablet", rx: false },
 
+  { name: "Denosumab Ascend", generic: "denosumab", category: "Joints & Muscles", form: "Tablet", rx: false },
+  { name: "Hopledo", generic: "carbidopa monohydrate;levodopa", category: "Neurology", form: "Tablet", rx: false },
+  { name: "Nylaspeg", generic: "pegfilgrastim", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Tacquell", generic: "autologous melanoma-derived tumor infiltrating lymphocytes", category: "Rx", form: "Tablet", rx: false },
+  { name: "Yartemlea", generic: "narsoplimab", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Cenrifki", generic: "tolebrutinib", category: "Corticosteroids", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

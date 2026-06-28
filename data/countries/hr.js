@@ -1577,6 +1577,12 @@ const MEDICINES = [
   { name: "Joenja", generic: "leniolisib phosphate", category: "Oncology", form: "Tablet", rx: true },
   { name: "Koselugo", generic: "selumetinib sulfate", category: "Oncology", form: "Tablet", rx: true },
 
+  { name: "Denosumab Ascend", generic: "denosumab", category: "Joints & Muscles", form: "Tablet", rx: true },
+  { name: "Hopledo", generic: "carbidopa monohydrate;levodopa", category: "Neurology", form: "Tablet", rx: true },
+  { name: "Nylaspeg", generic: "pegfilgrastim", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Yartemlea", generic: "narsoplimab", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Cenrifki", generic: "tolebrutinib", category: "Corticosteroids", form: "Tablet", rx: true },
+
 ];
 
 module.exports = { MEDICINES };

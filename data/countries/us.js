@@ -18834,6 +18834,31 @@ const MEDICINES = [
   { name: "Anytalk Nail Fungus Treatment 15ml (1% Tonailate)", generic: "Tolnaftate1%", category: "US", form: "Solution", rx: false },
   { name: "Tolnaftate1%", generic: "Tolnaftate1%", category: "US", form: "Solution", rx: false },
 
+  { name: "MCAS Support", generic: "Apis Mellifica", category: "Chamomilla", form: "Tablet", rx: false },
+  { name: "DESENFRIOL D", generic: "Acetaminophen", category: "OTC", form: "Tablet", rx: false },
+  { name: "GO HOME AND HAVEN ANTIBACTERIAL HAND WIPES", generic: "benzalkonium chloride", category: "First Aid", form: "Tablet", rx: false },
+  { name: "Extra Strength TYLENOL Cold plus Flu Multi Symptom Day", generic: "Acetaminophen and Dextromethorphan Hydrobromide", category: "US", form: "Tablet", rx: false },
+  { name: "Boostervite", generic: "Multivitamin", category: "Vitamins & Supplements", form: "Tablet", rx: false },
+  { name: "Brimonidine Tartrate and Timolol maleate Ophthalmic Solution", generic: "Brimonidine Tartrate and Timolol maleate", category: "Eye & Ear", form: "Drops", rx: false },
+  { name: "BellamiLuxx Body acne cleanser", generic: "Benzoyl Peroxide 4%", category: "Skin & Wounds", form: "Tablet", rx: false },
+  { name: "Benzoyl Peroxide 4%", generic: "Benzoyl Peroxide 4%", category: "Skin & Wounds", form: "Tablet", rx: false },
+  { name: "Nerve Guard Nerve Relief", generic: "Lidocaine Hydrochloride", category: "Rx", form: "Tablet", rx: false },
+  { name: "AXIV Sinus OVERNIGHT", generic: "Oxymetazoline hydrochloride.", category: "Cough & Cold", form: "Spray", rx: false },
+  { name: "Anti-Dandruff", generic: "Ketoconazole", category: "Antifungals", form: "Tablet", rx: false },
+  { name: "Multiple Vitamins (Pediatric) Single Dose Vial", generic: "Ascorbic Acid", category: "Pyridoxine Hydrochloride", form: "Tablet", rx: false },
+  { name: "Chloraseptic Nighttime Sore Throat Hot Relief", generic: "acetaminophen and diphenhydramine hydrochloride", category: "US", form: "Powder", rx: false },
+  { name: "Nervionoix Pro Neuropathy Fast Acting Cream", generic: "Lidocaine Hydrochloride", category: "Rx", form: "Tablet", rx: false },
+  { name: "MOROVAN", generic: "ESTRIOL", category: "Women's Health", form: "Cream", rx: false },
+  { name: "Neo-Synephrine Severe", generic: "PHENYLEPHRINE HYDROCHLORIDE", category: "Cough & Cold", form: "Spray", rx: false },
+  { name: "Anytalk FUNGAL NAIL TREATMENT", generic: "Tolnaftate 1%", category: "Antifungals", form: "Tablet", rx: false },
+  { name: "SET 4TE HOMO", generic: "Adeps Suillus", category: "Dopamine (Hydrochloride)", form: "Tablet", rx: false },
+  { name: "NO DRIP NASAL", generic: "phenylephrine hydrochloride", category: "Cough & Cold", form: "Spray", rx: false },
+  { name: "Gencare-Allergy Relief", generic: "Fexofenadine Hydrochloride", category: "Allergy", form: "Tablet", rx: false },
+  { name: "DAY TIME INTENSE FLU", generic: "acetaminophen", category: "US", form: "Tablet", rx: false },
+  { name: "Dial Antibacterial Peppermint Cookie Limited Seasonal", generic: "Benzalkonium Chloride", category: "First Aid", form: "Solution", rx: false },
+  { name: "Lidovyx", generic: "Lidocaine 4%", category: "First Aid", form: "Gel", rx: false },
+  { name: "Bismuth Subsalicylate Pink Bismuth", generic: "Bismuth subsalicylate", category: "US", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

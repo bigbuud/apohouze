@@ -8898,6 +8898,12 @@ const MEDICINES = [
   { name: "EMEA/H/C/005927", generic: "leniolisib phosphate", category: "Oncology", form: "Tablet", rx: false },
   { name: "EMEA/H/C/005244", generic: "selumetinib sulfate", category: "Oncology", form: "Tablet", rx: false },
 
+  { name: "EMEA/H/C/006626", generic: "denosumab", category: "Joints & Muscles", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/006629", generic: "carbidopa monohydrate;levodopa", category: "Neurology", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/006085", generic: "pegfilgrastim", category: "Oncology", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/005247", generic: "narsoplimab", category: "Oncology", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/006386", generic: "tolebrutinib", category: "Corticosteroids", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

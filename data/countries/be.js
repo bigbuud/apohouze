@@ -12404,6 +12404,26 @@ const MEDICINES = [
   { name: "Bysumlog 100 U/ml inj. sol. s.c. pre-filled pen", generic: "", category: "Diabetes", form: "Injection", rx: false },
   { name: "Mucophyl pastille", generic: "", category: "Cough & Cold", form: "Lozenge", rx: false },
 
+  { name: "Somatostatine-Belpharma 3 mg inf. sol. (pwdr.) i.v. amp.", generic: "", category: "Thyroid", form: "Injection", rx: false },
+  { name: "Hiberix 10 µg/0.5 ml inj. sol. (pwdr. + solv.) i.m. pre-filled syr. vial", generic: "", category: "Antivirals", form: "Injection", rx: false },
+  { name: "Empagliflozine/Metformine HCl HCS 12.5 mg - 1 000 mg film-coat. tabl.", generic: "", category: "Diabetes", form: "Tablet", rx: false },
+  { name: "Lojuxta 2 mg hard caps.", generic: "", category: "Cholesterol", form: "Capsule", rx: false },
+  { name: "Sarclisa 1 400 mg inj. sol. s.c. vial", generic: "", category: "Oncology", form: "Injection", rx: false },
+  { name: "Concerta 18 mg (PI Pharma) tabl. prol.-rel.", generic: "", category: "Antidepressants", form: "Tablet", rx: false },
+  { name: "Concerta 36 mg (PI Pharma) tabl. prol.-rel.", generic: "", category: "Antidepressants", form: "Tablet", rx: false },
+  { name: "Gardasil 9 inj. susp. i.m. multidos. cont.", generic: "", category: "Antivirals", form: "Injection", rx: false },
+  { name: "Detrusitol  2 mg (PI Pharma) film-coat. tabl.", generic: "", category: "Urology", form: "Tablet", rx: false },
+  { name: "Casodex 150  150 mg (Orifarm) film-coat. tabl.", generic: "", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Curanail 5 % (PI Pharma) medic. nail lacquer", generic: "", category: "Antifungals", form: "Tablet", rx: false },
+  { name: "Methylphenidate Retard Viatris Pharma 18 mg tabl. prol.-rel.", generic: "", category: "Antidepressants", form: "Tablet", rx: false },
+  { name: "Methylphenidate Retard Viatris Pharma 27 mg tabl. prol.-rel.", generic: "", category: "Antidepressants", form: "Tablet", rx: false },
+  { name: "Methylphenidate Retard Viatris Pharma 36 mg tabl. prol.-rel.", generic: "", category: "Antidepressants", form: "Tablet", rx: false },
+  { name: "Methylphenidate Retard Viatris Pharma 54 mg tabl. prol.-rel.", generic: "", category: "Antidepressants", form: "Tablet", rx: false },
+  { name: "Prucalopride Orifarm 1 mg film-coat. tabl.", generic: "", category: "Stomach & Intestine", form: "Tablet", rx: false },
+  { name: "Prucalopride Orifarm 2 mg film-coat. tabl.", generic: "", category: "Stomach & Intestine", form: "Tablet", rx: false },
+  { name: "Skyrizi 55 mg inj. sol. s.c. pre-filled syr.", generic: "", category: "Corticosteroids", form: "Injection", rx: false },
+  { name: "Adstiladrin 3 10*11 vp/ml i.vesic. susp. vial", generic: "", category: "Oncology", form: "Suspension", rx: false },
+
 ];
 
 const CATEGORIES = [
