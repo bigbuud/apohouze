@@ -9564,6 +9564,27 @@ const MEDICINES = [
   { name: "TOTYLEM 60 mg/0", generic: "4 mg", category: "OTC", form: "Tablet", rx: false },
   { name: "ZOPICLONE EVOLUGEN 7", generic: "5 mg", category: "Rx", form: "Tablet", rx: false },
 
+  { name: "AZELASTINE CHLORHYDRATE/FLUTICASONE PROPIONATE ZENTIVA 137 microgrammes/50 microgrammes", generic: "suspension pour pulvérisation nasale", category: "FR", form: "Tablet", rx: false },
+  { name: "CANDESARTAN CRISTERS LAB 4 mg", generic: "comprimé sécable", category: "FR", form: "Tablet", rx: false },
+  { name: "CLARITHROMYCINE ARROW LAB 250 mg", generic: "comprimé pelliculé", category: "FR", form: "Tablet", rx: false },
+  { name: "DICLOFENAC SANDOZ CONSEIL 2%", generic: "gel", category: "FR", form: "Tablet", rx: false },
+  { name: "DICLOFENAC URGO 4 %", generic: "solution pour pulvérisation cutanée", category: "FR", form: "Tablet", rx: false },
+  { name: "ENOXAPARINE BIOGARAN 2 000 UI (20 mg)/0", generic: "2 mL", category: "Rx", form: "Tablet", rx: false },
+  { name: "ENOXAPARINE BIOGARAN 4 000 UI (40 mg)/0", generic: "4 mL", category: "Rx", form: "Tablet", rx: false },
+  { name: "ENOXAPARINE BIOGARAN 6 000 UI (60 mg)/0", generic: "6 mL", category: "Rx", form: "Tablet", rx: false },
+  { name: "ENOXAPARINE BIOGARAN 8 000 UI (80 mg)/0", generic: "8 mL", category: "Rx", form: "Tablet", rx: false },
+  { name: "EXEMESTANE ARROW LAB 25 mg", generic: "comprimé pelliculé", category: "FR", form: "Tablet", rx: false },
+  { name: "IMATINIB EG LABO 400 mg", generic: "comprimé pelliculé sécable", category: "FR", form: "Tablet", rx: false },
+  { name: "IZAMBY 60 mg", generic: "solution injectable en seringue préremplie", category: "FR", form: "Tablet", rx: false },
+  { name: "JEZTIQ 2 mg/0", generic: "02 mg", category: "Rx", form: "Tablet", rx: false },
+  { name: "KEFDENSIS 60 mg", generic: "solution injectable en seringue préremplie", category: "FR", form: "Tablet", rx: false },
+  { name: "OMLYCLO 300 mg", generic: "solution injectable en seringue préremplie", category: "FR", form: "Tablet", rx: false },
+  { name: "OXYCODONE BGR LP 40 mg", generic: "comprimé pelliculé à libération prolongée", category: "FR", form: "Tablet", rx: false },
+  { name: "PARACETAMOL BENTA 1000 mg", generic: "comprimé pelliculé", category: "FR", form: "Tablet", rx: false },
+  { name: "SAXAGLIPTINE ARROW 5 mg", generic: "comprimé pelliculé", category: "FR", form: "Tablet", rx: false },
+  { name: "TAMSULOSINE EG LABO LP 0", generic: "4 mg", category: "Rx", form: "Tablet", rx: false },
+  { name: "TWICOR 5 mg/10 mg", generic: "comprimé pelliculé", category: "FR", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

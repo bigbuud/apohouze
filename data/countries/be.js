@@ -12424,6 +12424,25 @@ const MEDICINES = [
   { name: "Skyrizi 55 mg inj. sol. s.c. pre-filled syr.", generic: "", category: "Corticosteroids", form: "Injection", rx: false },
   { name: "Adstiladrin 3 10*11 vp/ml i.vesic. susp. vial", generic: "", category: "Oncology", form: "Suspension", rx: false },
 
+  { name: "Carboplatine Hikma 450 mg/45 ml inf. sol. (conc.) i.v. vial", generic: "", category: "Oncology", form: "Injection", rx: false },
+  { name: "Carboplatine Hikma 600 mg/60 ml inf. sol. (conc.) i.v. vial", generic: "", category: "Oncology", form: "Injection", rx: false },
+  { name: "Carboplatine Hikma 150 mg/15 ml inf. sol. (conc.) i.v. vial", generic: "", category: "Oncology", form: "Injection", rx: false },
+  { name: "Carboplatine Hikma 50 mg/5 ml inf. sol. (conc.) i.v. vial", generic: "", category: "Oncology", form: "Injection", rx: false },
+  { name: "Palbociclib Viatris 75 mg film-coat. tabl.", generic: "", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Palbociclib Viatris 100 mg film-coat. tabl.", generic: "", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Palbociclib Viatris 125 mg film-coat. tabl.", generic: "", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Imdylltra 10 mg inj. sol. (pwdr. + sol., conc.) i.v. vial", generic: "", category: "Oncology", form: "Injection", rx: false },
+  { name: "Zinnentis 6 mg/ml inj. sol. s.c. pre-filled pen", generic: "", category: "Diabetes", form: "Injection", rx: false },
+  { name: "APO-GO-CARTRIDGE 5 mg/ml inf. sol. s.c. cartr.", generic: "", category: "Neurology", form: "Injection", rx: false },
+  { name: "Latanoprost Genetic 50 µg/ml eye drops sol. single-dose cont.", generic: "", category: "Eye & Ear", form: "Eye drops", rx: false },
+  { name: "Nilotinib Eugia 50 mg hard caps.", generic: "", category: "Oncology", form: "Capsule", rx: false },
+  { name: "Nilotinib Eugia 150 mg hard caps.", generic: "", category: "Oncology", form: "Capsule", rx: false },
+  { name: "Nilotinib Eugia 200 mg hard caps.", generic: "", category: "Oncology", form: "Capsule", rx: false },
+  { name: "Dormaforcemed tabl.", generic: "", category: "Sleep & Sedation", form: "Tablet", rx: false },
+  { name: "Melatonine Viatris 2 mg tabl. prol.-rel.", generic: "", category: "Sleep & Sedation", form: "Tablet", rx: false },
+  { name: "Koselugo 5 mg gran. (caps. for opening)", generic: "", category: "Oncology", form: "Capsule", rx: false },
+  { name: "Koselugo 7.5 mg gran. (caps. for opening)", generic: "", category: "Oncology", form: "Capsule", rx: false },
+
 ];
 
 const CATEGORIES = [

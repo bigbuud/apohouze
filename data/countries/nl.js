@@ -20464,6 +20464,27 @@ const MEDICINES = [
   { name: "Testosteron Xiromed 16,2 mg/g gel voor transdermaal gebruik", generic: "TESTOSTERON", category: "Women's Health", form: "Gel", rx: true },
   { name: "Sephience 1.000 mg poeder voor oraal gebruik in sachet", generic: "SEPIAPTERIN", category: "Stomach & Intestine", form: "Powder", rx: true },
 
+  { name: "Paracetamol Fresenius 10 mg/ml oplossing voor infusie", generic: "PARACETAMOL", category: "Pain & Fever", form: "Solution", rx: true },
+  { name: "Nicorandil Double-e Pharma 10 mg tabletten", generic: "NICORANDIL", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
+  { name: "Lojuxta 2 mg harde capsules", generic: "LOMITAPIDEMESILAAT", category: "Cholesterol", form: "Capsule", rx: true },
+  { name: "Palbociclib Synthon 75 mg, filmomhulde tabletten", generic: "PALBOCICLIB", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Palbociclib Synthon 125 mg, filmomhulde tabletten", generic: "PALBOCICLIB", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Empagliflozine Reddy 10 mg filmomhulde tabletten", generic: "EMPAGLIFLOZINE", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Savatil 97 mg/103 mg filmomhulde tabletten", generic: "SACUBITRIL NATRIUM#VALSARTAN DINATRIUM", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
+  { name: "Bimatoprost Stulln 0,3 mg/ml oogdruppels, oplossing in verpakking voor eenmalig gebruik", generic: "BIMATOPROST", category: "Eye & Ear", form: "Eye drops", rx: true },
+  { name: "Liraglutide Xiromed 6 mg/ml oplossing voor injectie in een voorgevulde pen", generic: "LIRAGLUTIDE", category: "Diabetes", form: "Injection", rx: true },
+  { name: "Empagliflozine Reddy 25 mg filmomhulde tabletten", generic: "EMPAGLIFLOZINE", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Clobetasolpropionaat Eureco-Pharma 500 microgram/g shampoo", generic: "CLOBETASOLPROPIONAAT", category: "Corticosteroids", form: "Tablet", rx: true },
+  { name: "Solifenacinesuccinaat Faye 10 mg filmomhulde tabletten", generic: "SOLIFENACINESUCCINAAT", category: "Urology", form: "Tablet", rx: true },
+  { name: "Savatil 24 mg/26 mg filmomhulde tabletten", generic: "SACUBITRIL NATRIUM#VALSARTAN DINATRIUM", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
+  { name: "Nitro \"Pohl\" Infus voor perfusorpompsystemen 1mg/ml, oplossing voor infusie", generic: "NITROGLYCERINE", category: "Heart & Blood Pressure", form: "Solution", rx: true },
+  { name: "Solifenacinesuccinaat Faye 5 mg filmomhulde tabletten", generic: "SOLIFENACINESUCCINAAT", category: "Urology", form: "Tablet", rx: true },
+  { name: "Nicorandil Double-e Pharma 20 mg tabletten", generic: "NICORANDIL", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
+  { name: "Dapagliflozine Steden Pharma 10 mg, filmomhulde tabletten", generic: "DAPAGLIFLOZINEPROPAANDIOL 1-WATER", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Palbociclib Synthon 100 mg, filmomhulde tabletten", generic: "PALBOCICLIB", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Dapagliflozine Steden Pharma 5 mg, filmomhulde tabletten", generic: "DAPAGLIFLOZINEPROPAANDIOL 1-WATER", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Savatil 49 mg/51 mg filmomhulde tabletten", generic: "SACUBITRIL NATRIUM#VALSARTAN DINATRIUM", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
+
 ];
 
 const CATEGORIES = [
