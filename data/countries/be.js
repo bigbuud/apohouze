@@ -12443,6 +12443,21 @@ const MEDICINES = [
   { name: "Koselugo 5 mg gran. (caps. for opening)", generic: "", category: "Oncology", form: "Capsule", rx: false },
   { name: "Koselugo 7.5 mg gran. (caps. for opening)", generic: "", category: "Oncology", form: "Capsule", rx: false },
 
+  { name: "Bopediat 5 mg orodisp. tabl.", generic: "", category: "Heart & Blood Pressure", form: "Dispersible tablet", rx: false },
+  { name: "Empagliflozin AB 10 mg film-coat. tabl.", generic: "", category: "Diabetes", form: "Tablet", rx: false },
+  { name: "Empagliflozin AB 25 mg film-coat. tabl.", generic: "", category: "Diabetes", form: "Tablet", rx: false },
+  { name: "Gyxiny 25 µg tabl.", generic: "", category: "Women's Health", form: "Tablet", rx: false },
+  { name: "Lamotrigine Ptr Pharma 5 mg tabl.", generic: "", category: "Neurology", form: "Tablet", rx: false },
+  { name: "Lamotrigine Ptr Pharma 100 mg tabl.", generic: "", category: "Neurology", form: "Tablet", rx: false },
+  { name: "Odflix 1 mg orodisp. film sachet", generic: "", category: "Sleep & Sedation", form: "Dispersible tablet", rx: false },
+  { name: "Odflix 2.5 mg orodisp. film sachet", generic: "", category: "Sleep & Sedation", form: "Dispersible tablet", rx: false },
+  { name: "Rexatilux 10 mg/ml inj. sol. i.vitr. pre-filled syr.", generic: "", category: "Eye & Ear", form: "Injection", rx: false },
+  { name: "Rexatilux 10 mg/ml inj. sol. i.vitr. vial", generic: "", category: "Eye & Ear", form: "Injection", rx: false },
+  { name: "Pyrukynd 100 mg film-coat. tabl.", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "Esomeprazol AB 20 mg hard gastro-resist. caps.", generic: "", category: "Stomach & Intestine", form: "Capsule", rx: false },
+  { name: "Esomeprazol AB 40 mg hard gastro-resist. caps.", generic: "", category: "Stomach & Intestine", form: "Capsule", rx: false },
+  { name: "Cenrifki 60 mg film-coat. tabl.", generic: "", category: "Corticosteroids", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

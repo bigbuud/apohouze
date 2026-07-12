@@ -20485,6 +20485,31 @@ const MEDICINES = [
   { name: "Dapagliflozine Steden Pharma 5 mg, filmomhulde tabletten", generic: "DAPAGLIFLOZINEPROPAANDIOL 1-WATER", category: "Diabetes", form: "Tablet", rx: true },
   { name: "Savatil 49 mg/51 mg filmomhulde tabletten", generic: "SACUBITRIL NATRIUM#VALSARTAN DINATRIUM", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
 
+  { name: "Eribuline Tillomed 0,44 mg/ml oplossing voor injectie", generic: "ERIBULINEMESILAAT", category: "Oncology", form: "Injection", rx: true },
+  { name: "Gardasil 9 suspensie voor injectie in een multidoseringscontainer", generic: "RECOMBINANT HUMAAN PAPILLOMAVIRUS TYPE 11-L1 PROTEÏNE#RECOMBINANT HUMAAN PAPILLOMAVIRUS TYPE 16-L1 PROTEÏNE#RECOMBINANT HUMAAN PAPILLOMAVIRUS TYPE 18-L1 PROTEÏNE#RECOMBINANT HUMAAN PAPILLOMAVIRUS TYPE 31-L1 PROTEÏNE#RECOMBINANT HUMAAN PAPILLOMAVIRUS TYPE 33-L1 PROTEÏNE#RECOMBINANT HUMAAN PAPILLOMAVIRUS TYPE 45-L1 PROTEÏNE#RECOMBINANT HUMAAN PAPILLOMAVIRUS TYPE 52-L1 PROTEÏNE#RECOMBINANT HUMAAN PAPILLOMAVIRUS TYPE 58-L1 PROTEÏNE#RECOMBINANT HUMAAN PAPILLOMAVIRUS TYPE 6-L1 PROTEÏNE", category: "Antivirals", form: "Injection", rx: true },
+  { name: "Palbociclib Viatris 100 mg, filmomhulde tabletten", generic: "PALBOCICLIB", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Albert Heijn Maagzuurremmende tabletten Pantoprazol 20 mg, maagsapresistente tabletten", generic: "PANTOPRAZOL NATRIUM 1,5-WATER", category: "Stomach & Intestine", form: "Tablet", rx: false },
+  { name: "Citalopram AMETAS 20 mg filmomhulde tabletten", generic: "CITALOPRAMHYDROBROMIDE", category: "Antidepressants", form: "Tablet", rx: true },
+  { name: "Lacosamide Huahai 150 mg filmomhulde tabletten", generic: "LACOSAMIDE", category: "Neurology", form: "Tablet", rx: true },
+  { name: "Palbociclib Viatris 125 mg, filmomhulde tabletten", generic: "PALBOCICLIB", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Nitrofurantoïne Glenmark 100 mg, harde capsules met gereguleerde afgifte", generic: "NITROFURANTOINE 0-WATER#NITROFURANTOINE 1-WATER", category: "Antibiotics", form: "Capsule", rx: true },
+  { name: "Citalopram AMETAS 30 mg filmomhulde tabletten", generic: "CITALOPRAMHYDROBROMIDE", category: "Antidepressants", form: "Tablet", rx: true },
+  { name: "Eltrombopag Aurobindo 25 mg, filmomhulde tabletten", generic: "ELTROMBOPAGOLAMINE", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
+  { name: "Eltrombopag Aurobindo 75 mg, filmomhulde tabletten", generic: "ELTROMBOPAGOLAMINE", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
+  { name: "Droperidol Eureco-Pharma 2,5 mg/ml oplossing voor injectie", generic: "DROPERIDOL", category: "Sleep & Sedation", form: "Injection", rx: true },
+  { name: "Citalopram AMETAS 10 mg filmomhulde tabletten", generic: "CITALOPRAMHYDROBROMIDE", category: "Antidepressants", form: "Tablet", rx: true },
+  { name: "Lacosamide Huahai 100 mg filmomhulde tabletten", generic: "LACOSAMIDE", category: "Neurology", form: "Tablet", rx: true },
+  { name: "Nitro \"Pohl\" Infus voor perfusorpompsystemen 1mg/ml, oplossing voor infusie", generic: "NITROGLYCERINE", category: "Heart & Blood Pressure", form: "Solution", rx: true },
+  { name: "Eltrombopag Aurobindo 50 mg, filmomhulde tabletten", generic: "ELTROMBOPAGOLAMINE", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
+  { name: "Cenrifki 60 mg filmomhulde tabletten", generic: "TOLEBRUTINIB", category: "Corticosteroids", form: "Tablet", rx: true },
+  { name: "Curalyn Loperamide HCl diarreeremmer 2 mg, harde capsules", generic: "LOPERAMIDEHYDROCHLORIDE", category: "Stomach & Intestine", form: "Capsule", rx: false },
+  { name: "Lacosamide Huahai 200 mg filmomhulde tabletten", generic: "LACOSAMIDE", category: "Neurology", form: "Tablet", rx: true },
+  { name: "Citalopram AMETAS 40 mg filmomhulde tabletten", generic: "CITALOPRAMHYDROBROMIDE", category: "Antidepressants", form: "Tablet", rx: true },
+  { name: "Allegra fexotabs, 120 mg filmomhulde tabletten", generic: "FEXOFENADINEHYDROCHLORIDE", category: "Allergy", form: "Tablet", rx: false },
+  { name: "Lacosamide Huahai 50 mg filmomhulde tabletten", generic: "LACOSAMIDE", category: "Neurology", form: "Tablet", rx: true },
+  { name: "Telfast 180 mg, filmomhulde tabletten", generic: "FEXOFENADINEHYDROCHLORIDE", category: "Allergy", form: "Tablet", rx: true },
+  { name: "Palbociclib Viatris 75 mg, filmomhulde tabletten", generic: "PALBOCICLIB", category: "Oncology", form: "Tablet", rx: true },
+
 ];
 
 const CATEGORIES = [
