@@ -20510,6 +20510,25 @@ const MEDICINES = [
   { name: "Telfast 180 mg, filmomhulde tabletten", generic: "FEXOFENADINEHYDROCHLORIDE", category: "Allergy", form: "Tablet", rx: true },
   { name: "Palbociclib Viatris 75 mg, filmomhulde tabletten", generic: "PALBOCICLIB", category: "Oncology", form: "Tablet", rx: true },
 
+  { name: "Duloxetine Towa 60 mg harde maagsapresistente capsules", generic: "DULOXETINEHYDROCHLORIDE", category: "Antidepressants", form: "Capsule", rx: true },
+  { name: "Sitagliptine HCS 25 mg filmomhulde tabletten", generic: "SITAGLIPTINE", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Fluad, suspensie voor injectie in een voorgevulde spuit", generic: "A-DARWIN-1454-2025 (H3N2)-ACHTIGE STAM (A-MICHIGAN-105-2025, IVR-285)#A-MISSOURI-11-2025 (H1N1)PDM09-ACHTIGE STAM (A-MISSOURI-11-2025, IVR-279)#B-TOKYO-EIS13-175-2025-ACHTIGE STAM (B-PERTH-115-2025, wild type)", category: "Antivirals", form: "Injection", rx: true },
+  { name: "Duloxetine Towa 30 mg harde maagsapresistente capsules", generic: "DULOXETINEHYDROCHLORIDE", category: "Antidepressants", form: "Capsule", rx: true },
+  { name: "Loritax 2 mg, lyophilisaat voor oraal gebruik", generic: "LOPERAMIDEHYDROCHLORIDE", category: "Stomach & Intestine", form: "Tablet", rx: false },
+  { name: "Nintedanib Reig Jofre 100 mg, zachte capsules", generic: "NINTEDANIBESILAAT", category: "Oncology", form: "Capsule", rx: true },
+  { name: "HGS Minoxidil 50 mg/ml oplossing voor cutaan gebruik", generic: "MINOXIDIL", category: "Skin & Wounds", form: "Solution", rx: false },
+  { name: "Sitagliptine HCS 100 mg filmomhulde tabletten", generic: "SITAGLIPTINE", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Sitagliptine HCS 50 mg filmomhulde tabletten", generic: "SITAGLIPTINE", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Nintedanib Reig Jofre 150 mg, zachte capsules", generic: "NINTEDANIBESILAAT", category: "Oncology", form: "Capsule", rx: true },
+  { name: "Nitro \"Pohl\" Infus voor perfusorpompsystemen 1mg/ml, oplossing voor infusie", generic: "NITROGLYCERINE", category: "Heart & Blood Pressure", form: "Solution", rx: true },
+  { name: "Rexatilux 10 mg/ml oplossing voor injectie", generic: "RANIBIZUMAB", category: "Eye & Ear", form: "Injection", rx: true },
+  { name: "Fexofenadine HCl PharmConsul hooikoortstabletten 120 mg, filmomhulde tabletten", generic: "FEXOFENADINEHYDROCHLORIDE", category: "Allergy", form: "Tablet", rx: false },
+  { name: "Dapagliflozine Amarox 10 mg filmomhulde tabletten", generic: "DAPAGLIFLOZINE", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Aicybet 10 mg/ml + 5 mg/ml oogdruppels, suspensie", generic: "BRINZOLAMIDE#TIMOLOLMALEAAT", category: "Eye & Ear", form: "Eye drops", rx: true },
+  { name: "Dorzolamide/Timolol Sandoz 20/5 mg/ml, oogdruppels, oplossing", generic: "DORZOLAMIDEHYDROCHLORIDE#TIMOLOLMALEAAT", category: "Eye & Ear", form: "Eye drops", rx: true },
+  { name: "Dazublys 150 mg poeder voor concentraat voor oplossing voor infusie", generic: "TRASTUZUMAB", category: "Oncology", form: "Powder", rx: true },
+  { name: "Dapagliflozine Amarox 5 mg filmomhulde tabletten", generic: "DAPAGLIFLOZINE", category: "Diabetes", form: "Tablet", rx: true },
+
 ];
 
 const CATEGORIES = [

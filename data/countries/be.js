@@ -12458,6 +12458,24 @@ const MEDICINES = [
   { name: "Esomeprazol AB 40 mg hard gastro-resist. caps.", generic: "", category: "Stomach & Intestine", form: "Capsule", rx: false },
   { name: "Cenrifki 60 mg film-coat. tabl.", generic: "", category: "Corticosteroids", form: "Tablet", rx: false },
 
+  { name: "Imdylltra 1 mg inj. sol. (pwdr. + sol., conc.) i.v. vial", generic: "", category: "Oncology", form: "Injection", rx: false },
+  { name: "Blomensy 2.5 mg film-coat. tabl.", generic: "", category: "Anticoagulants", form: "Tablet", rx: false },
+  { name: "Blomensy 10 mg film-coat. tabl.", generic: "", category: "Anticoagulants", form: "Tablet", rx: false },
+  { name: "Blomensy 15 mg film-coat. tabl.", generic: "", category: "Anticoagulants", form: "Tablet", rx: false },
+  { name: "Blomensy 20 mg film-coat. tabl.", generic: "", category: "Anticoagulants", form: "Tablet", rx: false },
+  { name: "Prucalopride Fagron 1 mg film-coat. tabl.", generic: "", category: "Stomach & Intestine", form: "Tablet", rx: false },
+  { name: "Prucalopride Fagron 2 mg film-coat. tabl.", generic: "", category: "Stomach & Intestine", form: "Tablet", rx: false },
+  { name: "Rivaroxaban Teva Generics 2.5 mg film-coat. tabl.", generic: "", category: "Anticoagulants", form: "Tablet", rx: false },
+  { name: "Rivaroxaban Teva Generics 10 mg film-coat. tabl.", generic: "", category: "Anticoagulants", form: "Tablet", rx: false },
+  { name: "Rivaroxaban Teva Generics 15 mg film-coat. tabl.", generic: "", category: "Anticoagulants", form: "Tablet", rx: false },
+  { name: "Rivaroxaban Teva Generics 20 mg film-coat. tabl.", generic: "", category: "Anticoagulants", form: "Tablet", rx: false },
+  { name: "Rosuvastatin/Ezetimibe AB 5 mg - 10 mg hard caps.", generic: "", category: "Cholesterol", form: "Capsule", rx: false },
+  { name: "Rosuvastatin/Ezetimibe AB 10 mg - 10 mg hard caps.", generic: "", category: "Cholesterol", form: "Capsule", rx: false },
+  { name: "Rosuvastatin/Ezetimibe AB 20 mg - 10 mg hard caps.", generic: "", category: "Cholesterol", form: "Capsule", rx: false },
+  { name: "Algostase Mono Divule 1 g coat. tabl.", generic: "", category: "Pain & Fever", form: "Tablet", rx: false },
+  { name: "Vitamine D3 IBSA 50 000 IU soft caps.", generic: "", category: "Vitamins & Supplements", form: "Capsule", rx: false },
+  { name: "Ivacaftor Teva 150 mg film-coat. tabl.", generic: "", category: "Lungs & Asthma", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [
