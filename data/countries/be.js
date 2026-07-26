@@ -12476,6 +12476,17 @@ const MEDICINES = [
   { name: "Vitamine D3 IBSA 50 000 IU soft caps.", generic: "", category: "Vitamins & Supplements", form: "Capsule", rx: false },
   { name: "Ivacaftor Teva 150 mg film-coat. tabl.", generic: "", category: "Lungs & Asthma", form: "Tablet", rx: false },
 
+  { name: "Wegovy 1.5 mg tabl.", generic: "", category: "Diabetes", form: "Tablet", rx: false },
+  { name: "Wegovy 4 mg tabl.", generic: "", category: "Diabetes", form: "Tablet", rx: false },
+  { name: "Wegovy 9 mg tabl.", generic: "", category: "Diabetes", form: "Tablet", rx: false },
+  { name: "Wegovy 25 mg tabl.", generic: "", category: "Diabetes", form: "Tablet", rx: false },
+  { name: "Wegovy 7.2 mg inj. sol. s.c. pre-filled pen", generic: "", category: "Diabetes", form: "Injection", rx: false },
+  { name: "Wegovy 0.25 mg inj. sol. s.c. pre-filled syr.", generic: "", category: "Diabetes", form: "Injection", rx: false },
+  { name: "Wegovy 0.5 mg inj. sol. s.c. pre-filled syr.", generic: "", category: "Diabetes", form: "Injection", rx: false },
+  { name: "Wegovy 1 mg inj. sol. s.c. pre-filled syr.", generic: "", category: "Diabetes", form: "Injection", rx: false },
+  { name: "Wegovy 1.7 mg inj. sol. s.c. pre-filled syr.", generic: "", category: "Diabetes", form: "Injection", rx: false },
+  { name: "Wegovy 2.4 mg inj. sol. s.c. pre-filled syr.", generic: "", category: "Diabetes", form: "Injection", rx: false },
+
 ];
 
 const CATEGORIES = [

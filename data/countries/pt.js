@@ -6985,6 +6985,21 @@ const MEDICINES = [
   { name: "Yartemlea", generic: "narsoplimab", category: "Oncology", form: "Tablet", rx: false },
   { name: "Cenrifki", generic: "tolebrutinib", category: "Corticosteroids", form: "Tablet", rx: false },
 
+  { name: "Cavoley", generic: "pegfilgrastim", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Evlarco", generic: "ezetimibe;obicetrapib hemicalcium", category: "Cholesterol", form: "Tablet", rx: false },
+  { name: "Lynavoy", generic: "Linerixibat", category: "Stomach & Intestine", form: "Tablet", rx: false },
+  { name: "Lyrokaul", generic: "Lerodalcibep", category: "Cholesterol", form: "Tablet", rx: false },
+  { name: "Meplyffa", generic: "arimoclomol citrate", category: "Nervous System", form: "Tablet", rx: false },
+  { name: "Nezglyal", generic: "leriglitazone", category: "Stomach & Intestine", form: "Tablet", rx: false },
+  { name: "Qezzaqar", generic: "catequentinib dihydrochloride", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Susvimo", generic: "ranibizumab", category: "Eye & Ear", form: "Tablet", rx: false },
+  { name: "Ubeslo", generic: "obicetrapib hemicalcium", category: "Cholesterol", form: "Tablet", rx: false },
+  { name: "Zokovea", generic: "ensitrelvir fumaric acid", category: "Antivirals", form: "Tablet", rx: false },
+  { name: "Jascayd", generic: "nerandomilast", category: "Corticosteroids", form: "Tablet", rx: false },
+  { name: "Tafamidis Accord", generic: "tafamidis", category: "Nervous System", form: "Tablet", rx: false },
+  { name: "Ruxolitinib Viatris", generic: "ruxolitinib hemifumarate", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Riociguat Accord", generic: "riociguat", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

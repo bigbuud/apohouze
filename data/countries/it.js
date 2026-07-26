@@ -8904,6 +8904,21 @@ const MEDICINES = [
   { name: "EMEA/H/C/005247", generic: "narsoplimab", category: "Oncology", form: "Tablet", rx: false },
   { name: "EMEA/H/C/006386", generic: "tolebrutinib", category: "Corticosteroids", form: "Tablet", rx: false },
 
+  { name: "EMEA/H/C/006937", generic: "pegfilgrastim", category: "Oncology", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/006517", generic: "ezetimibe;obicetrapib hemicalcium", category: "Cholesterol", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/006241", generic: "Linerixibat", category: "Stomach & Intestine", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/006694", generic: "Lerodalcibep", category: "Cholesterol", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/006736", generic: "arimoclomol citrate", category: "Nervous System", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/006693", generic: "leriglitazone", category: "Stomach & Intestine", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/006317", generic: "catequentinib dihydrochloride", category: "Oncology", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/006527", generic: "ranibizumab", category: "Eye & Ear", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/006516", generic: "obicetrapib hemicalcium", category: "Cholesterol", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/006063", generic: "ensitrelvir fumaric acid", category: "Antivirals", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/006405", generic: "nerandomilast", category: "Corticosteroids", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/006711", generic: "tafamidis", category: "Nervous System", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/006618", generic: "ruxolitinib hemifumarate", category: "Oncology", form: "Tablet", rx: false },
+  { name: "EMEA/H/C/006838", generic: "riociguat", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [
