@@ -12487,6 +12487,10 @@ const MEDICINES = [
   { name: "Wegovy 1.7 mg inj. sol. s.c. pre-filled syr.", generic: "", category: "Diabetes", form: "Injection", rx: false },
   { name: "Wegovy 2.4 mg inj. sol. s.c. pre-filled syr.", generic: "", category: "Diabetes", form: "Injection", rx: false },
 
+  { name: "Strepfen 8.75 mg lozenge", generic: "", category: "Cough & Cold", form: "Lozenge", rx: false },
+  { name: "Montelukast Sandoz 10 mg (Orifarm) film-coat. tabl.", generic: "", category: "Lungs & Asthma", form: "Tablet", rx: false },
+  { name: "Ezetimibe Viatris  10 mg (Orifarm) tabl.", generic: "", category: "Cholesterol", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [
