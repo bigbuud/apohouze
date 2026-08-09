@@ -12491,6 +12491,10 @@ const MEDICINES = [
   { name: "Montelukast Sandoz 10 mg (Orifarm) film-coat. tabl.", generic: "", category: "Lungs & Asthma", form: "Tablet", rx: false },
   { name: "Ezetimibe Viatris  10 mg (Orifarm) tabl.", generic: "", category: "Cholesterol", form: "Tablet", rx: false },
 
+  { name: "Omeprazole Eurogenerics 20 mg hard gastro-resist. caps.", generic: "", category: "Stomach & Intestine", form: "Capsule", rx: false },
+  { name: "Omeprazole Eurogenerics 40 mg hard gastro-resist. caps.", generic: "", category: "Stomach & Intestine", form: "Capsule", rx: false },
+  { name: "Betahistine EG 24 mg tabl.", generic: "", category: "Nervous System", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

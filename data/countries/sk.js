@@ -1594,6 +1594,8 @@ const MEDICINES = [
   { name: "Ruxolitinib Viatris", generic: "ruxolitinib hemifumarate", category: "Oncology", form: "Tablet", rx: true },
   { name: "Riociguat Accord", generic: "riociguat", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
 
+  { name: "Svariya (previously Rivaroxaban Koanaa)", generic: "rivaroxaban", category: "Anticoagulants", form: "Tablet", rx: true },
+
 ];
 
 module.exports = { MEDICINES };

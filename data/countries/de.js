@@ -7005,6 +7005,8 @@ const MEDICINES = [
   { name: "Ruxolitinib Viatris", generic: "ruxolitinib hemifumarate", category: "Oncology", form: "Tablet", rx: false },
   { name: "Riociguat Accord", generic: "riociguat", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
 
+  { name: "Svariya (previously Rivaroxaban Koanaa)", generic: "rivaroxaban", category: "Anticoagulants", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [
