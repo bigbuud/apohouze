@@ -9382,6 +9382,29 @@ const MEDICINES = [
   { name: "ZYDELIG", generic: "IDELALISIB", category: "Oncology", form: "Tablet", rx: false },
   { name: "IDELALISIB", generic: "IDELALISIB", category: "Oncology", form: "Tablet", rx: false },
 
+  { name: "ACTOS", generic: "PIOGLITAZONE", category: "Diabetes", form: "Tablet", rx: false },
+  { name: "ALENDRONATO MYLAN GENERICS", generic: "ACIDO ALENDRONICO", category: "Joints & Muscles", form: "Tablet", rx: false },
+  { name: "ATENOLOLO RATIOPHARM", generic: "ATENOLOLO", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "AZILECT", generic: "RASAGILINA MESILATO", category: "Neurology", form: "Tablet", rx: false },
+  { name: "CANDESARTAN TEVA ITALIA", generic: "CANDESARTAN", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "CELEBREX", generic: "CELECOXIB", category: "Pain & Fever", form: "Capsule", rx: false },
+  { name: "CETIRIZINA AUROBINDO ITALIA", generic: "CETIRIZINA DICLORIDRATO", category: "Allergy", form: "Tablet", rx: false },
+  { name: "DICOLEV", generic: "COLECALCIFEROLO", category: "Vitamins & Supplements", form: "Tablet", rx: false },
+  { name: "ESILGAN", generic: "ESTAZOLAM", category: "Sleep & Sedation", form: "Tablet", rx: false },
+  { name: "ESTAZOLAM", generic: "ESTAZOLAM", category: "Sleep & Sedation", form: "Tablet", rx: false },
+  { name: "FLECAINIDE TEVA", generic: "FLECAINIDE ACETATO", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "FORMISTIN", generic: "CETIRIZINA DICLORIDRATO", category: "Allergy", form: "Tablet", rx: false },
+  { name: "NIFEDIPINA MYLAN GENERICS ITALIA", generic: "NIFEDIPINA", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "PLENADREN", generic: "IDROCORTISONE", category: "Corticosteroids", form: "Tablet", rx: false },
+  { name: "IDROCORTISONE", generic: "IDROCORTISONE", category: "Corticosteroids", form: "Tablet", rx: false },
+  { name: "PRALUENT", generic: "ALIROCUMAB", category: "Cholesterol", form: "Tablet", rx: false },
+  { name: "ALIROCUMAB", generic: "ALIROCUMAB", category: "Cholesterol", form: "Tablet", rx: false },
+  { name: "PRELYNCA", generic: "PREGABALIN", category: "Pain & Fever", form: "Capsule", rx: false },
+  { name: "TELFAST", generic: "FEXOFENADINA CLORIDRATO", category: "Allergy", form: "Tablet", rx: false },
+  { name: "TERBINAFINA MYLAN GENERICS", generic: "TERBINAFINA", category: "Antifungals", form: "Tablet", rx: false },
+  { name: "VALGANCICLOVIR ACCORD", generic: "VALGANCICLOVIR + VALGANCICLOVIR CLORIDRATO", category: "Antivirals", form: "Tablet", rx: false },
+  { name: "VALGANCICLOVIR + VALGANCICLOVIR CLORIDRATO", generic: "VALGANCICLOVIR + VALGANCICLOVIR CLORIDRATO", category: "Antivirals", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [
