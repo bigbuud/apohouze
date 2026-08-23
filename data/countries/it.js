@@ -9405,6 +9405,10 @@ const MEDICINES = [
   { name: "VALGANCICLOVIR ACCORD", generic: "VALGANCICLOVIR + VALGANCICLOVIR CLORIDRATO", category: "Antivirals", form: "Tablet", rx: false },
   { name: "VALGANCICLOVIR + VALGANCICLOVIR CLORIDRATO", generic: "VALGANCICLOVIR + VALGANCICLOVIR CLORIDRATO", category: "Antivirals", form: "Tablet", rx: false },
 
+  { name: "NINTEDANIB DR. REDDYS", generic: "NINTEDANIB", category: "Oncology", form: "Capsule", rx: false },
+  { name: "NINTEDANIB", generic: "NINTEDANIB", category: "Oncology", form: "Capsule", rx: false },
+  { name: "PIRFENIDONE DR. REDDYS", generic: "PIRFENIDONE", category: "Corticosteroids", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

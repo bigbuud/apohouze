@@ -19152,6 +19152,19 @@ const MEDICINES = [
   { name: "Terramed Just Think Comfort Armor Antifungal Body Wash Tea Tree", generic: "TOLNAFTATE", category: "Antifungals", form: "Gel", rx: false },
   { name: "JJ Care First Aid Burn", generic: "Benzalkonium Chloride", category: "US", form: "Tablet", rx: false },
 
+  { name: "Vicks NyQuil Intense Flu Rapid Release LiquiCaps", generic: "Acetaminophen", category: "LIQUID FILLED", form: "Tablet", rx: false },
+  { name: "5% Nitroglycerin in Ethyl Alcohol", generic: "5% Nitroglycerin in Ethyl Alcohol", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "VXGXO antifungal with tea tree oil", generic: "TOLNAFTATE", category: "Antifungals", form: "Tablet", rx: false },
+  { name: "GoodMeds 24HR Acid Reducer Omeprazole 20mg", generic: "Omeprazole 20mg", category: "US", form: "Tablet", rx: false },
+  { name: "BlissCare tea tree oil antifungal", generic: "Tolnaftate", category: "Antifungals", form: "Tablet", rx: false },
+  { name: "Vicks DayQuil Intense Flu Rapid Release LiquiCaps", generic: "Acetaminophen", category: "OTC", form: "Tablet", rx: false },
+  { name: "Charmpoo ANTIFUNGAL BODY Cream", generic: "Miconazole nitrate 2% ANTIFUNGAL BODY Cream", category: "Antifungals", form: "Cream", rx: false },
+  { name: "Miconazole nitrate 2% ANTIFUNGAL BODY Cream", generic: "Miconazole nitrate 2% ANTIFUNGAL BODY Cream", category: "Antifungals", form: "Cream", rx: false },
+  { name: "GoodMeds Acid Reducer 24HR Esomeprazole Magnesium Delayed-Release 20mg", generic: "Esomeprazole Magnesium 20mg", category: "US", form: "Capsule", rx: false },
+  { name: "Esomeprazole Magnesium 20mg", generic: "Esomeprazole Magnesium 20mg", category: "US", form: "Capsule", rx: false },
+  { name: "Lidocaine Pain Relief Roll on", generic: "Pain Relief Roll on", category: "First Aid", form: "Tablet", rx: false },
+  { name: "Pain Relief Roll on", generic: "Pain Relief Roll on", category: "First Aid", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [
