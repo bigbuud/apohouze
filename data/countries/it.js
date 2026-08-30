@@ -9409,6 +9409,18 @@ const MEDICINES = [
   { name: "NINTEDANIB", generic: "NINTEDANIB", category: "Oncology", form: "Capsule", rx: false },
   { name: "PIRFENIDONE DR. REDDYS", generic: "PIRFENIDONE", category: "Corticosteroids", form: "Tablet", rx: false },
 
+  { name: "CEXIDAL", generic: "CIPROFLOXACINA + FLUOCINOLONE ACETONIDE", category: "Eye & Ear", form: "Tablet", rx: false },
+  { name: "CIPROFLOXACINA + FLUOCINOLONE ACETONIDE", generic: "CIPROFLOXACINA + FLUOCINOLONE ACETONIDE", category: "Eye & Ear", form: "Tablet", rx: false },
+  { name: "CILODEX", generic: "DESAMETASONE", category: "Eye & Ear", form: "Tablet", rx: false },
+  { name: "DUTASTERIDE EG", generic: "DUTASTERIDE", category: "Urology", form: "Tablet", rx: false },
+  { name: "EMTRICITABINA E TENOFOVIR DISOPROXIL AUROBINDO", generic: "TENOFOVIR DISOPROXIL", category: "Antivirals", form: "Tablet", rx: false },
+  { name: "FUNGILAK", generic: "AMOROLFINA", category: "Antifungals", form: "Tablet", rx: false },
+  { name: "AMOROLFINA", generic: "AMOROLFINA", category: "Antifungals", form: "Tablet", rx: false },
+  { name: "FUROSEMIDE L.F.M.", generic: "FUROSEMIDE", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "IVABRADINA AUROBINDO", generic: "IVABRADINA", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "NINTEDANIB SANDOZ", generic: "NINTEDANIB", category: "Oncology", form: "Capsule", rx: false },
+  { name: "PRAMIPEXOLO EG", generic: "PRAMIPEXOLO DICLORIDRATO MONOIDRATO", category: "Neurology", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

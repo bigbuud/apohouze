@@ -20700,6 +20700,32 @@ const MEDICINES = [
   { name: "Tofacitinib STADA 10 mg, filmomhulde tabletten", generic: "TOFACITINIBCITRAAT", category: "Corticosteroids", form: "Tablet", rx: true },
   { name: "Carbetocine EVER Pharma 100 microgram/ml oplossing voor injectie", generic: "CARBETOCINE", category: "Thyroid", form: "Injection", rx: true },
 
+  { name: "Kruidvat Paracetamol 60 mg, zetpillen", generic: "PARACETAMOL", category: "Pain & Fever", form: "Suppository", rx: true },
+  { name: "Azacitidine Reddy 25 mg/ml poeder voor suspensie voor injectie", generic: "AZACITIDINE", category: "Oncology", form: "Injection", rx: true },
+  { name: "Curalyn Ibuprofen 400 mg, filmomhulde tabletten", generic: "IBUPROFEN", category: "Pain & Fever", form: "Tablet", rx: true },
+  { name: "Rosuvastatine/Fenofibraat Viatris 10 mg/160 mg filmomhulde tabletten", generic: "FENOFIBRAAT#ROSUVASTATINE CALCIUM 0-WATER", category: "Cholesterol", form: "Tablet", rx: true },
+  { name: "Paliperidon Viatris 263 mg, suspensie voor injectie met verlengde afgifte in een voorgevulde spuit", generic: "PALIPERIDONPALMITAAT", category: "Sleep & Sedation", form: "Injection", rx: true },
+  { name: "Paliperidon Viatris 525 mg, suspensie voor injectie met verlengde afgifte in een voorgevulde spuit", generic: "PALIPERIDONPALMITAAT", category: "Sleep & Sedation", form: "Injection", rx: true },
+  { name: "Amlodipine/Valsartan/HCT STADA Arzneimittel AG 10 mg/160 mg/12,5 mg, filmomhulde tabletten", generic: "AMLODIPINEBESILAAT#HYDROCHLOORTHIAZIDE#VALSARTAN", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
+  { name: "Amlodipine/Valsartan/HCT STADA Arzneimittel AG 5 mg/160 mg/25 mg, filmomhulde tabletten", generic: "AMLODIPINEBESILAAT#HYDROCHLOORTHIAZIDE#VALSARTAN", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
+  { name: "Amlodipine/Valsartan/HCT STADA Arzneimittel AG 5 mg/160 mg/12,5 mg, filmomhulde tabletten", generic: "AMLODIPINEBESILAAT#HYDROCHLOORTHIAZIDE#VALSARTAN", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
+  { name: "Lunetra 20 mg/ml, oplossing voor infusie", generic: "MORFINEHYDROCHLORIDE 3-WATER", category: "Pain & Fever", form: "Solution", rx: true },
+  { name: "Amlodipine/Valsartan/HCT STADA Arzneimittel AG 10 mg/320 mg/25 mg, filmomhulde tabletten", generic: "AMLODIPINEBESILAAT#HYDROCHLOORTHIAZIDE#VALSARTAN", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
+  { name: "Amlodipine/Valsartan/HCT STADA Arzneimittel AG 10 mg/160 mg/25 mg, filmomhulde tabletten", generic: "AMLODIPINEBESILAAT#HYDROCHLOORTHIAZIDE#VALSARTAN", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
+  { name: "Lunetra 1 mg/ml, oplossing voor infusie", generic: "MORFINEHYDROCHLORIDE 3-WATER", category: "Pain & Fever", form: "Solution", rx: true },
+  { name: "Lunetra 10 mg/ml, oplossing voor infusie", generic: "MORFINEHYDROCHLORIDE 3-WATER", category: "Pain & Fever", form: "Solution", rx: true },
+  { name: "Comirnaty XFG 10 microgram/dosis dispersie voor injectie", generic: "BRETOVAMERAN", category: "Antivirals", form: "Injection", rx: true },
+  { name: "Nitro \"Pohl\" Infus voor perfusorpompsystemen 1mg/ml, oplossing voor infusie", generic: "NITROGLYCERINE", category: "Heart & Blood Pressure", form: "Solution", rx: true },
+  { name: "Ibucoffin 400 mg/100 mg, filmomhulde tabletten", generic: "COFFEINE 0-WATER#IBUPROFEN", category: "Pain & Fever", form: "Tablet", rx: true },
+  { name: "Trifluridine/Tipiracil Eugia 20/8,19 mg, filmomhulde tabletten", generic: "TIPIRACILHYDROCHLORIDE#TRIFLURIDINE", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Olopatadine Brown & Burk 1 mg/ml oogdruppels, oplossing", generic: "OLOPATADINEHYDROCHLORIDE", category: "Eye & Ear", form: "Eye drops", rx: true },
+  { name: "Paliperidon Viatris 175 mg, suspensie voor injectie met verlengde afgifte in een voorgevulde spuit", generic: "PALIPERIDONPALMITAAT", category: "Sleep & Sedation", form: "Injection", rx: true },
+  { name: "Trifluridine/Tipiracil Eugia 15/6,14 mg, filmomhulde tabletten", generic: "TIPIRACILHYDROCHLORIDE#TRIFLURIDINE", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Rosuvastatine/Fenofibraat Viatris 20 mg/160 mg filmomhulde tabletten", generic: "FENOFIBRAAT#ROSUVASTATINE CALCIUM 0-WATER", category: "Cholesterol", form: "Tablet", rx: true },
+  { name: "Curalyn Ibuprofen 200 mg, filmomhulde tabletten", generic: "IBUPROFEN", category: "Pain & Fever", form: "Tablet", rx: true },
+  { name: "Paliperidon Viatris 350 mg, suspensie voor injectie met verlengde afgifte in een voorgevulde spuit", generic: "PALIPERIDONPALMITAAT", category: "Sleep & Sedation", form: "Injection", rx: true },
+  { name: "Comirnaty XFG 30 microgram/dosis dispersie voor injectie in een voorgevulde sluit", generic: "BRETOVAMERAN", category: "Antivirals", form: "Injection", rx: true },
+
 ];
 
 const CATEGORIES = [
