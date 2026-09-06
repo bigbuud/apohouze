@@ -9615,6 +9615,12 @@ const MEDICINES = [
   { name: "VORJA MIEL 5 mg/1 mg", generic: "comprimé à sucer édulcoré au sorbitol et à la stévia", category: "FR", form: "Tablet", rx: false },
   { name: "ZADENVI 60 mg", generic: "solution injectable en seringue préremplie", category: "FR", form: "Tablet", rx: false },
 
+  { name: "DOXYCYCLINE ARROW LAB 100 mg", generic: "comprimé sécable", category: "FR", form: "Tablet", rx: false },
+  { name: "EMTRICITABINE/TENOFOVIR DISOPROXIL EVOLUGEN 200 mg/245 mg", generic: "comprimé pelliculé", category: "FR", form: "Tablet", rx: false },
+  { name: "EVFRAXY 60 mg", generic: "solution injectable en seringue préremplie", category: "FR", form: "Tablet", rx: false },
+  { name: "GABAPENTINE EVOLUGEN PHARMA 100 mg", generic: "gélule", category: "FR", form: "Tablet", rx: false },
+  { name: "XBONZY 120 mg", generic: "solution injectable", category: "FR", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

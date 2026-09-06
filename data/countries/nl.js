@@ -20726,6 +20726,29 @@ const MEDICINES = [
   { name: "Paliperidon Viatris 350 mg, suspensie voor injectie met verlengde afgifte in een voorgevulde spuit", generic: "PALIPERIDONPALMITAAT", category: "Sleep & Sedation", form: "Injection", rx: true },
   { name: "Comirnaty XFG 30 microgram/dosis dispersie voor injectie in een voorgevulde sluit", generic: "BRETOVAMERAN", category: "Antivirals", form: "Injection", rx: true },
 
+  { name: "Barnidipine HCl Medcor 10 mg, harde capsules met gereguleerde afgifte", generic: "BARNIDIPINEHYDROCHLORIDE", category: "Heart & Blood Pressure", form: "Capsule", rx: true },
+  { name: "Cholecalciferol IBSA 25.000 IE zachte capsules", generic: "CHOLECALCIFEROL#CHOLECALCIFEROL", category: "Vitamins & Supplements", form: "Capsule", rx: true },
+  { name: "Dabigatran etexilaat Alembic 75 mg harde capsules", generic: "DABIGATRANETEXILAATMESILAAT", category: "Anticoagulants", form: "Capsule", rx: true },
+  { name: "Kruidvat Xylomare 1 mg/ml, neusspray, oplossing", generic: "XYLOMETAZOLINEHYDROCHLORIDE", category: "Cough & Cold", form: "Nasal spray", rx: false },
+  { name: "Barnidipine HCl Medcor 20 mg, harde capsules met gereguleerde afgifte", generic: "BARNIDIPINEHYDROCHLORIDE", category: "Heart & Blood Pressure", form: "Capsule", rx: true },
+  { name: "Imatinib 1A Pharma 100 mg, filmomhulde tabletten", generic: "IMATINIBMESILAAT", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Emtricitabine/Tenofoviralafenamide Rockmed Pharma 200 mg/10 mg filmomhulde tabletten", generic: "EMTRICITABINE#TENOFOVIRALAFENAMIDESUCCINAAT", category: "Antivirals", form: "Tablet", rx: true },
+  { name: "Cholecalciferol IBSA Farmaceutici 50.000 IE zachte capsules", generic: "CHOLECALCIFEROL#CHOLECALCIFEROL", category: "Vitamins & Supplements", form: "Capsule", rx: true },
+  { name: "Emtricitabine/Tenofoviralafenamide Lupin 200 mg/10 mg filmomhulde tabletten", generic: "EMTRICITABINE#TENOFOVIRALAFENAMIDESUCCINAAT", category: "Antivirals", form: "Tablet", rx: true },
+  { name: "Nitro \"Pohl\" Infus voor perfusorpompsystemen 1mg/ml, oplossing voor infusie", generic: "NITROGLYCERINE", category: "Heart & Blood Pressure", form: "Solution", rx: true },
+  { name: "Cholecalciferol IBSA Farmaceutici 25.000 IE zachte capsules", generic: "CHOLECALCIFEROL#CHOLECALCIFEROL", category: "Vitamins & Supplements", form: "Capsule", rx: true },
+  { name: "Dabigatran etexilaat Alembic 150 mg harde capsules", generic: "DABIGATRANETEXILAATMESILAAT", category: "Anticoagulants", form: "Capsule", rx: true },
+  { name: "Prufibry 1 g poeder en oplosmiddel voor oplossing voor injectie/infusie", generic: "FIBRINOGEEN, HUMAAN", category: "Heart & Blood Pressure", form: "Injection", rx: true },
+  { name: "Dabigatran etexilaat Alembic 110 mg harde capsules", generic: "DABIGATRANETEXILAATMESILAAT", category: "Anticoagulants", form: "Capsule", rx: true },
+  { name: "Emtricitabine/Tenofoviralafenamide Rockmed Pharma 200 mg/25 mg filmomhulde tabletten", generic: "EMTRICITABINE#TENOFOVIRALAFENAMIDESUCCINAAT", category: "Antivirals", form: "Tablet", rx: true },
+  { name: "Abavalex 10 mg/ml, drank", generic: "BRIVARACETAM", category: "Neurology", form: "Syrup", rx: true },
+  { name: "Mosyopa 100 mg, filmomhulde tabletten", generic: "IMATINIBMESILAAT", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Imatinib 1A Pharma 400 mg, filmomhulde tabletten", generic: "IMATINIBMESILAAT", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Emtricitabine/Tenofoviralafenamide Lupin 200 mg/25 mg filmomhulde tabletten", generic: "EMTRICITABINE#TENOFOVIRALAFENAMIDESUCCINAAT", category: "Antivirals", form: "Tablet", rx: true },
+  { name: "Famotidine Sandoz 40 mg, filmomhulde tabletten", generic: "FAMOTIDINE", category: "Stomach & Intestine", form: "Tablet", rx: true },
+  { name: "Azzavix 1500 mg maagsapresistente tabletten", generic: "MESALAZINE", category: "Stomach & Intestine", form: "Tablet", rx: true },
+  { name: "Mosyopa 400 mg, filmomhulde tabletten", generic: "IMATINIBMESILAAT", category: "Oncology", form: "Tablet", rx: true },
+
 ];
 
 const CATEGORIES = [

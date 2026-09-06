@@ -12559,6 +12559,20 @@ const MEDICINES = [
   { name: "Vijoice 125 mg film-coat. tabl.", generic: "", category: "Oncology", form: "Tablet", rx: false },
   { name: "Vijoice 50 mg gran. sachet", generic: "", category: "Oncology", form: "Tablet", rx: false },
 
+  { name: "Decapeptyl Sustained Release 3.75 mg inj. susp. (pwdr. + solv.) i.m. amp. vial", generic: "", category: "Oncology", form: "Injection", rx: false },
+  { name: "Duloxetine EG 45 mg hard gastro-resist. caps.", generic: "", category: "Antidepressants", form: "Capsule", rx: false },
+  { name: "Duloxetine EG 90 mg hard gastro-resist. caps.", generic: "", category: "Antidepressants", form: "Capsule", rx: false },
+  { name: "Duloxetine EG 120 mg hard gastro-resist. caps.", generic: "", category: "Antidepressants", form: "Capsule", rx: false },
+  { name: "Melatonin Ace Pharmaceuticals 1 mg tabl.", generic: "", category: "Sleep & Sedation", form: "Tablet", rx: false },
+  { name: "Melatonin Ace Pharmaceuticals 3 mg tabl.", generic: "", category: "Sleep & Sedation", form: "Tablet", rx: false },
+  { name: "Melatonin Ace Pharmaceuticals 5 mg tabl.", generic: "", category: "Sleep & Sedation", form: "Tablet", rx: false },
+  { name: "Prufibry  1 g inj./inf. sol. (pwdr. + solv.) i.v. vial", generic: "", category: "Heart & Blood Pressure", form: "Injection", rx: false },
+  { name: "Orladeyo 72 mg film-coat. gran. sachet", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "Orladeyo 96 mg film-coat. gran. sachet", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "Orladeyo 108 mg film-coat. gran. sachet", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "Orladeyo 132 mg film-coat. gran. sachet", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "Sivextro 245 mg or. susp. (pwdr.) sachet", generic: "", category: "Antibiotics", form: "Powder", rx: false },
+
 ];
 
 const CATEGORIES = [
