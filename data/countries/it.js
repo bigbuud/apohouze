@@ -9454,6 +9454,29 @@ const MEDICINES = [
   { name: "XOMOLIX", generic: "DROPERIDOLO", category: "Sleep & Sedation", form: "Tablet", rx: false },
   { name: "DROPERIDOLO", generic: "DROPERIDOLO", category: "Sleep & Sedation", form: "Tablet", rx: false },
 
+  { name: "EMEA/H/C/006298", generic: "elinzanetant", category: "Women's Health", form: "Tablet", rx: false },
+  { name: "ADRIBLASTINA", generic: "DOXORUBICINA CLORIDRATO", category: "Oncology", form: "Tablet", rx: false },
+  { name: "AMIKACINA TEVA", generic: "AMIKACINA SOLFATO", category: "Antibiotics", form: "Tablet", rx: false },
+  { name: "BENLYSTA", generic: "BELIMUMAB", category: "Corticosteroids", form: "Tablet", rx: false },
+  { name: "BELIMUMAB", generic: "BELIMUMAB", category: "Corticosteroids", form: "Tablet", rx: false },
+  { name: "BIMATOPROST E TIMOLOLO TEVA", generic: "BIMATOPROST + TIMOLOLO", category: "Eye & Ear", form: "Tablet", rx: false },
+  { name: "EFEXOR", generic: "VENLAFAXINA", category: "Antidepressants", form: "Tablet", rx: false },
+  { name: "ELIDEL", generic: "PIMECROLIMUS", category: "Skin & Wounds", form: "Tablet", rx: false },
+  { name: "PIMECROLIMUS", generic: "PIMECROLIMUS", category: "Skin & Wounds", form: "Tablet", rx: false },
+  { name: "FLUOXETINA EG STADA", generic: "FLUOXETINA CLORIDRATO", category: "Antidepressants", form: "Dispersible tablet", rx: false },
+  { name: "IDACIO", generic: "ADALIMUMAB", category: "Corticosteroids", form: "Tablet", rx: false },
+  { name: "LILADROS", generic: "DROSPIRENONE + ETINILESTRADIOLO", category: "Women's Health", form: "Tablet", rx: false },
+  { name: "MALARONE", generic: "ATOVAQUONE + PROGUANIL CLORIDRATO", category: "Antiparasitics", form: "Tablet", rx: false },
+  { name: "MIDIANA", generic: "DROSPIRENONE + ETINILESTRADIOLO", category: "Women's Health", form: "Tablet", rx: false },
+  { name: "NICETILE", generic: "LEVOACETILCARNITINA CLORIDRATO", category: "Antidepressants", form: "Tablet", rx: false },
+  { name: "LEVOACETILCARNITINA CLORIDRATO", generic: "LEVOACETILCARNITINA CLORIDRATO", category: "Antidepressants", form: "Tablet", rx: false },
+  { name: "NIVESTIM", generic: "FILGRASTIM", category: "Oncology", form: "Tablet", rx: false },
+  { name: "NOVYNETTE", generic: "DESOGESTREL + ETINILESTRADIOLO", category: "Women's Health", form: "Tablet", rx: false },
+  { name: "PRELECTAL", generic: "INDAPAMIDE + PERINDOPRIL ARGININA", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "SEVELAMER AUROBINDO", generic: "SEVELAMER CARBONATO", category: "First Aid", form: "Tablet", rx: false },
+  { name: "SILKIS", generic: "CALCITRIOLO", category: "Skin & Wounds", form: "Tablet", rx: false },
+  { name: "VALSARTAN E IDROCLOROTIAZIDE SANDOZ", generic: "IDROCLOROTIAZIDE + VALSARTAN", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

@@ -12573,6 +12573,14 @@ const MEDICINES = [
   { name: "Orladeyo 132 mg film-coat. gran. sachet", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
   { name: "Sivextro 245 mg or. susp. (pwdr.) sachet", generic: "", category: "Antibiotics", form: "Powder", rx: false },
 
+  { name: "Aeromaxx 21.5 % v/v medicin. gas (compressed) gas cylinder", generic: "", category: "First Aid", form: "Tablet", rx: false },
+  { name: "Lamisil Nail  98 mg/ml cut. sol.", generic: "", category: "Antifungals", form: "Solution", rx: false },
+  { name: "Aveleris 167 mg hard caps.", generic: "", category: "Stomach & Intestine", form: "Capsule", rx: false },
+  { name: "Fosfomycin AB 3 g or. sol. (gran.) sachet", generic: "", category: "Antibiotics", form: "Solution", rx: false },
+  { name: "Mosyopa 100 mg film-coat. tabl.", generic: "", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Mosyopa 400 mg film-coat. tabl.", generic: "", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Colchicine Agepha Pharma 0.5 mg tabl.", generic: "", category: "Joints & Muscles", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

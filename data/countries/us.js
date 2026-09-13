@@ -19251,6 +19251,28 @@ const MEDICINES = [
   { name: "HyVee Ultra Strength Gas Relief SOFTGEL", generic: "Simethicone", category: "US", form: "Capsule", rx: false },
   { name: "Walgreens Acne Foaming Cleanser", generic: "BENZOYL PEROXIDE", category: "Skin & Wounds", form: "Cream", rx: false },
 
+  { name: "Dr.Harry EYES PROTECTION", generic: "Polyethylene glycol 400 1% EYES PROTECTION", category: "Stomach & Intestine", form: "Spray", rx: false },
+  { name: "Polyethylene glycol 400 1% EYES PROTECTION", generic: "Polyethylene glycol 400 1% EYES PROTECTION", category: "Stomach & Intestine", form: "Spray", rx: false },
+  { name: "Noicaky FUNGAL NAIL Patches", generic: "Tolnaftate 1% FUNGAL NAIL Patches", category: "Antifungals", form: "Patch", rx: false },
+  { name: "standardized senna", generic: "standardized senna", category: "Stomach & Intestine", form: "Tablet", rx: false },
+  { name: "Mylanta Fall Harvest Collection Spiced Apple Cider", generic: "Calcium Carbonate", category: "US", form: "Tablet", rx: false },
+  { name: "ANTIFUNGAL BODY WASH", generic: "Tolnaftate", category: "Antifungals", form: "Tablet", rx: false },
+  { name: "Simethicone 125MG Gas Relief", generic: "Simethicone 125 mg", category: "US", form: "Capsule", rx: false },
+  { name: "RoyceDerm Athletes foot antifungal .cream.", generic: "Miconazole nitrate 2%", category: "Antifungals", form: "Cream", rx: false },
+  { name: "5% Lidocaine 10g", generic: "5% Lidocaine", category: "First Aid", form: "Cream", rx: false },
+  { name: "Tums Chewy Bites Wintermint and Vanilla Cream", generic: "calcium carbonate", category: "US", form: "Tablet", rx: false },
+  { name: "FGPER Topical Antifungal Pen", generic: "UNDECYLENIC ACID", category: "Antifungals", form: "Tablet", rx: false },
+  { name: "Walgreens Orange Antacid Soft Chew", generic: "Calcium Carbonate", category: "US", form: "Tablet", rx: false },
+  { name: "tabcin Extra Strength", generic: "Dextromethorphan HBr", category: "OTC", form: "Tablet", rx: false },
+  { name: "SurviveX Anti-itch Cream", generic: "SurviveX Hydrocortisone", category: "Corticosteroids", form: "Cream", rx: false },
+  { name: "SurviveX Hydrocortisone", generic: "SurviveX Hydrocortisone", category: "Corticosteroids", form: "Cream", rx: false },
+  { name: "LIFE66II ANTIFUNGAL NAIL", generic: "Undecylenic acid 25% ANTIFUNGAL NAIL", category: "Antifungals", form: "Tablet", rx: false },
+  { name: "Mylanta Fall Harvest Collection Pumpkin Spice", generic: "Calcium Carbonate", category: "US", form: "Tablet", rx: false },
+  { name: "Komxsum LIDOCAINE Cream", generic: "Lidocaine 4% Cream", category: "First Aid", form: "Cream", rx: false },
+  { name: "BCBCYC Numbing Cream", generic: "Lidocaine 5% Numbing Cream", category: "First Aid", form: "Cream", rx: false },
+  { name: "Lidocaine 5% Numbing Cream", generic: "Lidocaine 5% Numbing Cream", category: "First Aid", form: "Cream", rx: false },
+  { name: "HSENJT Antifungal Cream", generic: "Miconazole Nitrate", category: "Antifungals", form: "Cream", rx: false },
+
 ];
 
 const CATEGORIES = [

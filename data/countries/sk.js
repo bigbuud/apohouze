@@ -1598,6 +1598,8 @@ const MEDICINES = [
 
   { name: "Aujemflu", generic: "A/(H1N1)-like virus antigen;A/(H3N2)-like virus antigen;B (Victoria lineage)-like virus antigen", category: "Antivirals", form: "Tablet", rx: true },
 
+  { name: "Lynkuet", generic: "elinzanetant", category: "Women's Health", form: "Tablet", rx: true },
+
 ];
 
 module.exports = { MEDICINES };
