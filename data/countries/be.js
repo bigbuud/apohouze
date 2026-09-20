@@ -12581,6 +12581,19 @@ const MEDICINES = [
   { name: "Mosyopa 400 mg film-coat. tabl.", generic: "", category: "Oncology", form: "Tablet", rx: false },
   { name: "Colchicine Agepha Pharma 0.5 mg tabl.", generic: "", category: "Joints & Muscles", form: "Tablet", rx: false },
 
+  { name: "Pantoprazol AB 20 mg gastro-resist. tabl.", generic: "", category: "Stomach & Intestine", form: "Tablet", rx: false },
+  { name: "Pantoprazol AB 40 mg gastro-resist. tabl.", generic: "", category: "Stomach & Intestine", form: "Tablet", rx: false },
+  { name: "Impromen 2 mg/ml oral drops sol.", generic: "", category: "Sleep & Sedation", form: "Drops", rx: false },
+  { name: "Brivelex 10 mg film-coat. tabl.", generic: "", category: "Neurology", form: "Tablet", rx: false },
+  { name: "Brivelex 25 mg film-coat. tabl.", generic: "", category: "Neurology", form: "Tablet", rx: false },
+  { name: "Brivelex 50 mg film-coat. tabl.", generic: "", category: "Neurology", form: "Tablet", rx: false },
+  { name: "Brivelex 75 mg film-coat. tabl.", generic: "", category: "Neurology", form: "Tablet", rx: false },
+  { name: "Brivelex 100 mg film-coat. tabl.", generic: "", category: "Neurology", form: "Tablet", rx: false },
+  { name: "Trepinor 10 000 U hard gastro-resist. caps.", generic: "", category: "Stomach & Intestine", form: "Capsule", rx: false },
+  { name: "Trepinor 25 000 U hard gastro-resist. caps.", generic: "", category: "Stomach & Intestine", form: "Capsule", rx: false },
+  { name: "Trepinor 35 000 U hard gastro-resist. caps.", generic: "", category: "Stomach & Intestine", form: "Capsule", rx: false },
+  { name: "Tafamidis EG 61 mg soft caps.", generic: "", category: "Nervous System", form: "Capsule", rx: false },
+
 ];
 
 const CATEGORIES = [

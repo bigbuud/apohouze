@@ -20784,6 +20784,25 @@ const MEDICINES = [
   { name: "Vijoice 200 mg filmomhulde tabletten", generic: "ALPELISIB", category: "Oncology", form: "Tablet", rx: true },
   { name: "Hopledo 140 mg/35 mg harde capsules met gereguleerde afgifte", generic: "CARBIDOPA 1-WATER#LEVODOPA", category: "Neurology", form: "Capsule", rx: true },
 
+  { name: "Dexamfetamine A.forall 5 mg tabletten", generic: "DEXAMFETAMINESULFAAT", category: "Antidepressants", form: "Tablet", rx: true },
+  { name: "Levosimendan Carinopharm 12,5 mg poeder voor concentraat voor oplossing voor infusie", generic: "LEVOSIMENDAN", category: "Heart & Blood Pressure", form: "Powder", rx: true },
+  { name: "Dapagliflozine Accord 5 mg filmomhulde tabletten", generic: "DAPAGLIFLOZINE", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Prucalopride Amarox 1 mg filmomhulde tabletten", generic: "PRUCALOPRIDESUCCINAAT", category: "Stomach & Intestine", form: "Tablet", rx: true },
+  { name: "Teriflunomide Centrafarm 7 mg, filmomhulde tabletten", generic: "TERIFLUNOMIDE", category: "Corticosteroids", form: "Tablet", rx: true },
+  { name: "BIMERVAX XFG.1.1 emulsie voor injectie", generic: "SARS-CoV-2 VIRUS RECOMBINANT SPIKE (S) PROTEIN RECEPTOR BINDING DOMEIN (RBD) FUSION HOMODIMER-OMICRON XFG.1.1  XFG.1.1 VARIANT", category: "Antivirals", form: "Injection", rx: true },
+  { name: "Lacosamide Aurobindo 150 mg, filmomhulde tabletten", generic: "LACOSAMIDE", category: "Neurology", form: "Tablet", rx: true },
+  { name: "Rezolsta 600 mg/90 mg dispergeerbare tabletten", generic: "COBICISTAT#DARUNAVIRETHANOLAAT", category: "Antivirals", form: "Dispersible tablet", rx: true },
+  { name: "Nitro \"Pohl\" Infus voor perfusorpompsystemen 1mg/ml, oplossing voor infusie", generic: "NITROGLYCERINE", category: "Heart & Blood Pressure", form: "Solution", rx: true },
+  { name: "Gaviscon pepermunt kauwtabletten", generic: "CALCIUMCARBONAAT (E 170)#NATRIUMALGINAAT (E 401)#NATRIUMWATERSTOFCARBONAAT (E 500 (II))", category: "Stomach & Intestine", form: "Tablet", rx: false },
+  { name: "Sivextro 245 mg poeder voor suspensie voor oraal gebruik", generic: "TEDIZOLIDFOSFAAT", category: "Antibiotics", form: "Powder", rx: true },
+  { name: "Dapagliflozine Accord 10 mg filmomhulde tabletten", generic: "DAPAGLIFLOZINE", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Prucalopride Amarox 2 mg filmomhulde tabletten", generic: "PRUCALOPRIDESUCCINAAT", category: "Stomach & Intestine", form: "Tablet", rx: true },
+  { name: "Pirfenidon Amarox 534 mg filmomhulde tabletten", generic: "PIRFENIDON", category: "Corticosteroids", form: "Tablet", rx: true },
+  { name: "Teriflunomide Centrafarm 14 mg, filmomhulde tabletten", generic: "TERIFLUNOMIDE", category: "Corticosteroids", form: "Tablet", rx: true },
+  { name: "Dexamfetamine A.forall 10 mg tabletten", generic: "DEXAMFETAMINESULFAAT", category: "Antidepressants", form: "Tablet", rx: true },
+  { name: "Dexamfetamine A.forall 20 mg tabletten", generic: "DEXAMFETAMINESULFAAT", category: "Antidepressants", form: "Tablet", rx: true },
+  { name: "BIMERVAX XFG.1.1 emulsie voor injectie in een voorgevulde injectiespuit", generic: "SARS-CoV-2 VIRUS RECOMBINANT SPIKE (S) PROTEIN RECEPTOR BINDING DOMEIN (RBD) FUSION HOMODIMER-OMICRON XFG.1.1  XFG.1.1 VARIANT", category: "Antivirals", form: "Injection", rx: true },
+
 ];
 
 const CATEGORIES = [

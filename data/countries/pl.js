@@ -7002,6 +7002,14 @@ const MEDICINES = [
 
   { name: "Lynkuet", generic: "elinzanetant", category: "Women's Health", form: "Tablet", rx: false },
 
+  { name: "Adcomfo", generic: "omalizumab", category: "Lungs & Asthma", form: "Tablet", rx: false },
+  { name: "Inijaq", generic: "tofacitinib citrate", category: "Corticosteroids", form: "Tablet", rx: false },
+  { name: "Pebrilzo", generic: "pertuzumab", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Ruxolitinib Zentiva", generic: "ruxolitinib hemifumarate", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Sepalna", generic: "senaparib", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Zeydovio", generic: "glepaglutide acetate", category: "Stomach & Intestine", form: "Tablet", rx: false },
+  { name: "VaxRabeo", generic: "Rabies virus (inactivated) strain WISTAR (PM/WI 38-1503-3M)", category: "Antivirals", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

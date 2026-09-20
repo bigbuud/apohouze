@@ -1600,6 +1600,14 @@ const MEDICINES = [
 
   { name: "Lynkuet", generic: "elinzanetant", category: "Women's Health", form: "Tablet", rx: true },
 
+  { name: "Adcomfo", generic: "omalizumab", category: "Lungs & Asthma", form: "Tablet", rx: true },
+  { name: "Inijaq", generic: "tofacitinib citrate", category: "Corticosteroids", form: "Tablet", rx: true },
+  { name: "Pebrilzo", generic: "pertuzumab", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Ruxolitinib Zentiva", generic: "ruxolitinib hemifumarate", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Sepalna", generic: "senaparib", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Zeydovio", generic: "glepaglutide acetate", category: "Stomach & Intestine", form: "Tablet", rx: true },
+  { name: "VaxRabeo", generic: "Rabies virus (inactivated) strain WISTAR (PM/WI 38-1503-3M)", category: "Antivirals", form: "Tablet", rx: true },
+
 ];
 
 module.exports = { MEDICINES };
