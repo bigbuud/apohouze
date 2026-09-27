@@ -12594,6 +12594,32 @@ const MEDICINES = [
   { name: "Trepinor 35 000 U hard gastro-resist. caps.", generic: "", category: "Stomach & Intestine", form: "Capsule", rx: false },
   { name: "Tafamidis EG 61 mg soft caps.", generic: "", category: "Nervous System", form: "Capsule", rx: false },
 
+  { name: "Rivaroxaban Teva Generics  2.5 mg film-coat. tabl.", generic: "", category: "Anticoagulants", form: "Tablet", rx: false },
+  { name: "Rivaroxaban Teva Generics  10 mg film-coat. tabl.", generic: "", category: "Anticoagulants", form: "Tablet", rx: false },
+  { name: "Rivaroxaban Teva Generics  15 mg film-coat. tabl.", generic: "", category: "Anticoagulants", form: "Tablet", rx: false },
+  { name: "Rivaroxaban Teva Generics  20 mg film-coat. tabl.", generic: "", category: "Anticoagulants", form: "Tablet", rx: false },
+  { name: "Sacubitril/Valsartan Eurogenerics 24 mg - 26 mg film-coat. tabl.", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "Sacubitril/Valsartan Eurogenerics 49 mg - 51 mg film-coat. tabl.", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "Sacubitril/Valsartan Eurogenerics 97 mg - 103 mg film-coat. tabl.", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "Riladateg 10 mg hard caps. modif.-rel.", generic: "", category: "Antidepressants", form: "Capsule", rx: false },
+  { name: "Riladateg 20 mg hard caps. modif.-rel.", generic: "", category: "Antidepressants", form: "Capsule", rx: false },
+  { name: "Riladateg 30 mg hard caps. modif.-rel.", generic: "", category: "Antidepressants", form: "Capsule", rx: false },
+  { name: "Riladateg 40 mg hard caps. modif.-rel.", generic: "", category: "Antidepressants", form: "Capsule", rx: false },
+  { name: "Riladateg 60 mg hard caps. modif.-rel.", generic: "", category: "Antidepressants", form: "Capsule", rx: false },
+  { name: "Rivaroxaban Teva  20 mg film-coat. tabl.", generic: "", category: "Anticoagulants", form: "Tablet", rx: false },
+  { name: "Denosumab Ascend 120 mg inj. sol. s.c. vial", generic: "", category: "Joints & Muscles", form: "Injection", rx: false },
+  { name: "Zokovea 125 mg tabl.", generic: "", category: "Antivirals", form: "Tablet", rx: false },
+  { name: "Tacrolimus Medgen 0.3 mg/g ointm.", generic: "", category: "Skin & Wounds", form: "Ointment", rx: false },
+  { name: "Tacrolimus Medgen 1 mg/g ointm.", generic: "", category: "Skin & Wounds", form: "Ointment", rx: false },
+  { name: "Blovarak 2.5 mg film-coat. tabl.", generic: "", category: "Anticoagulants", form: "Tablet", rx: false },
+  { name: "Blovarak 5 mg film-coat. tabl.", generic: "", category: "Anticoagulants", form: "Tablet", rx: false },
+  { name: "Tofacitinib EG 5 mg film-coat. tabl.", generic: "", category: "Corticosteroids", form: "Tablet", rx: false },
+  { name: "Tofacitinib EG 10 mg film-coat. tabl.", generic: "", category: "Corticosteroids", form: "Tablet", rx: false },
+  { name: "Dacarbazine Accord 500 mg inj. sol. (pwdr., conc.) i.v. vial", generic: "", category: "Oncology", form: "Injection", rx: false },
+  { name: "Dacarbazine Accord 1 000 mg inj. sol. (pwdr., conc.) i.v. vial", generic: "", category: "Oncology", form: "Injection", rx: false },
+  { name: "Furosemide Eurogenerics  20 mg tabl.", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "Furosemide Eurogenerics  40 mg tabl.", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

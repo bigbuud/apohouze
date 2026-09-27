@@ -19324,6 +19324,25 @@ const MEDICINES = [
   { name: "FlyLeaf RINGWORM TREATMENT", generic: "Miconazole Nitrate 2%", category: "Antifungals", form: "Cream", rx: false },
   { name: "HyVee Regular Strength Stool Softener SOFTGEL", generic: "Docusate sodium", category: "US", form: "Capsule", rx: false },
 
+  { name: "Pureskin Antifungal Pen", generic: "UNDECYLENIC ACID", category: "Antifungals", form: "Tablet", rx: false },
+  { name: "B-Pure Antibacterial Wipes for Hands and Face Vitamin E and Aloe", generic: "BENZALKONIUM CHLORIDE", category: "First Aid", form: "Tablet", rx: false },
+  { name: "Hermon Jock Itch Ringworm Athletes Foot Cream", generic: "MICONAZOLE NITRATE", category: "Antifungals", form: "Cream", rx: false },
+  { name: "MinoxidilTopical Serum", generic: "Minoxidil", category: "Skin & Wounds", form: "Solution", rx: false },
+  { name: "OZIPCO IVERMECTIN", generic: "ivermectin", category: "Antiparasitics", form: "Tablet", rx: false },
+  { name: "Milnacipran HCl", generic: "Milnacipran HCl", category: "Antidepressants", form: "Tablet", rx: false },
+  { name: "Ziprasidone Mesylate 20 mg/mL", generic: "Ziprasidone Mesylate", category: "FOR SOLUTION", form: "Injection", rx: false },
+  { name: "antibacterial hand soap benzalkonium chloride", generic: "antibacterial hand soap benzalkonium chloride", category: "First Aid", form: "Tablet", rx: false },
+  { name: "Qvotic", generic: "Lidocaine Pain Relief Patch", category: "First Aid", form: "Patch", rx: false },
+  { name: "DrawFine TOENAIL FUNGUS PEN", generic: "Undecylenic acid 25% TOENAIL FUNGUS PEN", category: "Antifungals", form: "Tablet", rx: false },
+  { name: "Shailee Antifungal Cream", generic: "Clotrimazole", category: "Antifungals", form: "Cream", rx: false },
+  { name: "Severe Nasal Congestion", generic: "Oxymetazoline Spray", category: "Cough & Cold", form: "Tablet", rx: false },
+  { name: "LuNatal DHA", generic: "ascorbic acid", category: "levomefolate calcium", form: "Tablet", rx: false },
+  { name: "Zeptide Insulin Cartridge Blend", generic: "Zeptide Insulin Cartridge Blend", category: "Diabetes", form: "Suspension", rx: false },
+  { name: "Vitamin C Skincare", generic: "Dimethicone", category: "Vitamins & Supplements", form: "Cream", rx: false },
+  { name: "Hair Sanity", generic: "Hydrocortisone Acetate", category: "Corticosteroids", form: "Tablet", rx: false },
+  { name: "Neomen Antifungal Pen", generic: "UNDECYLENIC ACID", category: "Antifungals", form: "Tablet", rx: false },
+  { name: "Benzoyl Peroxide Acne Wash 5%", generic: "Benzoyl Peroxide", category: "Skin & Wounds", form: "Suspension", rx: false },
+
 ];
 
 const CATEGORIES = [

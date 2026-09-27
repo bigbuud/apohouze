@@ -1608,6 +1608,8 @@ const MEDICINES = [
   { name: "Zeydovio", generic: "glepaglutide acetate", category: "Stomach & Intestine", form: "Tablet", rx: true },
   { name: "VaxRabeo", generic: "Rabies virus (inactivated) strain WISTAR (PM/WI 38-1503-3M)", category: "Antivirals", form: "Tablet", rx: true },
 
+  { name: "Icotyde", generic: "icotrokinra hydrochloride", category: "Corticosteroids", form: "Tablet", rx: true },
+
 ];
 
 module.exports = { MEDICINES };
