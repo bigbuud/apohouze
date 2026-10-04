@@ -9621,6 +9621,23 @@ const MEDICINES = [
   { name: "GABAPENTINE EVOLUGEN PHARMA 100 mg", generic: "gélule", category: "FR", form: "Tablet", rx: false },
   { name: "XBONZY 120 mg", generic: "solution injectable", category: "FR", form: "Tablet", rx: false },
 
+  { name: "ABASAGLAR 100 unités/mL KwikPen", generic: "solution injectable en stylo prérempli", category: "FR", form: "Tablet", rx: false },
+  { name: "ALMOTRIPTAN ZYDUS FRANCE 12", generic: "5 mg", category: "Rx", form: "Tablet", rx: false },
+  { name: "AMOXICILLINE EVOLUGEN 500 mg", generic: "gélule", category: "FR", form: "Tablet", rx: false },
+  { name: "AMOXICILLINE EVOLUGEN 500 mg/5 mL", generic: "poudre pour suspension buvable", category: "FR", form: "Tablet", rx: false },
+  { name: "AZAFLUNEX 137 microgrammes/50 microgrammes", generic: "suspension pour pulvérisation nasale", category: "FR", form: "Tablet", rx: false },
+  { name: "AZELASTINE CHLORHYDRATE/FLUTICASONE PROPIONATE ZYDUS 137 microgrammes/50 microgrammes", generic: "suspension pour pulvérisation nasale", category: "FR", form: "Tablet", rx: false },
+  { name: "FERINJECT 50 mg Fer/mL", generic: "dispersion injectable/pour perfusion", category: "FR", form: "Tablet", rx: false },
+  { name: "FUBELV 25 mg", generic: "solution injectable en seringue préremplie", category: "FR", form: "Tablet", rx: false },
+  { name: "FUBELV 50 mg", generic: "solution injectable en seringue préremplie", category: "FR", form: "Tablet", rx: false },
+  { name: "GABAPENTINE TEVA SANTE 300 mg", generic: "gélule", category: "FR", form: "Tablet", rx: false },
+  { name: "LORAZEPAM ARROW 0", generic: "5 mg", category: "Rx", form: "Tablet", rx: false },
+  { name: "LORAZEPAM ARROW 1 mg", generic: "comprimé sécable", category: "FR", form: "Tablet", rx: false },
+  { name: "LORAZEPAM ARROW 2", generic: "5 mg", category: "Rx", form: "Tablet", rx: false },
+  { name: "OPDIVO 600 mg", generic: "solution injectable", category: "FR", form: "Tablet", rx: false },
+  { name: "OXAZEPAM VIATRIS 50 mg", generic: "comprimé sécable", category: "FR", form: "Tablet", rx: false },
+  { name: "SELOKEN LP 200 mg", generic: "comprimé à libération prolongée", category: "FR", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

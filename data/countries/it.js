@@ -9545,6 +9545,30 @@ const MEDICINES = [
   { name: "CANAGLIFLOZIN + METFORMINA", generic: "CANAGLIFLOZIN + METFORMINA", category: "Diabetes", form: "Tablet", rx: false },
   { name: "ZYPREXA", generic: "OLANZAPINA", category: "Sleep & Sedation", form: "Tablet", rx: false },
 
+  { name: "APREMILAST ACCORD", generic: "APREMILAST", category: "Corticosteroids", form: "Tablet", rx: false },
+  { name: "ATENOLOLO HEXAL", generic: "ATENOLOLO", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "BETAMETASONE VALERO ACETATO", generic: "BETAMETASONE VALERO ACETATO", category: "Corticosteroids", form: "Tablet", rx: false },
+  { name: "CLOPIDOGREL ALMUS PHARMA", generic: "CLOPIDOGREL IDROGENO SOLFATO", category: "Anticoagulants", form: "Tablet", rx: false },
+  { name: "DESAMETASONE HAMELN", generic: "DESAMETASONE", category: "Corticosteroids", form: "Tablet", rx: false },
+  { name: "DICLOFENAC HEXAL AG", generic: "DICLOFENAC SODICO", category: "Pain & Fever", form: "Tablet", rx: false },
+  { name: "EUMAT", generic: "KETOROLAC TROMETAMOLO", category: "Pain & Fever", form: "Tablet", rx: false },
+  { name: "FRILANS", generic: "LANSOPRAZOLO", category: "Stomach & Intestine", form: "Capsule", rx: false },
+  { name: "GOBIVAZ", generic: "GOLIMUMAB", category: "Corticosteroids", form: "Tablet", rx: false },
+  { name: "LISINOPRIL PENSA", generic: "LISINOPRIL DIIDRATO", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "LOMEXIN", generic: "FENTICONAZOLO NITRATO", category: "Women's Health", form: "Tablet", rx: false },
+  { name: "LURASIDONE ACCORD", generic: "LURASIDONE CLORIDRATO", category: "Sleep & Sedation", form: "Tablet", rx: false },
+  { name: "LURASIDONE CLORIDRATO", generic: "LURASIDONE CLORIDRATO", category: "Sleep & Sedation", form: "Tablet", rx: false },
+  { name: "MEXABREST", generic: "EXEMESTANO", category: "Oncology", form: "Tablet", rx: false },
+  { name: "MIDAZOLAM KALCEKS", generic: "MIDAZOLAM", category: "Sleep & Sedation", form: "Injection", rx: false },
+  { name: "NUCALA", generic: "MEPOLIZUMAB", category: "Lungs & Asthma", form: "Tablet", rx: false },
+  { name: "MEPOLIZUMAB", generic: "MEPOLIZUMAB", category: "Lungs & Asthma", form: "Tablet", rx: false },
+  { name: "PALONOSETRON  ACCORD", generic: "PALONOSETRON CLORIDRATO", category: "Stomach & Intestine", form: "Tablet", rx: false },
+  { name: "PALONOSETRON CLORIDRATO", generic: "PALONOSETRON CLORIDRATO", category: "Stomach & Intestine", form: "Tablet", rx: false },
+  { name: "PROSCAR", generic: "FINASTERIDE", category: "Urology", form: "Tablet", rx: false },
+  { name: "TYVERB", generic: "LAPATINIB", category: "Oncology", form: "Tablet", rx: false },
+  { name: "LAPATINIB", generic: "LAPATINIB", category: "Oncology", form: "Tablet", rx: false },
+  { name: "ZOLOBREST", generic: "LETROZOLO", category: "Oncology", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

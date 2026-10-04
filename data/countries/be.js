@@ -12620,6 +12620,16 @@ const MEDICINES = [
   { name: "Furosemide Eurogenerics  20 mg tabl.", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
   { name: "Furosemide Eurogenerics  40 mg tabl.", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
 
+  { name: "Nicardipine Aguettant 1 mg/ml inj. sol. i.v. amp.", generic: "", category: "Heart & Blood Pressure", form: "Injection", rx: false },
+  { name: "Minoxidil Biorga 5 % cut. sol. met. pump", generic: "", category: "Skin & Wounds", form: "Solution", rx: false },
+  { name: "Rinvoq 1 mg/ml or. sol.", generic: "", category: "Corticosteroids", form: "Solution", rx: false },
+  { name: "Ruxolitinib Viatris 5 mg tabl.", generic: "", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Ruxolitinib Viatris 10 mg tabl.", generic: "", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Ruxolitinib Viatris 15 mg tabl.", generic: "", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Ruxolitinib Viatris 20 mg tabl.", generic: "", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Nezglyal 13.66 mg/ml or. susp.", generic: "", category: "Stomach & Intestine", form: "Suspension", rx: false },
+  { name: "Icotyde 200 mg film-coat. tabl.", generic: "", category: "Corticosteroids", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

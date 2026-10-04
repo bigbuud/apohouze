@@ -20831,6 +20831,28 @@ const MEDICINES = [
   { name: "Kinparlev 8 mg/24 uur pleister voor transdermaal gebruik", generic: "ROTIGOTINE", category: "Neurology", form: "Patch", rx: true },
   { name: "Edoxaban STADA 30 mg, filmomhulde tabletten", generic: "EDOXABANTOSILAAT 1-WATER", category: "Anticoagulants", form: "Tablet", rx: true },
 
+  { name: "Fynor 10.000 eenheden, harde maagsapresistente capsules", generic: "AMYLASE#LIPASE#PANCREATINE#PROTEASE", category: "Stomach & Intestine", form: "Capsule", rx: false },
+  { name: "Sialanar 1,36 mg, orodispergeerbare tabletten", generic: "GLYCOPYRRONIUMBROMIDE", category: "Stomach & Intestine", form: "Dispersible tablet", rx: true },
+  { name: "Videx 25.000 IE zachte capsules", generic: "CHOLECALCIFEROL#CHOLECALCIFEROL", category: "Vitamins & Supplements", form: "Capsule", rx: true },
+  { name: "Sacubitril/Valsartan Vale 24 mg/26 mg, filmomhulde tabletten", generic: "SACUBITRIL#SACUBITRIL VALSARTAN TRINATRIUMHEMIPENTAHYDRAAT#VALSARTAN", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
+  { name: "Cholecalciferol Alfrapharma 25.000 IE zachte capsules", generic: "CHOLECALCIFEROL#CHOLECALCIFEROL", category: "Vitamins & Supplements", form: "Capsule", rx: true },
+  { name: "Videx 10.000 IE zachte capsules", generic: "CHOLECALCIFEROL#CHOLECALCIFEROL", category: "Vitamins & Supplements", form: "Capsule", rx: true },
+  { name: "Fynor 25.000 eenheden, harde maagsapresistente capsules", generic: "AMYLASE#LIPASE#PANCREATINE#PROTEASE", category: "Stomach & Intestine", form: "Capsule", rx: false },
+  { name: "Videx 50.000 IE zachte capsules", generic: "CHOLECALCIFEROL#CHOLECALCIFEROL", category: "Vitamins & Supplements", form: "Capsule", rx: true },
+  { name: "Sacubitril/Valsartan Vale 97 mg/103 mg, filmomhulde tabletten", generic: "SACUBITRIL#SACUBITRIL VALSARTAN TRINATRIUMHEMIPENTAHYDRAAT#VALSARTAN", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
+  { name: "Denosumab Ascend 120 mg oplossing voor injectie", generic: "DENOSUMAB", category: "Joints & Muscles", form: "Injection", rx: true },
+  { name: "Cholecalciferol Alfrapharma 100.000 IE zachte capsules", generic: "CHOLECALCIFEROL#CHOLECALCIFEROL", category: "Vitamins & Supplements", form: "Capsule", rx: true },
+  { name: "Nitro \"Pohl\" Infus voor perfusorpompsystemen 1mg/ml, oplossing voor infusie", generic: "NITROGLYCERINE", category: "Heart & Blood Pressure", form: "Solution", rx: true },
+  { name: "Sacubitril/Valsartan Vale 49 mg/51 mg, filmomhulde tabletten", generic: "SACUBITRIL#SACUBITRIL VALSARTAN TRINATRIUMHEMIPENTAHYDRAAT#VALSARTAN", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
+  { name: "Cholecalciferol Alfrapharma 10.000 IE zachte capsules", generic: "CHOLECALCIFEROL#CHOLECALCIFEROL", category: "Vitamins & Supplements", form: "Capsule", rx: true },
+  { name: "Videx 20.000 IE zachte capsules", generic: "CHOLECALCIFEROL#CHOLECALCIFEROL", category: "Vitamins & Supplements", form: "Capsule", rx: true },
+  { name: "Cholecalciferol Alfrapharma 50.000 IE zachte capsules", generic: "CHOLECALCIFEROL", category: "Vitamins & Supplements", form: "Capsule", rx: true },
+  { name: "Fynor 35.000 eenheden, harde maagsapresistente capsules", generic: "AMYLASE#LIPASE#PANCREATINE#PROTEASE", category: "Stomach & Intestine", form: "Capsule", rx: false },
+  { name: "Sialanar 0,68 mg, orodispergeerbare tabletten", generic: "GLYCOPYRRONIUMBROMIDE", category: "Stomach & Intestine", form: "Dispersible tablet", rx: true },
+  { name: "Domperidon Medipha Sante 10 mg, orodispergeerbare tabletten", generic: "DOMPERIDON", category: "Stomach & Intestine", form: "Dispersible tablet", rx: true },
+  { name: "Cholecalciferol Alfrapharma 20.000 IE zachte capsules", generic: "CHOLECALCIFEROL#CHOLECALCIFEROL", category: "Vitamins & Supplements", form: "Capsule", rx: true },
+  { name: "Videx 100.000 IE zachte capsules", generic: "CHOLECALCIFEROL#CHOLECALCIFEROL", category: "Vitamins & Supplements", form: "Capsule", rx: true },
+
 ];
 
 const CATEGORIES = [
