@@ -20853,6 +20853,22 @@ const MEDICINES = [
   { name: "Cholecalciferol Alfrapharma 20.000 IE zachte capsules", generic: "CHOLECALCIFEROL#CHOLECALCIFEROL", category: "Vitamins & Supplements", form: "Capsule", rx: true },
   { name: "Videx 100.000 IE zachte capsules", generic: "CHOLECALCIFEROL#CHOLECALCIFEROL", category: "Vitamins & Supplements", form: "Capsule", rx: true },
 
+  { name: "Susvimo 100 mg/ml oplossing voor injectie", generic: "RANIBIZUMAB", category: "Eye & Ear", form: "Injection", rx: true },
+  { name: "Nuvaxovid XFG dispersie voor injectie in een voorgevulde injectiespuit", generic: "RECOMBINANT SPIKE PROTEÏNE ZONDER SIGNAAL PEPTIDE VAN HET SARS-COV-2 VIRUS", category: "Antivirals", form: "Injection", rx: true },
+  { name: "Ubeslo 10 mg filmomhulde tabletten", generic: "OBICETRAPIB HEMICALCIUM", category: "Vitamins & Supplements", form: "Tablet", rx: true },
+  { name: "Solifenacinesuccinaat Brillpharma 1 mg/ml drank", generic: "SOLIFENACINESUCCINAAT", category: "Urology", form: "Syrup", rx: true },
+  { name: "Ivacaftor Lupin 150 mg filmomhulde tabletten", generic: "IVACAFTOR", category: "Lungs & Asthma", form: "Tablet", rx: true },
+  { name: "Tofacitinib Teva 10 mg, filmomhulde tabletten", generic: "TOFACITINIBCITRAAT", category: "Corticosteroids", form: "Tablet", rx: true },
+  { name: "Nitro \"Pohl\" Infus voor perfusorpompsystemen 1mg/ml, oplossing voor infusie", generic: "NITROGLYCERINE", category: "Heart & Blood Pressure", form: "Solution", rx: true },
+  { name: "Tofacitinib Teva 5 mg, filmomhulde tabletten", generic: "TOFACITINIBCITRAAT", category: "Corticosteroids", form: "Tablet", rx: true },
+  { name: "Sapropterine PIAM Farmaceutici 100 mg oplosbare tabletten", generic: "SAPROPTERINEDIHYDROCHLORIDE", category: "Stomach & Intestine", form: "Tablet", rx: true },
+  { name: "Nuvaxovid JN.1 dispersie voor injectie in een voorgevulde injectiespuit", generic: "RECOMBINANT SPIKE PROTEÏNE ZONDER SIGNAAL PEPTIDE VAN HET SARS-COV-2 VIRUS", category: "Antivirals", form: "Injection", rx: true },
+  { name: "Empagliflozine Aurobindo 10 mg filmomhulde tabletten", generic: "EMPAGLIFLOZINE", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Ivacaftor Lupin 75 mg filmomhulde tabletten", generic: "IVACAFTOR", category: "Lungs & Asthma", form: "Tablet", rx: true },
+  { name: "Evlarco 10 mg/10 mg filmomhulde tabletten", generic: "EZETIMIB#OBICETRAPIB HEMICALCIUM", category: "Vitamins & Supplements", form: "Tablet", rx: true },
+  { name: "Empagliflozine Aurobindo 25 mg filmomhulde tabletten", generic: "EMPAGLIFLOZINE", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Nuvaxovid JN.1 dispersie voor injectie", generic: "RECOMBINANT SPIKE PROTEÏNE ZONDER SIGNAAL PEPTIDE VAN HET SARS-COV-2 VIRUS", category: "Antivirals", form: "Injection", rx: true },
+
 ];
 
 const CATEGORIES = [

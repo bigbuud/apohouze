@@ -12630,6 +12630,30 @@ const MEDICINES = [
   { name: "Nezglyal 13.66 mg/ml or. susp.", generic: "", category: "Stomach & Intestine", form: "Suspension", rx: false },
   { name: "Icotyde 200 mg film-coat. tabl.", generic: "", category: "Corticosteroids", form: "Tablet", rx: false },
 
+  { name: "Fibryga 2 g inj./inf. sol. (pwdr. + solv.) i.v. vial", generic: "", category: "Heart & Blood Pressure", form: "Injection", rx: false },
+  { name: "Isoprenaline HCl Unicorn Pharma 0.2 mg/ml inf. sol. (conc.) i.v. vial", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "Stilnoct  10 mg (PI Pharma) film-coat. tabl.", generic: "", category: "Sleep & Sedation", form: "Tablet", rx: false },
+  { name: "Tafamidis Accord 61 mg soft caps.", generic: "", category: "Nervous System", form: "Capsule", rx: false },
+  { name: "Sialanar 0.68 mg orodisp. tabl.", generic: "", category: "Stomach & Intestine", form: "Dispersible tablet", rx: false },
+  { name: "Sialanar 1.36 mg orodisp. tabl.", generic: "", category: "Stomach & Intestine", form: "Dispersible tablet", rx: false },
+  { name: "Paliperidone Viatris 175 mg inj. susp. prol.-rel. i.m. pre-filled syr.", generic: "", category: "Sleep & Sedation", form: "Injection", rx: false },
+  { name: "Paliperidone Viatris 263 mg inj. susp. prol.-rel. i.m. pre-filled syr.", generic: "", category: "Sleep & Sedation", form: "Injection", rx: false },
+  { name: "Paliperidone Viatris 350 mg inj. susp. prol.-rel. i.m. pre-filled syr.", generic: "", category: "Sleep & Sedation", form: "Injection", rx: false },
+  { name: "Paliperidone Viatris 525 mg inj. susp. prol.-rel. i.m. pre-filled syr.", generic: "", category: "Sleep & Sedation", form: "Injection", rx: false },
+  { name: "Eribulin Tillomed 0.44 mg/ml inj. sol. i.v. vial", generic: "", category: "Oncology", form: "Injection", rx: false },
+  { name: "Teriflunomide Eurogenerics 7 mg film-coat. tabl.", generic: "", category: "Corticosteroids", form: "Tablet", rx: false },
+  { name: "Teriflunomide Eurogenerics 14 mg film-coat. tabl.", generic: "", category: "Corticosteroids", form: "Tablet", rx: false },
+  { name: "Trientine Waymade 200 mg hard caps.", generic: "", category: "Stomach & Intestine", form: "Capsule", rx: false },
+  { name: "Paracetamol Teva Generics 500 mg tabl.", generic: "", category: "Pain & Fever", form: "Tablet", rx: false },
+  { name: "Paracetamol Teva Generics 1 000 mg tabl.", generic: "", category: "Pain & Fever", form: "Tablet", rx: false },
+  { name: "Levonorgestrel/Ethinylestradiol Renata  0.15 mg - 0.03 mg coat. tabl.", generic: "", category: "Women's Health", form: "Tablet", rx: false },
+  { name: "Eltrombopag EG 25 mg film-coat. tabl.", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "Eltrombopag EG 50 mg film-coat. tabl.", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "Eltrombopag EG 75 mg film-coat. tabl.", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "Levosimendan Carinopharm 12.5 mg inj. sol. (pwdr., conc.) i.v. vial", generic: "", category: "Heart & Blood Pressure", form: "Injection", rx: false },
+  { name: "Catmyd 5 mg/ml eye drops sol. single-dose cont.", generic: "", category: "Eye & Ear", form: "Eye drops", rx: false },
+  { name: "Nurofen Fastminicaps  200 mg soft caps.", generic: "", category: "Pain & Fever", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

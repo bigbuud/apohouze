@@ -19375,6 +19375,26 @@ const MEDICINES = [
   { name: "Orvexa", generic: "Lidocaine and Menthol", category: "First Aid", form: "Tablet", rx: false },
   { name: "Propranolol HCL ER", generic: "Propranolol HCL ER", category: "US", form: "Capsule", rx: false },
 
+  { name: "Med365 Dye Free Allergy Relief", generic: "Diphenhydramine HCl 25 mg", category: "US", form: "Capsule", rx: false },
+  { name: "Delay wipes for long last for men", generic: "7% benzocaine delay wipes for long last for men", category: "First Aid", form: "Tablet", rx: false },
+  { name: "7% benzocaine delay wipes for long last for men", generic: "7% benzocaine delay wipes for long last for men", category: "First Aid", form: "Tablet", rx: false },
+  { name: "Med365 Pain Relief", generic: "Acetaminophen", category: "Pain & Fever", form: "Tablet", rx: false },
+  { name: "First Aid Only Anti-Itch Cream", generic: "Hydrocortisone", category: "Corticosteroids", form: "Cream", rx: false },
+  { name: "Hello Cake - Climax Control for Him - 2floz/60ml", generic: "Hello Cake Climax Control Delay Spray (Benzocaine)", category: "First Aid", form: "Spray", rx: false },
+  { name: "Hello Cake Climax Control Delay Spray (Benzocaine)", generic: "Hello Cake Climax Control Delay Spray (Benzocaine)", category: "First Aid", form: "Spray", rx: false },
+  { name: "JELVOXA ATHLETE S FOOT JOCK ITCH RINGWORM", generic: "UNDECYLENIC ACID", category: "Antifungals", form: "Cream", rx: false },
+  { name: "Nighttime Cold and Flu Liquid Menthol", generic: "Acetaminophen", category: "OTC", form: "Tablet", rx: false },
+  { name: "Nail Fungus Treatment Solution", generic: "Undecylenic Acid", category: "Antifungals", form: "Tablet", rx: false },
+  { name: "GoodMeds Nighttime Cold and Flu", generic: "Acetaminophen 325mg", category: "LIQUID FILLED", form: "Tablet", rx: false },
+  { name: "9.6% Lidocaine delay wipes for long last for men", generic: "9.6% Lidocaine delay wipes for long last for men", category: "First Aid", form: "Tablet", rx: false },
+  { name: "FGPER ANTIFUNGAL", generic: "MICONAZOLE NITRATE", category: "Antifungals", form: "Cream", rx: false },
+  { name: "FGPER FOLLICULITIS TREATMENT", generic: "Benzoyl Peroxide", category: "Skin & Wounds", form: "Cream", rx: false },
+  { name: "BeamBalm NAIL FUNGUS CARE Liquid", generic: "Tolnaftate 1% NAIL FUNGUS CARE Liquid", category: "Antifungals", form: "Tablet", rx: false },
+  { name: "Tolnaftate 1% NAIL FUNGUS CARE Liquid", generic: "Tolnaftate 1% NAIL FUNGUS CARE Liquid", category: "Antifungals", form: "Tablet", rx: false },
+  { name: "Acne Spot Treatment Cream", generic: "Benzoyl Peroxide", category: "Skin & Wounds", form: "Cream", rx: false },
+  { name: "GoodMeds Daytime Cold and Flu", generic: "Acetaminophen 325mg", category: "LIQUID FILLED", form: "Tablet", rx: false },
+  { name: "Olaparib Form H (RL)", generic: "Olaparib Form H (RL)", category: "Oncology", form: "Powder", rx: false },
+
 ];
 
 const CATEGORIES = [
