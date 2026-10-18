@@ -7016,6 +7016,13 @@ const MEDICINES = [
 
   { name: "Icotyde", generic: "icotrokinra hydrochloride", category: "Corticosteroids", form: "Tablet", rx: false },
 
+  { name: "Fovlussea", generic: "ranibizumab", category: "Eye & Ear", form: "Tablet", rx: false },
+  { name: "Neuzafy", generic: "filgrastim", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Foundayo", generic: "Orforglipron hemicalcium", category: "Diabetes", form: "Tablet", rx: false },
+  { name: "Kizfizo", generic: "temozolomide", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Yuviwel", generic: "navepegritide", category: "Joints & Muscles", form: "Tablet", rx: false },
+  { name: "Rasonque", generic: "daraxonrasib", category: "Oncology", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

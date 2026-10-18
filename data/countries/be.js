@@ -12654,6 +12654,19 @@ const MEDICINES = [
   { name: "Catmyd 5 mg/ml eye drops sol. single-dose cont.", generic: "", category: "Eye & Ear", form: "Eye drops", rx: false },
   { name: "Nurofen Fastminicaps  200 mg soft caps.", generic: "", category: "Pain & Fever", form: "Tablet", rx: false },
 
+  { name: "Xanax  1 mg (Impexeco) tabl.", generic: "", category: "Sleep & Sedation", form: "Tablet", rx: false },
+  { name: "Xanax 2 mg (Impexeco) tabl.", generic: "", category: "Sleep & Sedation", form: "Tablet", rx: false },
+  { name: "Bisolvon productive cough  8 mg (PI Pharma) tabl.", generic: "", category: "Cough & Cold", form: "Tablet", rx: false },
+  { name: "Azzalure 125 Speywood-units (Orifarm) inj. sol. (pwdr.) i.m. vial", generic: "", category: "Joints & Muscles", form: "Injection", rx: false },
+  { name: "Somatuline Autogel Injectable 120 mg (PI Pharma) inj. sol. s.c. pre-filled syr.", generic: "", category: "Thyroid", form: "Injection", rx: false },
+  { name: "Ozempic 0.25 mg inj. sol. s.c. pre-filled syr.", generic: "", category: "Diabetes", form: "Injection", rx: false },
+  { name: "Ozempic 0.5 mg inj. sol. s.c. pre-filled syr.", generic: "", category: "Diabetes", form: "Injection", rx: false },
+  { name: "Ozempic 1 mg inj. sol. s.c. pre-filled syr.", generic: "", category: "Diabetes", form: "Injection", rx: false },
+  { name: "Aujemflu inj. susp. i.m. pre-filled syr.", generic: "", category: "Antivirals", form: "Injection", rx: false },
+  { name: "Cladribine Viatris 10 mg tabl.", generic: "", category: "Corticosteroids", form: "Tablet", rx: false },
+  { name: "Vistabel 4 U/0.1 ml (Orifarm) inj. sol. (pwdr.) i.m. vial", generic: "", category: "Joints & Muscles", form: "Injection", rx: false },
+  { name: "Dydrogesterone Waymade 10 mg film-coat. tabl.", generic: "", category: "Women's Health", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

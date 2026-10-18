@@ -20869,6 +20869,25 @@ const MEDICINES = [
   { name: "Empagliflozine Aurobindo 25 mg filmomhulde tabletten", generic: "EMPAGLIFLOZINE", category: "Diabetes", form: "Tablet", rx: true },
   { name: "Nuvaxovid JN.1 dispersie voor injectie", generic: "RECOMBINANT SPIKE PROTEÏNE ZONDER SIGNAAL PEPTIDE VAN HET SARS-COV-2 VIRUS", category: "Antivirals", form: "Injection", rx: true },
 
+  { name: "Lisdexamfetamine Aspire 40 mg harde capsules", generic: "DEXAMFETAMINE#LISDEXAMFETAMINEDIMESILAAT", category: "Antidepressants", form: "Capsule", rx: true },
+  { name: "Lisdexamfetamine Aspire 60 mg harde capsules", generic: "DEXAMFETAMINE#LISDEXAMFETAMINEDIMESILAAT", category: "Antidepressants", form: "Capsule", rx: true },
+  { name: "Budesonide Addimed nevel 100, 100 microgram/dosis neusspray suspensie", generic: "BUDESONIDE", category: "Cough & Cold", form: "Nasal spray", rx: true },
+  { name: "Angass 500 mg maagsapresistente zachte capsules", generic: "NATRIUMWATERSTOFCARBONAAT (E 500 (II))", category: "Stomach & Intestine", form: "Capsule", rx: true },
+  { name: "Lisdexamfetamine Aspire 70 mg harde capsules", generic: "DEXAMFETAMINE#LISDEXAMFETAMINEDIMESILAAT", category: "Antidepressants", form: "Capsule", rx: true },
+  { name: "Dydrogesteron Waymade 10 mg filmomhulde tabletten", generic: "DYDROGESTERON", category: "Women's Health", form: "Tablet", rx: true },
+  { name: "Spinraza 12 mg oplossing voor injectie", generic: "NUSINERSEN NATRIUM", category: "Joints & Muscles", form: "Injection", rx: true },
+  { name: "Rinvoq 1 mg/ml drank", generic: "UPADACITINIB 0,5-WATER", category: "Corticosteroids", form: "Syrup", rx: true },
+  { name: "Venlafaxine ERC 225 mg, tabletten met verlengde afgifte", generic: "VENLAFAXINEHYDROCHLORIDE", category: "Antidepressants", form: "Tablet", rx: true },
+  { name: "Curalyn Ibuprofen 200 mg, omhulde tabletten", generic: "IBUPROFEN", category: "Pain & Fever", form: "Tablet", rx: true },
+  { name: "Lisdexamfetamine Aspire 20 mg harde capsules", generic: "DEXAMFETAMINE#LISDEXAMFETAMINEDIMESILAAT", category: "Antidepressants", form: "Capsule", rx: true },
+  { name: "Lisdexamfetamine Aspire 30 mg harde capsules", generic: "DEXAMFETAMINE#LISDEXAMFETAMINEDIMESILAAT", category: "Antidepressants", form: "Capsule", rx: true },
+  { name: "Nitro \"Pohl\" Infus voor perfusorpompsystemen 1mg/ml, oplossing voor infusie", generic: "NITROGLYCERINE", category: "Heart & Blood Pressure", form: "Solution", rx: true },
+  { name: "Dexamfetaminesulfaat Teva 5 mg, tabletten", generic: "DEXAMFETAMINESULFAAT", category: "Antidepressants", form: "Tablet", rx: true },
+  { name: "Venlafaxine ERC 300 mg, tabletten met verlengde afgifte", generic: "VENLAFAXINEHYDROCHLORIDE", category: "Antidepressants", form: "Tablet", rx: true },
+  { name: "Curalyn Ibuprofen 400 mg, omhulde tabletten", generic: "IBUPROFEN", category: "Pain & Fever", form: "Tablet", rx: true },
+  { name: "Lisdexamfetamine Aspire 50 mg harde capsules", generic: "DEXAMFETAMINE#LISDEXAMFETAMINEDIMESILAAT", category: "Antidepressants", form: "Capsule", rx: true },
+  { name: "Brivaracetam Syri Pharma 10 mg/ml, drank", generic: "BRIVARACETAM", category: "Neurology", form: "Syrup", rx: true },
+
 ];
 
 const CATEGORIES = [

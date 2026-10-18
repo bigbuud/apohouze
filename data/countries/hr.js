@@ -1614,6 +1614,13 @@ const MEDICINES = [
 
   { name: "Icotyde", generic: "icotrokinra hydrochloride", category: "Corticosteroids", form: "Tablet", rx: true },
 
+  { name: "Fovlussea", generic: "ranibizumab", category: "Eye & Ear", form: "Tablet", rx: true },
+  { name: "Neuzafy", generic: "filgrastim", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Foundayo", generic: "Orforglipron hemicalcium", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Kizfizo", generic: "temozolomide", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Yuviwel", generic: "navepegritide", category: "Joints & Muscles", form: "Tablet", rx: true },
+  { name: "Rasonque", generic: "daraxonrasib", category: "Oncology", form: "Tablet", rx: true },
+
 ];
 
 module.exports = { MEDICINES };
