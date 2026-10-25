@@ -12667,6 +12667,15 @@ const MEDICINES = [
   { name: "Vistabel 4 U/0.1 ml (Orifarm) inj. sol. (pwdr.) i.m. vial", generic: "", category: "Joints & Muscles", form: "Injection", rx: false },
   { name: "Dydrogesterone Waymade 10 mg film-coat. tabl.", generic: "", category: "Women's Health", form: "Tablet", rx: false },
 
+  { name: "Duloxetine Viatris Pharma 60 mg hard gastro-resist. caps.", generic: "", category: "Antidepressants", form: "Capsule", rx: false },
+  { name: "Duloxetine Viatris Pharma 30 mg hard gastro-resist. caps.", generic: "", category: "Antidepressants", form: "Capsule", rx: false },
+  { name: "Oxygène Médicinal Liquide SOL 100 % medicin. gas (cryog.) mobile cryog.  vessel", generic: "", category: "First Aid", form: "Tablet", rx: false },
+  { name: "Tosmova 20 mg/ml inf. sol. (conc.) i.v. vial", generic: "", category: "Corticosteroids", form: "Injection", rx: false },
+  { name: "Decigatan 1.5 mg (Exim Pharma) tabl.", generic: "", category: "Nervous System", form: "Tablet", rx: false },
+  { name: "Reverpleg  40 IU/2 ml (Orifarm) inf. sol. (conc.) i.v. amp.", generic: "", category: "Thyroid", form: "Injection", rx: false },
+  { name: "Tafamidis Accordpharma 20 mg soft caps.", generic: "", category: "Nervous System", form: "Capsule", rx: false },
+  { name: "Zutectra 500 IU inj. sol. s.c. pre-filled pen", generic: "", category: "Antivirals", form: "Injection", rx: false },
+
 ];
 
 const CATEGORIES = [

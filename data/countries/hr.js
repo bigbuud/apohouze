@@ -1621,6 +1621,8 @@ const MEDICINES = [
   { name: "Yuviwel", generic: "navepegritide", category: "Joints & Muscles", form: "Tablet", rx: true },
   { name: "Rasonque", generic: "daraxonrasib", category: "Oncology", form: "Tablet", rx: true },
 
+  { name: "Tosmova (previously Tocilizumab STADA and Tofidence)", generic: "tocilizumab", category: "Corticosteroids", form: "Tablet", rx: true },
+
 ];
 
 module.exports = { MEDICINES };

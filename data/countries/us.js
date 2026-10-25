@@ -19429,6 +19429,25 @@ const MEDICINES = [
   { name: "Maximum Strength Daytime Nighttime", generic: "Acetaminophen", category: "KIT", form: "Tablet", rx: false },
   { name: "KROGER Liquid Antacid plus Anti Gas", generic: "Calcium Carbonate", category: "US", form: "Tablet", rx: false },
 
+  { name: "Antibacterial Hand Sanitizer", generic: "benzalkonium chloride cloth", category: "First Aid", form: "Tablet", rx: false },
+  { name: "Okdiary Fungal Nail Treatment", generic: "Tolnaftate 1%", category: "Antifungals", form: "Tablet", rx: false },
+  { name: "Foster and Thrive Regular Strength Pain Relief Acetaminophen 325mg", generic: "Acetaminophen 325mg", category: "Pain & Fever", form: "Tablet", rx: false },
+  { name: "Okdiary Nail Fungus Treatment", generic: "Undecylenic Acid 25%", category: "Antifungals", form: "Tablet", rx: false },
+  { name: "ReviAmigo ATHLETES FOOT", generic: "Tolnaftate 1% ATHLETES FOOT", category: "Antifungals", form: "Tablet", rx: false },
+  { name: "Tolnaftate 1% ATHLETES FOOT", generic: "Tolnaftate 1% ATHLETES FOOT", category: "Antifungals", form: "Tablet", rx: false },
+  { name: "FungiFlush", generic: "Undecylenic acid 25%", category: "Antifungals", form: "Tablet", rx: false },
+  { name: "Body Acne Wash", generic: "Benzoyl Peroxide", category: "Skin & Wounds", form: "Gel", rx: false },
+  { name: "Lidoryx 5%", generic: "Lidocaine HCl", category: "First Aid", form: "Gel", rx: false },
+  { name: "Mybiooid Lidocaine 4% Pain Relieving Gel-Patch", generic: "Lidocaine 4% Pain Relieving Gel-Patch", category: "First Aid", form: "Patch", rx: false },
+  { name: "Lidocaine 4% Pain Relieving Gel-Patch", generic: "Lidocaine 4% Pain Relieving Gel-Patch", category: "First Aid", form: "Patch", rx: false },
+  { name: "NO MORE PE", generic: "Lidocaine", category: "First Aid", form: "Spray", rx: false },
+  { name: "Athlete S Foot Antifungal Cream", generic: "Clotrimazole", category: "Antifungals", form: "Cream", rx: false },
+  { name: "DayQuil Cold and Flu w/VapoCOOL", generic: "4ct (PE-free)", category: "TABLET", form: "Tablet", rx: false },
+  { name: "X3 Clean American Hand Sanitizer Alcohol Free", generic: "Benzalkonium Chloride", category: "First Aid", form: "Tablet", rx: false },
+  { name: "Olaparib Premix", generic: "Olaparib Premix", category: "Oncology", form: "Powder", rx: false },
+  { name: "Nicovito Ivermectin Lotion.", generic: "Ivermectin Lotion.", category: "Antiparasitics", form: "Tablet", rx: false },
+  { name: "Ivermectin Lotion.", generic: "Ivermectin Lotion.", category: "Antiparasitics", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [
