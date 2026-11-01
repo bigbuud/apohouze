@@ -20934,6 +20934,28 @@ const MEDICINES = [
   { name: "Tacrolimus Aristo 0,3 mg/g zalf", generic: "TACROLIMUS 1-WATER", category: "Skin & Wounds", form: "Ointment", rx: true },
   { name: "Riociguat Accord 0,5 mg, filmomhulde tabletten", generic: "RIOCIGUAT", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
 
+  { name: "Budesonide Eureco-Pharma nevel 100, 100 microgram/dosis, neusspray, suspensie", generic: "BUDESONIDE", category: "Cough & Cold", form: "Nasal spray", rx: true },
+  { name: "Kruidvat wormkuurtabletten mebendazol 100 mg, tabletten", generic: "MEBENDAZOL", category: "Antiparasitics", form: "Tablet", rx: false },
+  { name: "Deferasirox SDZ 360 mg, filmomhulde tabletten", generic: "DEFERASIROX", category: "First Aid", form: "Tablet", rx: true },
+  { name: "Divigel 0,5 mg gel voor transdermaal gebruik in sachet", generic: "ESTRADIOL 0,5-WATER", category: "Women's Health", form: "Gel", rx: true },
+  { name: "Caspofungine Eureco-Pharma 50 mg poeder voor concentraat voor oplossing voor infusie", generic: "CASPOFUNGINEDIACETAAT", category: "Antifungals", form: "Powder", rx: true },
+  { name: "Caspofungine Eureco-Pharma 70 mg poeder voor concentraat voor oplossing voor infusie", generic: "CASPOFUNGINEDIACETAAT", category: "Antifungals", form: "Powder", rx: true },
+  { name: "CATMYD 5 mg/ml, oogdruppels, oplossing, in verpakking voor eenmalig gebruik", generic: "CYCLOPENTOLAATHYDROCHLORIDE", category: "Eye & Ear", form: "Ear drops", rx: true },
+  { name: "Obidatin 150 mg zachte capsules", generic: "NINTEDANIBESILAAT", category: "Oncology", form: "Capsule", rx: true },
+  { name: "Deferasirox SDZ 180 mg, filmomhulde tabletten", generic: "DEFERASIROX", category: "First Aid", form: "Tablet", rx: true },
+  { name: "Nurofen Fastine Zavance 200 mg zachte capsules", generic: "IBUPROFEN", category: "Pain & Fever", form: "Capsule", rx: true },
+  { name: "Symtuza 675 mg/150 mg/200 mg/10 mg filmomhulde tabletten", generic: "COBICISTAT#DARUNAVIRETHANOLAAT#EMTRICITABINE#TENOFOVIRALAFENAMIDEFUMARAAT", category: "Antivirals", form: "Tablet", rx: true },
+  { name: "Nitro \"Pohl\" Infus voor perfusorpompsystemen 1mg/ml, oplossing voor infusie", generic: "NITROGLYCERINE", category: "Heart & Blood Pressure", form: "Solution", rx: true },
+  { name: "Nintedanib SUN 100 mg zachte capsules", generic: "NINTEDANIBESILAAT", category: "Oncology", form: "Capsule", rx: true },
+  { name: "Obidatin 100 mg zachte capsules", generic: "NINTEDANIBESILAAT", category: "Oncology", form: "Capsule", rx: true },
+  { name: "Divigel 1 mg gel voor transdermaal gebruik in sachet", generic: "ESTRADIOL 0,5-WATER", category: "Women's Health", form: "Gel", rx: true },
+  { name: "Apixaban nio Health 2,5 mg filmomhulde tabletten", generic: "APIXABAN", category: "Anticoagulants", form: "Tablet", rx: true },
+  { name: "Sugammadex Meren 100 mg/ml, oplossing voor injectie", generic: "SUGAMMADEX NATRIUM", category: "First Aid", form: "Injection", rx: true },
+  { name: "Deferasirox SDZ 90 mg, filmomhulde tabletten", generic: "DEFERASIROX", category: "First Aid", form: "Tablet", rx: true },
+  { name: "Triamcinolonacetonide Eureco-Pharma, 55 mcg/verstuiving, neusspray, suspensie", generic: "TRIAMCINOLONACETONIDE", category: "Cough & Cold", form: "Nasal spray", rx: true },
+  { name: "Nintedanib SUN 150 mg zachte capsules", generic: "NINTEDANIBESILAAT", category: "Oncology", form: "Capsule", rx: true },
+  { name: "Apixaban nio Health 5 mg filmomhulde tabletten", generic: "APIXABAN", category: "Anticoagulants", form: "Tablet", rx: true },
+
 ];
 
 const CATEGORIES = [

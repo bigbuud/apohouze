@@ -19448,6 +19448,20 @@ const MEDICINES = [
   { name: "Nicovito Ivermectin Lotion.", generic: "Ivermectin Lotion.", category: "Antiparasitics", form: "Tablet", rx: false },
   { name: "Ivermectin Lotion.", generic: "Ivermectin Lotion.", category: "Antiparasitics", form: "Tablet", rx: false },
 
+  { name: "CVS Health Oral Anesthetic Liquid", generic: "Benzocaine", category: "First Aid", form: "Tablet", rx: false },
+  { name: "NILOTINIB D-TARTRATE", generic: "NILOTINIB D-TARTRATE", category: "Oncology", form: "Powder", rx: false },
+  { name: "BRYTLY", generic: "Apraclonidine Hydrochloride", category: "Heart & Blood Pressure", form: "Drops", rx: false },
+  { name: "Hydroryx", generic: "Hydrocortisone 2%", category: "Corticosteroids", form: "Gel", rx: false },
+  { name: "Dragon Lidocaine Pain", generic: "Lidocaine Hydrochloride", category: "First Aid", form: "Cream", rx: false },
+  { name: "Meijer Oral Anesthetic Liquid", generic: "Benzocaine", category: "First Aid", form: "Tablet", rx: false },
+  { name: "Nuvexa", generic: "Lidocaine 2.8", category: "First Aid", form: "Gel", rx: false },
+  { name: "Lidocaine 2.8", generic: "Lidocaine 2.8", category: "First Aid", form: "Gel", rx: false },
+  { name: "Face Acne Wash", generic: "Benzoyl Peroxide", category: "Skin & Wounds", form: "Gel", rx: false },
+  { name: "Folivex", generic: "Multivitamin", category: "Vitamins & Supplements", form: "Tablet", rx: false },
+  { name: "carrotee IverGurad", generic: "Pyrantel Pamoate", category: "Antiparasitics", form: "Tablet", rx: false },
+  { name: "Walgreens Instant Oral Anesthetic", generic: "Benzocaine", category: "First Aid", form: "Tablet", rx: false },
+  { name: "Lidoflect", generic: "Lidocaine 4%", category: "First Aid", form: "Patch", rx: false },
+
 ];
 
 const CATEGORIES = [

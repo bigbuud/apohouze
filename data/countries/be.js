@@ -12676,6 +12676,16 @@ const MEDICINES = [
   { name: "Tafamidis Accordpharma 20 mg soft caps.", generic: "", category: "Nervous System", form: "Capsule", rx: false },
   { name: "Zutectra 500 IU inj. sol. s.c. pre-filled pen", generic: "", category: "Antivirals", form: "Injection", rx: false },
 
+  { name: "Emodinoxx 100 % v/v medicin. gas (liquified) mobile cryog.  vessel gas cylindre bundle gas cylinder", generic: "", category: "Pain & Fever", form: "Tablet", rx: false },
+  { name: "Omeprazole Eurogenerics 10 mg hard gastro-resist. caps.", generic: "", category: "Stomach & Intestine", form: "Capsule", rx: false },
+  { name: "Cavoley 6 mg inj. sol. s.c. pre-filled syr.", generic: "", category: "Oncology", form: "Injection", rx: false },
+  { name: "Nebido 1 000 mg/4 ml (Orifarm) inj. sol. i.m. vial", generic: "", category: "Women's Health", form: "Injection", rx: false },
+  { name: "Ezetimibe/Atorvastatin Sandoz 10 mg - 20 mg (Orifarm) film-coat. tabl.", generic: "", category: "Cholesterol", form: "Tablet", rx: false },
+  { name: "Edoxaban EG 15 mg film-coat. tabl.", generic: "", category: "Anticoagulants", form: "Tablet", rx: false },
+  { name: "Edoxaban EG 30 mg film-coat. tabl.", generic: "", category: "Anticoagulants", form: "Tablet", rx: false },
+  { name: "Edoxaban EG 60 mg film-coat. tabl.", generic: "", category: "Anticoagulants", form: "Tablet", rx: false },
+  { name: "Thymoseptine Sans Sucre syrup", generic: "", category: "Cough & Cold", form: "Syrup", rx: false },
+
 ];
 
 const CATEGORIES = [
