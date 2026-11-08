@@ -20956,6 +20956,21 @@ const MEDICINES = [
   { name: "Nintedanib SUN 150 mg zachte capsules", generic: "NINTEDANIBESILAAT", category: "Oncology", form: "Capsule", rx: true },
   { name: "Apixaban nio Health 5 mg filmomhulde tabletten", generic: "APIXABAN", category: "Anticoagulants", form: "Tablet", rx: true },
 
+  { name: "Enzalutamide Qilu 80 mg, filmomhulde tabletten", generic: "ENZALUTAMIDE", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Palbociclib Alembic 100 mg filmomhulde tabletten", generic: "PALBOCICLIB", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Zonisamide Heumann 100 mg, harde capsules", generic: "ZONISAMIDE", category: "Neurology", form: "Capsule", rx: true },
+  { name: "Enzalutamide Qilu 40 mg, filmomhulde tabletten", generic: "ENZALUTAMIDE", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Dapagliflozine/Metformine Steden Pharma 5 mg/1000 mg, filmomhulde tabletten", generic: "DAPAGLIFLOZINEPROPAANDIOL 1-WATER#METFORMINEHYDROCHLORIDE", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Zonisamide Heumann 50 mg, harde capsules", generic: "ZONISAMIDE", category: "Neurology", form: "Capsule", rx: true },
+  { name: "Enzalutamide Intas 40 mg zachte capsules", generic: "ENZALUTAMIDE", category: "Oncology", form: "Capsule", rx: true },
+  { name: "Palbociclib Alembic 75 mg filmomhulde tabletten", generic: "PALBOCICLIB", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Epsolay 50 mg/g crème", generic: "BENZOYLPEROXIDE n-WATER", category: "Skin & Wounds", form: "Cream", rx: true },
+  { name: "Cavoley 6 mg oplossing voor injectie in een voorgevulde spuit", generic: "PEGFILGRASTIM", category: "Oncology", form: "Injection", rx: true },
+  { name: "Nitro \"Pohl\" Infus voor perfusorpompsystemen 1mg/ml, oplossing voor infusie", generic: "NITROGLYCERINE", category: "Heart & Blood Pressure", form: "Solution", rx: true },
+  { name: "Zonisamide Heumann 25 mg, harde capsules", generic: "ZONISAMIDE", category: "Neurology", form: "Capsule", rx: true },
+  { name: "Dapagliflozine/Metformine Steden Pharma 5 mg/850 mg, filmomhulde tabletten", generic: "DAPAGLIFLOZINEPROPAANDIOL 1-WATER#METFORMINEHYDROCHLORIDE", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Palbociclib Alembic 125 mg filmomhulde tabletten", generic: "PALBOCICLIB", category: "Oncology", form: "Tablet", rx: true },
+
 ];
 
 const CATEGORIES = [

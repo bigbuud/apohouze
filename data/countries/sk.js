@@ -1619,6 +1619,9 @@ const MEDICINES = [
 
   { name: "Tosmova (previously Tocilizumab STADA and Tofidence)", generic: "tocilizumab", category: "Corticosteroids", form: "Tablet", rx: true },
 
+  { name: "Veanibek (previously Miglustat Gen.Orph)", generic: "miglustat", category: "Stomach & Intestine", form: "Tablet", rx: true },
+  { name: "Vlustozik (previously Ibuprofen Gen.Orph)", generic: "Ibuprofen", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
+
 ];
 
 module.exports = { MEDICINES };

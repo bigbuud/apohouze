@@ -9638,6 +9638,20 @@ const MEDICINES = [
   { name: "OXAZEPAM VIATRIS 50 mg", generic: "comprimé sécable", category: "FR", form: "Tablet", rx: false },
   { name: "SELOKEN LP 200 mg", generic: "comprimé à libération prolongée", category: "FR", form: "Tablet", rx: false },
 
+  { name: "ALMOTRIPTAN ZENTIVA 12", generic: "5 mg", category: "Rx", form: "Tablet", rx: false },
+  { name: "AMOXICILLINE VIATRIS SANTE 500 mg", generic: "gélule", category: "FR", form: "Tablet", rx: false },
+  { name: "FUROSEMIDE TEVA SANTE 500 mg", generic: "comprimé sécable", category: "FR", form: "Tablet", rx: false },
+  { name: "GABAPENTINE EVOLUGEN PHARMA 300 mg", generic: "gélule", category: "FR", form: "Tablet", rx: false },
+  { name: "GABAPENTINE EVOLUGEN PHARMA 400 mg", generic: "gélule", category: "FR", form: "Tablet", rx: false },
+  { name: "OXAZEPAM VIATRIS 10 mg", generic: "comprimé", category: "FR", form: "Tablet", rx: false },
+  { name: "PARACETAMOL BGR 500 mg", generic: "comprimé", category: "FR", form: "Tablet", rx: false },
+  { name: "WEGOVY 1.5 mg", generic: "comprimé", category: "FR", form: "Tablet", rx: false },
+  { name: "WEGOVY 25 mg", generic: "comprimé", category: "FR", form: "Tablet", rx: false },
+  { name: "WEGOVY 4 mg", generic: "comprimé", category: "FR", form: "Tablet", rx: false },
+  { name: "WEGOVY 7", generic: "2 mg", category: "Rx", form: "Tablet", rx: false },
+  { name: "WEGOVY 9 mg", generic: "comprimé", category: "FR", form: "Tablet", rx: false },
+  { name: "ZVOGRA 120 mg", generic: "solution injectable", category: "FR", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

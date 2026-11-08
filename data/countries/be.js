@@ -12686,6 +12686,11 @@ const MEDICINES = [
   { name: "Edoxaban EG 60 mg film-coat. tabl.", generic: "", category: "Anticoagulants", form: "Tablet", rx: false },
   { name: "Thymoseptine Sans Sucre syrup", generic: "", category: "Cough & Cold", form: "Syrup", rx: false },
 
+  { name: "Veanibek 100 mg hard caps.", generic: "", category: "Stomach & Intestine", form: "Capsule", rx: false },
+  { name: "Vlustozik 5 mg/ml inj. sol. i.v. amp.", generic: "", category: "Heart & Blood Pressure", form: "Injection", rx: false },
+  { name: "Lynavoy 40 mg film-coat. tabl.", generic: "", category: "Stomach & Intestine", form: "Tablet", rx: false },
+  { name: "Nylaspeg 6 mg inj. sol. s.c. pre-filled syr.", generic: "", category: "Oncology", form: "Injection", rx: false },
+
 ];
 
 const CATEGORIES = [
