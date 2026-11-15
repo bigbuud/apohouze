@@ -7020,6 +7020,13 @@ const MEDICINES = [
   { name: "Veanibek (previously Miglustat Gen.Orph)", generic: "miglustat", category: "Stomach & Intestine", form: "Tablet", rx: false },
   { name: "Vlustozik (previously Ibuprofen Gen.Orph)", generic: "Ibuprofen", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
 
+  { name: "Baxfendy", generic: "baxdrostat", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "Donrafylix", generic: "insulin aspart", category: "Diabetes", form: "Tablet", rx: false },
+  { name: "Fondaparinux sodium Evumed", generic: "fondaparinux sodium", category: "Anticoagulants", form: "Tablet", rx: false },
+  { name: "Garzulys", generic: "insulin aspart", category: "Diabetes", form: "Tablet", rx: false },
+  { name: "Ruxolitinib Krka", generic: "ruxolitinib hydrochloride", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Zybrivo", generic: "sintilimab", category: "Oncology", form: "Tablet", rx: false },
+
 ];
 
 const CATEGORIES = [

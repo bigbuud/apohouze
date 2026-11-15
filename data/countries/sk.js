@@ -1622,6 +1622,13 @@ const MEDICINES = [
   { name: "Veanibek (previously Miglustat Gen.Orph)", generic: "miglustat", category: "Stomach & Intestine", form: "Tablet", rx: true },
   { name: "Vlustozik (previously Ibuprofen Gen.Orph)", generic: "Ibuprofen", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
 
+  { name: "Baxfendy", generic: "baxdrostat", category: "Heart & Blood Pressure", form: "Tablet", rx: true },
+  { name: "Donrafylix", generic: "insulin aspart", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Fondaparinux sodium Evumed", generic: "fondaparinux sodium", category: "Anticoagulants", form: "Tablet", rx: true },
+  { name: "Garzulys", generic: "insulin aspart", category: "Diabetes", form: "Tablet", rx: true },
+  { name: "Ruxolitinib Krka", generic: "ruxolitinib hydrochloride", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Zybrivo", generic: "sintilimab", category: "Oncology", form: "Tablet", rx: true },
+
 ];
 
 module.exports = { MEDICINES };

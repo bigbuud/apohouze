@@ -12691,6 +12691,9 @@ const MEDICINES = [
   { name: "Lynavoy 40 mg film-coat. tabl.", generic: "", category: "Stomach & Intestine", form: "Tablet", rx: false },
   { name: "Nylaspeg 6 mg inj. sol. s.c. pre-filled syr.", generic: "", category: "Oncology", form: "Injection", rx: false },
 
+  { name: "Susvimo 100 mg/ml inj. sol. i.vitr. vial", generic: "", category: "Eye & Ear", form: "Injection", rx: false },
+  { name: "NaCl 0,9 % B. Braun inf. sol. i.v.", generic: "", category: "First Aid", form: "Injection", rx: false },
+
 ];
 
 const CATEGORIES = [
