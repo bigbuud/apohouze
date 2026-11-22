@@ -21010,6 +21010,25 @@ const MEDICINES = [
   { name: "Dapagliflozine Teva 10 mg, filmomhulde tabletten", generic: "DAPAGLIFLOZINE", category: "Diabetes", form: "Tablet", rx: true },
   { name: "Diltiazem HCl Retard SMB 120 mg, capsules met gereguleerde afgifte", generic: "DILTIAZEMHYDROCHLORIDE", category: "Heart & Blood Pressure", form: "Capsule", rx: true },
 
+  { name: "Vortioxetine Vivanta Generics 20 mg filmomhulde tabletten", generic: "VORTIOXETINEHYDROBROMIDE", category: "Antidepressants", form: "Tablet", rx: true },
+  { name: "DARO Hoestbruistabletten met citroensmaak Acetylcysteïne 600 mg, bruistabletten", generic: "ACETYLCYSTEÏNE", category: "Cough & Cold", form: "Effervescent tablet", rx: false },
+  { name: "Vortioxetine Vivanta 20 mg filmomhulde tabletten", generic: "VORTIOXETINEHYDROBROMIDE", category: "Antidepressants", form: "Tablet", rx: true },
+  { name: "Nilotinib Olpha 200 mg harde capsules", generic: "NILOTINIB HYDROCHLORIDE 1-WATER", category: "Oncology", form: "Capsule", rx: true },
+  { name: "Vortioxetine Vivanta 5 mg filmomhulde tabletten", generic: "VORTIOXETINEHYDROBROMIDE", category: "Antidepressants", form: "Tablet", rx: true },
+  { name: "Xelf Xylometazoline/Ipratropium, 0,5/0,6 mg/ml, neusspray, oplossing", generic: "IPRATROPIUMBROMIDE 0-WATER#XYLOMETAZOLINEHYDROCHLORIDE", category: "Cough & Cold", form: "Nasal spray", rx: false },
+  { name: "Nitro \"Pohl\" Infus voor perfusorpompsystemen 1mg/ml, oplossing voor infusie", generic: "NITROGLYCERINE", category: "Heart & Blood Pressure", form: "Solution", rx: true },
+  { name: "Vortioxetine Vivanta 10 mg filmomhulde tabletten", generic: "VORTIOXETINEHYDROBROMIDE", category: "Antidepressants", form: "Tablet", rx: true },
+  { name: "Vortioxetine Vivanta 15 mg filmomhulde tabletten", generic: "VORTIOXETINEHYDROBROMIDE", category: "Antidepressants", form: "Tablet", rx: true },
+  { name: "Vortioxetine Vivanta Generics 10 mg filmomhulde tabletten", generic: "VORTIOXETINEHYDROBROMIDE", category: "Antidepressants", form: "Tablet", rx: true },
+  { name: "Inmirba 50 mg tabletten met verlengde afgifte", generic: "MIRABEGRON", category: "Urology", form: "Tablet", rx: true },
+  { name: "Azacitidine Teva 200 mg, filmomhulde tabletten", generic: "AZACITIDINE", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Ipratropiumbromide Aldo-Unión 20 microgram/verstuiving aërosol, oplossing", generic: "IPRATROPIUMBROMIDE 1-WATER", category: "Lungs & Asthma", form: "Solution", rx: true },
+  { name: "Vortioxetine Vivanta Generics 15 mg filmomhulde tabletten", generic: "VORTIOXETINEHYDROBROMIDE", category: "Antidepressants", form: "Tablet", rx: true },
+  { name: "Azacitidine Teva 300 mg, filmomhulde tabletten", generic: "AZACITIDINE", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Nilotinib Olpha 150 mg harde capsules", generic: "NILOTINIB HYDROCHLORIDE 1-WATER", category: "Oncology", form: "Capsule", rx: true },
+  { name: "Algyd 25 mg/25 mg pleister", generic: "LIDOCAÏNE#PRILOCAÏNE", category: "Pain & Fever", form: "Patch", rx: true },
+  { name: "Vortioxetine Vivanta Generics 5 mg filmomhulde tabletten", generic: "VORTIOXETINEHYDROBROMIDE", category: "Antidepressants", form: "Tablet", rx: true },
+
 ];
 
 const CATEGORIES = [

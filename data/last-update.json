@@ -1,21 +1,21 @@
 {
-  "updated_at": "2026-11-15T10:26:10.899Z",
+  "updated_at": "2026-11-22T10:45:48.050Z",
   "dry_run": false,
   "results": {
     "be": {
-      "before": 12656,
-      "after": 12658,
-      "added": 2
+      "before": 12658,
+      "after": 12674,
+      "added": 16
     },
     "nl": {
-      "before": 20887,
-      "after": 20924,
-      "added": 37
+      "before": 20924,
+      "after": 20941,
+      "added": 17
     },
     "de": {
-      "before": 7012,
+      "before": 7018,
       "after": 7018,
-      "added": 6
+      "added": 0
     },
     "gb": {
       "before": 32150,
@@ -23,19 +23,19 @@
       "added": 0
     },
     "fr": {
-      "before": 9641,
+      "before": 9683,
       "after": 9683,
-      "added": 42
+      "added": 0
     },
     "it": {
-      "before": 9649,
-      "after": 9753,
-      "added": 104
+      "before": 9753,
+      "after": 9781,
+      "added": 28
     },
     "us": {
-      "before": 19471,
-      "after": 19503,
-      "added": 32
+      "before": 19503,
+      "after": 19540,
+      "added": 37
     },
     "ca": {
       "before": 10978,
@@ -43,94 +43,94 @@
       "added": 0
     },
     "at": {
-      "before": 7004,
+      "before": 7010,
       "after": 7010,
-      "added": 6
+      "added": 0
     },
     "ch": {
-      "before": 7004,
+      "before": 7010,
       "after": 7010,
-      "added": 6
+      "added": 0
     },
     "dk": {
       "before": 5456,
-      "after": 5456,
-      "added": 0
+      "after": 5462,
+      "added": 6
     },
     "es": {
-      "before": 5468,
+      "before": 5474,
       "after": 5474,
-      "added": 6
+      "added": 0
     },
     "fi": {
-      "before": 7004,
+      "before": 7010,
       "after": 7010,
-      "added": 6
+      "added": 0
     },
     "ie": {
-      "before": 7004,
+      "before": 7010,
       "after": 7010,
-      "added": 6
+      "added": 0
     },
     "no": {
-      "before": 7000,
+      "before": 7006,
       "after": 7006,
-      "added": 6
+      "added": 0
     },
     "pl": {
-      "before": 7004,
+      "before": 7010,
       "after": 7010,
-      "added": 6
+      "added": 0
     },
     "pt": {
-      "before": 7008,
+      "before": 7014,
       "after": 7014,
-      "added": 6
+      "added": 0
     },
     "se": {
-      "before": 7004,
+      "before": 7010,
       "after": 7010,
-      "added": 6
+      "added": 0
     },
     "cz": {
-      "before": 1621,
+      "before": 1627,
       "after": 1627,
-      "added": 6
+      "added": 0
     },
     "sk": {
-      "before": 1603,
+      "before": 1609,
       "after": 1609,
-      "added": 6
+      "added": 0
     },
     "hr": {
-      "before": 1607,
+      "before": 1613,
       "after": 1613,
-      "added": 6
+      "added": 0
     },
     "si": {
-      "before": 1608,
+      "before": 1614,
       "after": 1614,
-      "added": 6
+      "added": 0
     },
     "hu": {
-      "before": 1613,
+      "before": 1619,
       "after": 1619,
-      "added": 6
+      "added": 0
     },
     "ro": {
-      "before": 1613,
+      "before": 1619,
       "after": 1619,
-      "added": 6
+      "added": 0
     },
     "gr": {
-      "before": 1610,
+      "before": 1616,
       "after": 1616,
-      "added": 6
+      "added": 0
     },
     "lu": {
-      "before": 1619,
+      "before": 1625,
       "after": 1625,
-      "added": 6
+      "added": 0
     }
   }
 }

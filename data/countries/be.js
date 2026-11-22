@@ -12694,6 +12694,23 @@ const MEDICINES = [
   { name: "Susvimo 100 mg/ml inj. sol. i.vitr. vial", generic: "", category: "Eye & Ear", form: "Injection", rx: false },
   { name: "NaCl 0,9 % B. Braun inf. sol. i.v.", generic: "", category: "First Aid", form: "Injection", rx: false },
 
+  { name: "Lynozyfic 5 mg inf. sol. (conc.) i.v. vial", generic: "", category: "Oncology", form: "Injection", rx: false },
+  { name: "Lynozyfic 200 mg inf. sol. (conc.) i.v. vial", generic: "", category: "Oncology", form: "Injection", rx: false },
+  { name: "Tryngolza 80 mg inj. sol. s.c. pre-filled pen", generic: "", category: "Cholesterol", form: "Injection", rx: false },
+  { name: "Ivacaftor Lupin 75 mg film-coat. tabl.", generic: "", category: "Lungs & Asthma", form: "Tablet", rx: false },
+  { name: "Ivacaftor Lupin 150 mg film-coat. tabl.", generic: "", category: "Lungs & Asthma", form: "Tablet", rx: false },
+  { name: "Sacubitril/Valsartan Viatris 24 mg - 26 mg film-coat. tabl.", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "Sacubitril/Valsartan Viatris 49 mg - 51 mg film-coat. tabl.", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "Sacubitril/Valsartan Viatris 97 mg - 103 mg film-coat. tabl.", generic: "", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "Divigel 0.5 mg transderm. gel sachet", generic: "", category: "Women's Health", form: "Gel", rx: false },
+  { name: "Divigel 1 mg transderm. gel sachet", generic: "", category: "Women's Health", form: "Gel", rx: false },
+  { name: "Nitrofurantoin AB 50 mg hard caps.", generic: "", category: "Antibiotics", form: "Capsule", rx: false },
+  { name: "Nitrofurantoin AB 100 mg hard caps.", generic: "", category: "Antibiotics", form: "Capsule", rx: false },
+  { name: "Kirsty 100 U/ml inj. sol. s.c. cartr.", generic: "", category: "Diabetes", form: "Injection", rx: false },
+  { name: "Zeydovio 10 mg inj. sol. s.c. pre-filled pen", generic: "", category: "Stomach & Intestine", form: "Injection", rx: false },
+  { name: "Inijaq 5 mg film-coat. tabl.", generic: "", category: "Corticosteroids", form: "Tablet", rx: false },
+  { name: "Quinine HCl Sterop 300 mg/ml inf. sol. (conc.) i.v. amp.", generic: "", category: "Antiparasitics", form: "Injection", rx: false },
+
 ];
 
 const CATEGORIES = [
