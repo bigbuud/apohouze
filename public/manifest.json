@@ -4,8 +4,8 @@
   "description": "Home medicine app — inventory, expiry dates and categories",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#060e1e",
-  "theme_color": "#2563eb",
+  "background_color": "#F6F7F8",
+  "theme_color": "#0F6B66",
   "orientation": "any",
   "icons": [
     { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
