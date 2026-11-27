@@ -1,24 +1,43 @@
 const Database = require('better-sqlite3');
+const fs = require('fs');
 const path = require('path');
 
-// Dynamic country loader — falls back to 'be' for unknown values
-const SUPPORTED_COUNTRIES = [
-  'be','nl','de','fr','es','it','ch','at',
-  'dk','pl','no','fi','se','gb','ie','pt','us','ca'
-];
-const countryCode = (process.env.COUNTRY || 'BE').toLowerCase();
-const resolvedCode = SUPPORTED_COUNTRIES.includes(countryCode) ? countryCode : 'be';
+// ── Country loader ───────────────────────────────────────────────
+// Supported countries are derived from data/countries/*.js, so every country
+// listed in the README works (the old hard-coded list silently dropped
+// CZ, SK, HR, SI, HU, RO, GR and LU back to BE).
+const COUNTRIES_DIR = path.join(__dirname, '..', 'data', 'countries');
+const SUPPORTED_COUNTRIES = fs.readdirSync(COUNTRIES_DIR)
+  .filter(f => f.endsWith('.js'))
+  .map(f => path.basename(f, '.js'));
 
-let MEDICINES, CATEGORIES;
-try {
-  ({ MEDICINES, CATEGORIES } = require(`../data/countries/${resolvedCode}`));
-  console.log(`🌍 Country database loaded: ${resolvedCode.toUpperCase()} — ${MEDICINES.length} medicines`);
-} catch (err) {
-  console.warn(`⚠️  Could not load country file '${resolvedCode}', falling back to BE`);
-  ({ MEDICINES, CATEGORIES } = require('../data/countries/be'));
+const requested = (process.env.COUNTRY || 'BE').trim().toLowerCase();
+const resolvedCode = SUPPORTED_COUNTRIES.includes(requested) ? requested : 'be';
+if (resolvedCode !== requested) {
+  console.warn(`⚠️  Unknown COUNTRY '${process.env.COUNTRY}', falling back to BE`);
 }
 
-const DB_PATH = process.env.DB_PATH || path.join(__dirname, '../data/apohouze.db');
+const { MEDICINES, CATEGORIES } = require(path.join(COUNTRIES_DIR, resolvedCode));
+console.log(`🌍 Country database loaded: ${resolvedCode.toUpperCase()} — ${MEDICINES.length} medicines`);
+
+const DB_PATH = process.env.DB_PATH || path.join(__dirname, '..', 'data', 'apohouze.db');
+fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
+
+// Accent- and case-insensitive search key: "Dafalgan Forté" → "dafalgan forte"
+function fold(s) {
+  return String(s || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+}
+
+// Local calendar date (YYYY-MM-DD). toISOString() is UTC and gives the wrong
+// day around midnight for anyone not on UTC.
+function localDate(offsetDays = 0) {
+  const d = new Date(Date.now() + offsetDays * 86400000);
+  const p = n => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+}
 
 let db;
 
@@ -26,24 +45,14 @@ function getDb() {
   if (!db) {
     db = new Database(DB_PATH);
     db.pragma('journal_mode = WAL');
+    db.pragma('synchronous = NORMAL');
     db.pragma('foreign_keys = ON');
-    initDb();
+    initDb(db);
   }
   return db;
 }
 
-function initDb() {
-  const db = getDb();
-
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS users (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      username TEXT UNIQUE NOT NULL,
-      password_hash TEXT NOT NULL,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    );
-  `);
-
+function initDb(db) {
   db.exec(`
     CREATE TABLE IF NOT EXISTS medicine_db (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -53,9 +62,7 @@ function initDb() {
       form TEXT,
       rx INTEGER DEFAULT 0
     );
-  `);
 
-  db.exec(`
     CREATE TABLE IF NOT EXISTS inventory (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
@@ -71,178 +78,140 @@ function initDb() {
       added_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
-  `);
 
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS alerts (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      inventory_id INTEGER,
-      alert_type TEXT NOT NULL,
-      alert_date DATE,
-      message TEXT,
-      resolved INTEGER DEFAULT 0,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (inventory_id) REFERENCES inventory(id) ON DELETE CASCADE
-    );
-  `);
-
-  db.exec(`
     CREATE TABLE IF NOT EXISTS app_config (
       key TEXT PRIMARY KEY,
       value TEXT NOT NULL
     );
+
+    CREATE INDEX IF NOT EXISTS idx_inventory_expiry   ON inventory(expiry_date);
+    CREATE INDEX IF NOT EXISTS idx_inventory_category ON inventory(category);
   `);
 
-  // Always reload medicine_db when country changes or count mismatches
-  const storedCountry = db.prepare("SELECT value FROM app_config WHERE key = 'country'").get();
-  const storedCount   = db.prepare("SELECT value FROM app_config WHERE key = 'medicine_count'").get();
-  const countryChanged = !storedCountry || storedCountry.value !== resolvedCode;
-  const countChanged   = !storedCount   || parseInt(storedCount.value) !== MEDICINES.length;
+  // Add the folded search column on databases created by older versions.
+  const cols = db.prepare('PRAGMA table_info(medicine_db)').all().map(c => c.name);
+  if (!cols.includes('search')) db.exec('ALTER TABLE medicine_db ADD COLUMN search TEXT');
+  db.exec('CREATE INDEX IF NOT EXISTS idx_medicine_search ON medicine_db(search)');
 
-  if (countryChanged || countChanged) {
-    console.log(`🔄 Reloading medicine DB: country=${resolvedCode.toUpperCase()} (${MEDICINES.length} medicines)`);
-    db.prepare('DELETE FROM medicine_db').run();
+  // Reload when the country, the entries or the schema version changed.
+  // (Count alone missed edits that kept the same number of medicines.)
+  const SCHEMA = '3';
+  const fingerprint = `${resolvedCode}:${MEDICINES.length}:${fold(MEDICINES[0] && MEDICINES[0].name)}:${fold(MEDICINES[MEDICINES.length - 1] && MEDICINES[MEDICINES.length - 1].name)}:v${SCHEMA}`;
+  const stored = db.prepare("SELECT value FROM app_config WHERE key = 'fingerprint'").get();
+
+  if (!stored || stored.value !== fingerprint) {
+    console.log(`🔄 Reloading medicine DB: ${resolvedCode.toUpperCase()} (${MEDICINES.length} medicines)`);
     const insert = db.prepare(
-      'INSERT INTO medicine_db (name, generic, category, form, rx) VALUES (@name, @generic, @category, @form, @rx)'
+      'INSERT INTO medicine_db (name, generic, category, form, rx, search) VALUES (?, ?, ?, ?, ?, ?)'
     );
-    const insertMany = db.transaction((meds) => {
-      for (const m of meds) {
-        insert.run({
-          name: m.name,
-          generic: m.generic || '',
-          category: m.category,
-          form: m.form || '',
-          rx: m.rx ? 1 : 0
-        });
+    db.transaction(() => {
+      db.prepare('DELETE FROM medicine_db').run();
+      for (const m of MEDICINES) {
+        insert.run(m.name, m.generic || '', m.category, m.form || '', m.rx ? 1 : 0,
+          fold(`${m.name} ${m.generic || ''}`));
       }
-    });
-    insertMany(MEDICINES);
-    db.prepare("INSERT OR REPLACE INTO app_config (key, value) VALUES ('country', ?)").run(resolvedCode);
-    db.prepare("INSERT OR REPLACE INTO app_config (key, value) VALUES ('medicine_count', ?)").run(String(MEDICINES.length));
-    console.log(`✅ Medicine database synced: ${MEDICINES.length} medicines (${resolvedCode.toUpperCase()})`);
+      db.prepare("INSERT OR REPLACE INTO app_config (key, value) VALUES ('fingerprint', ?)").run(fingerprint);
+      db.prepare("INSERT OR REPLACE INTO app_config (key, value) VALUES ('country', ?)").run(resolvedCode);
+    })();
+    console.log('✅ Medicine database synced');
   } else {
-    console.log(`✅ Medicine database up to date: ${MEDICINES.length} medicines (${resolvedCode.toUpperCase()})`);
+    console.log('✅ Medicine database up to date');
   }
 }
 
-function searchMedicines(query, limit = 15) {
-  const db = getDb();
-  const q = `%${query}%`;
-  return db.prepare(`
-    SELECT name, generic, category, form, rx 
-    FROM medicine_db 
-    WHERE name LIKE ? OR generic LIKE ?
-    ORDER BY 
-      CASE WHEN name LIKE ? THEN 0 ELSE 1 END,
-      name ASC
-    LIMIT ?
-  `).all(q, q, `${query}%`, limit);
-}
+// Escape LIKE wildcards so searching for "50%" or "_" behaves literally.
+const likeEscape = s => s.replace(/[\\%_]/g, c => '\\' + c);
 
-function getCategoryStats() {
-  const db = getDb();
-  return db.prepare(`
-    SELECT category, COUNT(*) as count 
-    FROM inventory 
-    GROUP BY category 
-    ORDER BY category
-  `).all();
+function searchMedicines(query, limit = 15) {
+  const q = fold(query).trim();
+  if (!q) return [];
+  const esc = likeEscape(q);
+  return getDb().prepare(`
+    SELECT name, generic, category, form, rx
+    FROM medicine_db
+    WHERE search LIKE ? ESCAPE '\\'
+    ORDER BY
+      CASE WHEN search LIKE ? ESCAPE '\\' THEN 0 ELSE 1 END,
+      length(name),
+      name
+    LIMIT ?
+  `).all(`%${esc}%`, `${esc}%`, limit);
 }
 
 function getInventory(filters = {}) {
-  const db = getDb();
-  let query = 'SELECT * FROM inventory WHERE 1=1';
+  let sql = 'SELECT * FROM inventory WHERE 1=1';
   const params = [];
 
   if (filters.category) {
-    query += ' AND category = ?';
+    sql += ' AND category = ?';
     params.push(filters.category);
   }
   if (filters.search) {
-    query += ' AND (name LIKE ? OR generic LIKE ? OR notes LIKE ?)';
-    const s = `%${filters.search}%`;
+    sql += " AND (name LIKE ? ESCAPE '\\' OR generic LIKE ? ESCAPE '\\' OR notes LIKE ? ESCAPE '\\')";
+    const s = `%${likeEscape(filters.search)}%`;
     params.push(s, s, s);
   }
   if (filters.expiring) {
-    query += ' AND expiry_date IS NOT NULL AND expiry_date <= date("now", "+30 days")';
+    // The old query used date("now", ...) with double quotes, which
+    // better-sqlite3 (compiled with SQLITE_DQS=0) rejects as an unknown column.
+    sql += ' AND expiry_date IS NOT NULL AND expiry_date <= ?';
+    params.push(localDate(30));
   }
 
-  query += ' ORDER BY expiry_date ASC, name ASC';
-  return db.prepare(query).all(...params);
+  sql += ' ORDER BY expiry_date IS NULL, expiry_date ASC, name ASC';
+  return getDb().prepare(sql).all(...params);
 }
 
 function addInventoryItem(item) {
-  const db = getDb();
-  const stmt = db.prepare(`
+  return getDb().prepare(`
     INSERT INTO inventory (name, generic, category, form, quantity, unit, expiry_date, notes, location, rx)
     VALUES (@name, @generic, @category, @form, @quantity, @unit, @expiry_date, @notes, @location, @rx)
-  `);
-  const result = stmt.run(item);
-  return result.lastInsertRowid;
+  `).run(item).lastInsertRowid;
 }
 
 function updateInventoryItem(id, item) {
-  const db = getDb();
-  const stmt = db.prepare(`
+  return getDb().prepare(`
     UPDATE inventory SET
-      name = @name,
-      generic = @generic,
-      category = @category,
-      form = @form,
-      quantity = @quantity,
-      unit = @unit,
-      expiry_date = @expiry_date,
-      notes = @notes,
-      location = @location,
-      rx = @rx,
+      name = @name, generic = @generic, category = @category, form = @form,
+      quantity = @quantity, unit = @unit, expiry_date = @expiry_date,
+      notes = @notes, location = @location, rx = @rx,
       updated_at = CURRENT_TIMESTAMP
     WHERE id = @id
-  `);
-  return stmt.run({ ...item, id });
+  `).run({ ...item, id });
 }
 
 function deleteInventoryItem(id) {
-  const db = getDb();
-  return db.prepare('DELETE FROM inventory WHERE id = ?').run(id);
+  return getDb().prepare('DELETE FROM inventory WHERE id = ?').run(id);
 }
 
 function getDashboardStats() {
   const db = getDb();
-  const today = new Date().toISOString().split('T')[0];
-  const in30 = new Date(Date.now() + 30 * 86400000).toISOString().split('T')[0];
-  const in90 = new Date(Date.now() + 90 * 86400000).toISOString().split('T')[0];
-
+  const today = localDate(0), in30 = localDate(30), in90 = localDate(90);
+  const count = (sql, ...p) => db.prepare(sql).get(...p).c;
   return {
-    total: db.prepare('SELECT COUNT(*) as c FROM inventory').get().c,
-    expired: db.prepare('SELECT COUNT(*) as c FROM inventory WHERE expiry_date IS NOT NULL AND expiry_date < ?').get(today).c,
-    expiring30: db.prepare('SELECT COUNT(*) as c FROM inventory WHERE expiry_date IS NOT NULL AND expiry_date >= ? AND expiry_date <= ?').get(today, in30).c,
-    expiring90: db.prepare('SELECT COUNT(*) as c FROM inventory WHERE expiry_date IS NOT NULL AND expiry_date > ? AND expiry_date <= ?').get(in30, in90).c,
-    categories: db.prepare('SELECT COUNT(DISTINCT category) as c FROM inventory').get().c,
-    rx: db.prepare('SELECT COUNT(*) as c FROM inventory WHERE rx = 1').get().c,
+    total: count('SELECT COUNT(*) c FROM inventory'),
+    expired: count('SELECT COUNT(*) c FROM inventory WHERE expiry_date IS NOT NULL AND expiry_date < ?', today),
+    expiring30: count('SELECT COUNT(*) c FROM inventory WHERE expiry_date >= ? AND expiry_date <= ?', today, in30),
+    expiring90: count('SELECT COUNT(*) c FROM inventory WHERE expiry_date > ? AND expiry_date <= ?', in30, in90),
+    categories: count('SELECT COUNT(DISTINCT category) c FROM inventory'),
+    rx: count('SELECT COUNT(*) c FROM inventory WHERE rx = 1'),
     country: resolvedCode.toUpperCase(),
     medicineDbCount: MEDICINES.length,
   };
 }
 
 function getExpiringItems(days = 30) {
-  const db = getDb();
-  const future = new Date(Date.now() + days * 86400000).toISOString().split('T')[0];
-  return db.prepare(`
-    SELECT * FROM inventory 
-    WHERE expiry_date IS NOT NULL AND expiry_date <= ? 
+  return getDb().prepare(`
+    SELECT * FROM inventory
+    WHERE expiry_date IS NOT NULL AND expiry_date <= ?
     ORDER BY expiry_date ASC
-  `).all(future);
+  `).all(localDate(days));
 }
 
+function closeDb() { if (db) { db.close(); db = null; } }
+
 module.exports = {
-  getDb,
-  searchMedicines,
-  getCategoryStats,
-  getInventory,
-  addInventoryItem,
-  updateInventoryItem,
-  deleteInventoryItem,
-  getDashboardStats,
-  getExpiringItems,
-  CATEGORIES,
+  getDb, closeDb, searchMedicines, getInventory, addInventoryItem,
+  updateInventoryItem, deleteInventoryItem, getDashboardStats, getExpiringItems,
+  localDate, CATEGORIES, SUPPORTED_COUNTRIES,
 };

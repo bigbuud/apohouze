@@ -1,56 +1,30 @@
-version: '3.8'
-
 services:
   apohouze:
     image: ghcr.io/bigbuud/apohouze:latest
     container_name: apohouze
     restart: unless-stopped
+    # Same as before the update (root) so your existing database stays writable.
+    # Optional hardening: `chown -R 1026:100 /volume1/docker/medicine`, then use "1026:100".
+    user: "0:0"
     ports:
       - "3525:3000"
     volumes:
-      - /volume1/docker/apohouze:/data
+      - /volume1/docker/medicine:/data
+    security_opt:
+      - no-new-privileges:true
     environment:
-      APP_USERNAME: admin
-      APP_PASSWORD: apohouze123
-      SESSION_SECRET: change-this-to-a-long-random-secret
+      TZ: Europe/Brussels
       DB_PATH: /data/apohouze.db
       PORT: 3000
       NODE_ENV: production
+      # No username/password/secret needed here: the account is created in the app on
+      # first use (setup code in the container log) and two-step verification is mandatory.
+      # Behind an HTTPS reverse proxy: TRUST_PROXY: 1
+      # Locked out? Set RESET_ACCOUNT: "true" for ONE restart, then remove it again.
 
-      # ── Kies je landcode ──────────────────────────────────────────
-      #
-      # West-Europa
-      # BE  🇧🇪  België          – FAMHP / afmps.be
-      # NL  🇳🇱  Nederland       – CBG / geneesmiddeleninformatiebank.nl
-      # DE  🇩🇪  Duitsland       – BfArM / gelbe-liste.de
-      # FR  🇫🇷  Frankrijk       – ANSM / medicaments.gouv.fr
-      # ES  🇪🇸  Spanje          – AEMPS / cima.aemps.es
-      # IT  🇮🇹  Italië          – AIFA / farmaci.agenziafarmaco.it
-      # CH  🇨🇭  Zwitserland     – Swissmedic / swissmedicinfo.ch
-      # AT  🇦🇹  Oostenrijk      – BASG / ages.at
-      # LU  🇱🇺  Luxemburg       – Ministère Santé / sante.public.lu
-      #
-      # Noord-Europa
-      # GB  🇬🇧  Verenigd Koninkrijk – MHRA / bnf.nice.org.uk
-      # IE  🇮🇪  Ierland         – HPRA / hpra.ie
-      # DK  🇩🇰  Denemarken      – DKMA / produktresume.dk
-      # NO  🇳🇴  Noorwegen       – NoMA / felleskatalogen.no
-      # FI  🇫🇮  Finland         – Fimea / laakeinfo.fi
-      # SE  🇸🇪  Zweden          – MPA / fass.se
-      #
-      # Oost-Europa
-      # PL  🇵🇱  Polen           – URPL / rejestry.ezdrowie.gov.pl
-      # CZ  🇨🇿  Tsjechië        – SÚKL / opendata.sukl.cz
-      # SK  🇸🇰  Slowakije       – ŠÚKL / sukl.sk
-      # HU  🇭🇺  Hongarije       – OGYÉI / ogyei.gov.hu
-      # RO  🇷🇴  Roemenië        – ANMDMR / anm.ro
-      # HR  🇭🇷  Kroatië         – HALMED / halmed.hr
-      # SI  🇸🇮  Slovenië        – JAZMP / jazmp.si
-      # GR  🇬🇷  Griekenland     – EOF / eof.gr
-      # PT  🇵🇹  Portugal        – INFARMED / infarmed.pt
-      #
-      # Noord-Amerika
-      # US  🇺🇸  Verenigde Staten – FDA NDC / open.fda.gov
-      # CA  🇨🇦  Canada          – Health Canada DPD
-      #
+      # ── Country code ─────────────────────────────────────────────
+      # West-Europe : BE NL DE FR ES IT CH AT LU
+      # North-Europe: GB IE DK NO FI SE
+      # East-Europe : PL CZ SK HU RO HR SI GR PT
+      # North-America: US CA
       COUNTRY: BE

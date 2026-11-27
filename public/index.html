@@ -341,6 +341,7 @@
         <p data-i18n="appTagline">Home Medicine App</p>
       </div>
     </div>
+    <div id="panel-login">
     <h2 class="login-welcome" data-i18n="welcomeBack">Welcome back</h2>
     <p class="login-sub" data-i18n="loginSub">Sign in to manage your home medicine app</p>
     <div class="form-group">
@@ -357,6 +358,55 @@
         <span data-i18n="signIn">Sign in</span> <span>→</span>
       </button>
     </div>
+    </div>
+
+    <div id="panel-create" style="display:none">
+      <h2 class="login-welcome" data-i18n="setupTitle">Welcome to apoHouze</h2>
+      <p class="login-sub" data-i18n="setupSub">Create your account. The setup code is shown in the container log.</p>
+      <div class="form-group"><label data-i18n="setupCode">Setup code</label>
+        <input type="text" id="setup-code" placeholder="xxxxx-xxxxx" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+      <div class="form-group"><label data-i18n="username">Username</label>
+        <input type="text" id="setup-user" autocomplete="username"></div>
+      <div class="form-group"><label data-i18n="password">Password</label>
+        <input type="password" id="setup-pass" autocomplete="new-password">
+        <div style="font-size:11.5px;color:var(--text3);margin-top:5px" data-i18n="passwordHint">At least 10 characters</div></div>
+      <div class="form-group"><label data-i18n="passwordRepeat">Repeat password</label>
+        <input type="password" id="setup-pass2" autocomplete="new-password"></div>
+      <div class="error-msg" id="setup-error"></div>
+      <div style="margin-top:22px"><button class="btn btn-primary btn-full" id="setup-btn"><span data-i18n="createAccount">Create account</span> <span>→</span></button></div>
+    </div>
+
+    <div id="panel-enroll" style="display:none">
+      <h2 class="login-welcome" data-i18n="enrollTitle">Set up two-step verification</h2>
+      <p class="login-sub" data-i18n="enrollSub">Scan the QR code with an authenticator app (Google Authenticator, Aegis, Authy, 1Password…).</p>
+      <div style="display:flex;justify-content:center;margin:6px 0 10px"><img id="enroll-qr" alt="QR" width="200" height="200" style="border-radius:12px;border:1px solid var(--border);background:#fff"></div>
+      <div style="font-size:11.5px;color:var(--text3);text-align:center" data-i18n="enrollManual">Can't scan? Enter this key manually:</div>
+      <div id="enroll-secret" style="font-family:monospace;font-size:13px;letter-spacing:1px;text-align:center;margin:6px 0 14px;word-break:break-all;user-select:all"></div>
+      <div class="form-group"><label data-i18n="enrollCode">6-digit code from the app</label>
+        <input type="text" id="enroll-code" inputmode="numeric" autocomplete="one-time-code" maxlength="7" placeholder="123456"></div>
+      <div class="error-msg" id="enroll-error"></div>
+      <div style="margin-top:22px"><button class="btn btn-primary btn-full" id="enroll-btn"><span data-i18n="enrollBtn">Activate</span> <span>→</span></button></div>
+    </div>
+
+    <div id="panel-verify" style="display:none">
+      <h2 class="login-welcome" data-i18n="verifyTitle">Two-step verification</h2>
+      <p class="login-sub" data-i18n="verifySub">Enter the 6-digit code from your authenticator app.</p>
+      <div class="form-group"><label data-i18n="verifyCode">Code</label>
+        <input type="text" id="verify-code" autocomplete="one-time-code" autocapitalize="off" spellcheck="false" placeholder="123456"></div>
+      <div style="font-size:11.5px;color:var(--text3);margin-top:-6px" data-i18n="recoveryHint">Lost your phone? Enter one of your recovery codes instead.</div>
+      <div class="error-msg" id="verify-error"></div>
+      <div style="margin-top:22px"><button class="btn btn-primary btn-full" id="verify-btn"><span data-i18n="verifyBtn">Verify</span> <span>→</span></button></div>
+      <p style="text-align:center;margin-top:14px"><a href="#" id="verify-back" style="font-size:12.5px;color:var(--text3)" data-i18n="backToLogin">Back to sign in</a></p>
+    </div>
+
+    <div id="panel-recovery" style="display:none">
+      <h2 class="login-welcome" data-i18n="recoveryTitle">Save your recovery codes</h2>
+      <p class="login-sub" data-i18n="recoverySub">Each code works once if you lose your authenticator. They are shown only now — store them somewhere safe (password manager or paper).</p>
+      <div id="recovery-list" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 14px"></div>
+      <button class="btn btn-ghost btn-full" id="recovery-copy" style="margin-bottom:10px"><span data-i18n="recoveryCopy">Copy codes</span></button>
+      <button class="btn btn-primary btn-full" id="recovery-continue"><span data-i18n="recoveryContinue">I saved them — continue</span> <span>→</span></button>
+    </div>
+
     <p style="text-align:center;margin-top:18px;font-size:12px;color:var(--text3)" id="login-footer">apoHouze · Multi-country database</p>
   </div>
 </div>
@@ -605,6 +655,10 @@ const TRANSLATIONS = {
     welcomeBack:'Welcome back',loginSub:'Sign in to manage your home medicine app',
     username:'Username',password:'Password',invalidCredentials:'Invalid username or password',
     signIn:'Sign in',signOut:'Sign out',administrator:'Administrator',
+    setupTitle:'Welcome to apoHouze',setupSub:'Create your account. The setup code is shown in the container log.',setupCode:'Setup code',passwordHint:'At least 10 characters',passwordRepeat:'Repeat password',createAccount:'Create account',passwordsDiffer:'Passwords do not match',
+    enrollTitle:'Set up two-step verification',enrollSub:'Scan the QR code with an authenticator app (Google Authenticator, Aegis, Authy, 1Password…).',enrollManual:"Can't scan? Enter this key manually:",enrollCode:'6-digit code from the app',enrollBtn:'Activate',
+    verifyTitle:'Two-step verification',verifySub:'Enter the 6-digit code from your authenticator app.',verifyCode:'Code',verifyBtn:'Verify',recoveryHint:'Lost your phone? Enter one of your recovery codes instead.',backToLogin:'Back to sign in',invalidCode:'Invalid code',tooManyAttempts:'Too many attempts. Please sign in again.',
+    recoveryTitle:'Save your recovery codes',recoverySub:'Each code works once if you lose your authenticator. They are shown only now — store them somewhere safe (password manager or paper).',recoveryCopy:'Copy codes',recoveryCopied:'Codes copied',recoveryContinue:'I saved them — continue',recoveryLow:'Only {n} recovery code(s) left',
     homeCabinet:'HOME CABINET',
     navOverview:'Overview',navDashboard:'Dashboard',navInventory:'Inventory',
     navExpiry:'Expiry alerts',navManage:'Manage',navCategories:'Categories',
@@ -649,6 +703,10 @@ const TRANSLATIONS = {
     welcomeBack:'Welkom terug',loginSub:'Log in om je apoHouze te beheren',
     username:'Gebruikersnaam',password:'Wachtwoord',invalidCredentials:'Ongeldige gebruikersnaam of wachtwoord',
     signIn:'Inloggen',signOut:'Uitloggen',administrator:'Beheerder',
+    setupTitle:'Welkom bij apoHouze',setupSub:'Maak je account aan. De setupcode staat in de container-log.',setupCode:'Setupcode',passwordHint:'Minstens 10 tekens',passwordRepeat:'Herhaal wachtwoord',createAccount:'Account aanmaken',passwordsDiffer:'Wachtwoorden komen niet overeen',
+    enrollTitle:'Tweestapsverificatie instellen',enrollSub:'Scan de QR-code met een authenticator-app (Google Authenticator, Aegis, Authy, 1Password…).',enrollManual:'Lukt scannen niet? Voer deze sleutel handmatig in:',enrollCode:'6-cijferige code uit de app',enrollBtn:'Activeren',
+    verifyTitle:'Tweestapsverificatie',verifySub:'Voer de 6-cijferige code uit je authenticator-app in.',verifyCode:'Code',verifyBtn:'Controleren',recoveryHint:'Telefoon kwijt? Voer een van je herstelcodes in.',backToLogin:'Terug naar inloggen',invalidCode:'Ongeldige code',tooManyAttempts:'Te veel pogingen. Log opnieuw in.',
+    recoveryTitle:'Bewaar je herstelcodes',recoverySub:'Elke code werkt één keer als je je authenticator kwijt bent. Ze worden alleen nu getoond — bewaar ze veilig (wachtwoordmanager of op papier).',recoveryCopy:'Codes kopiëren',recoveryCopied:'Codes gekopieerd',recoveryContinue:'Ik heb ze bewaard — verder',recoveryLow:'Nog maar {n} herstelcode(s) over',
     homeCabinet:'MEDICIJNKAST',
     navOverview:'Overzicht',navDashboard:'Dashboard',navInventory:'Inventaris',
     navExpiry:'Verloopalerts',navManage:'Beheren',navCategories:'Categorieën',
@@ -693,6 +751,10 @@ const TRANSLATIONS = {
     welcomeBack:'Bon retour',loginSub:"Connectez-vous pour gérer votre apoHouze",
     username:"Nom d'utilisateur",password:'Mot de passe',invalidCredentials:"Nom d'utilisateur ou mot de passe invalide",
     signIn:'Se connecter',signOut:'Se déconnecter',administrator:'Administrateur',
+    setupTitle:'Bienvenue sur apoHouze',setupSub:'Créez votre compte. Le code de configuration figure dans le journal du conteneur.',setupCode:'Code de configuration',passwordHint:'Au moins 10 caractères',passwordRepeat:'Répéter le mot de passe',createAccount:'Créer le compte',passwordsDiffer:'Les mots de passe ne correspondent pas',
+    enrollTitle:'Configurer la vérification en deux étapes',enrollSub:"Scannez le QR code avec une application d'authentification (Google Authenticator, Aegis, Authy, 1Password…).",enrollManual:'Impossible de scanner ? Saisissez cette clé manuellement :',enrollCode:"Code à 6 chiffres de l'application",enrollBtn:'Activer',
+    verifyTitle:'Vérification en deux étapes',verifySub:"Saisissez le code à 6 chiffres de votre application d'authentification.",verifyCode:'Code',verifyBtn:'Vérifier',recoveryHint:'Téléphone perdu ? Saisissez un de vos codes de secours.',backToLogin:'Retour à la connexion',invalidCode:'Code invalide',tooManyAttempts:'Trop de tentatives. Reconnectez-vous.',
+    recoveryTitle:'Conservez vos codes de secours',recoverySub:"Chaque code ne fonctionne qu'une fois si vous perdez votre application. Ils ne sont affichés qu'une seule fois — gardez-les en lieu sûr.",recoveryCopy:'Copier les codes',recoveryCopied:'Codes copiés',recoveryContinue:"Je les ai conservés — continuer",recoveryLow:'Plus que {n} code(s) de secours',
     homeCabinet:'ARMOIRE À PHARMACIE',
     navOverview:'Aperçu',navDashboard:'Tableau de bord',navInventory:'Inventaire',
     navExpiry:'Alertes expiration',navManage:'Gérer',navCategories:'Catégories',
@@ -852,7 +914,7 @@ function renderFormSelect(){
   if(!sel)return;
   const current=sel.value;
   const forms=['Tablet','Capsule','Effervescent tablet','Dispersible tablet','Syrup','Drops','Inhaler','Nasal spray','Eye drops','Ear drops','Cream','Ointment','Gel','Patch','Spray','Injection','Suppository','Powder','Suspension','Solution','Mouthwash','Chewing gum','Lozenge','Enema','Ampoule'];
-  sel.innerHTML=`<option value="">${t('select')}</option>`+forms.map(f=>`<option value="${f}">${translateForm(f)}</option>`).join('');
+  sel.innerHTML=`<option value="">${t('select')}</option>`+forms.map(f=>`<option value="${esc(f)}">${translateForm(f)}</option>`).join('');
   if(current)sel.value=current;
 }
 
@@ -873,6 +935,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   applyTranslations();
   renderFormSelect();
   checkAuth();
+  wireAuthUi();
   document.getElementById('login-btn').addEventListener('click',login);
   document.getElementById('login-pass').addEventListener('keypress',e=>{if(e.key==='Enter')login();});
   document.getElementById('login-user').addEventListener('keypress',e=>{if(e.key==='Enter')document.getElementById('login-pass').focus();});
@@ -910,41 +973,146 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 
 // ==================== AUTH ====================
+const STAGES=['login','create','enroll','verify','recovery'];
+let pendingUsername='';
+
+function showStage(stage){
+  document.getElementById('app').style.display='none';
+  document.getElementById('login-page').style.display='flex';
+  STAGES.forEach(p=>{document.getElementById('panel-'+p).style.display=(p===stage)?'block':'none';});
+  const focus={login:'login-user',create:'setup-code',enroll:'enroll-code',verify:'verify-code'}[stage];
+  if(stage==='enroll')loadEnroll();
+  if(focus)setTimeout(()=>{const el=document.getElementById(focus);el&&el.focus();},60);
+}
+
+function fieldError(id,msg){const el=document.getElementById(id);el.textContent=msg;el.style.display=msg?'block':'none';}
+
+async function api(path,body){
+  const res=await fetch(path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body||{})});
+  let data={};try{data=await res.json();}catch(e){}
+  return {ok:res.ok,status:res.status,data};
+}
+
 async function checkAuth(){
   const res=await fetch('/api/me');
   const data=await res.json();
   if(data.authenticated)showApp(data.username);
+  else showStage(data.stage||'login');
+}
+
+function busy(btn,on,label){
+  btn.disabled=on;
+  btn.innerHTML=on?`<span class="loading-spinner"></span> ${label}...`:btn.dataset.html;
 }
 
 async function login(){
-  const username=document.getElementById('login-user').value;
-  const password=document.getElementById('login-pass').value;
   const btn=document.getElementById('login-btn');
-  btn.innerHTML=`<span class="loading-spinner"></span> ${t('signIn')}...`;
-  btn.disabled=true;
+  btn.dataset.html=`<span>${t('signIn')}</span><span>→</span>`;
+  busy(btn,true,t('signIn'));
   try{
-    const res=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username,password})});
-    const data=await res.json();
-    if(data.success){
-      showApp(data.username);
-    }else{
-      document.getElementById('login-error').style.display='block';
-      btn.innerHTML=`<span>${t('signIn')}</span><span>→</span>`;
-      btn.disabled=false;
+    const {ok,data}=await api('/api/login',{username:document.getElementById('login-user').value,password:document.getElementById('login-pass').value});
+    if(ok&&data.success){document.getElementById('login-pass').value='';return showStage(data.stage);}
+    if(data.stage==='create')return showStage('create');
+    const err=document.getElementById('login-error');
+    err.textContent=data.error&&data.error!=='Invalid username or password'?data.error:t('invalidCredentials');
+    err.style.display='block';
+  }catch(e){toast(t('connectionError'),'error');}
+  busy(btn,false);
+}
+
+async function createAccount(){
+  const pass=document.getElementById('setup-pass').value;
+  if(pass!==document.getElementById('setup-pass2').value)return fieldError('setup-error',t('passwordsDiffer'));
+  const btn=document.getElementById('setup-btn');
+  btn.dataset.html=`<span>${t('createAccount')}</span> <span>→</span>`;
+  busy(btn,true,t('createAccount'));
+  try{
+    const {ok,data}=await api('/api/setup',{code:document.getElementById('setup-code').value,username:document.getElementById('setup-user').value,password:pass});
+    if(ok&&data.success){fieldError('setup-error','');document.getElementById('setup-pass').value='';document.getElementById('setup-pass2').value='';return showStage('enroll');}
+    fieldError('setup-error',data.error||t('connectionError'));
+  }catch(e){fieldError('setup-error',t('connectionError'));}
+  busy(btn,false);
+}
+
+async function loadEnroll(){
+  try{
+    const res=await fetch('/api/2fa/enroll');
+    if(!res.ok)return;
+    const d=await res.json();
+    document.getElementById('enroll-qr').src=d.qr;
+    document.getElementById('enroll-secret').textContent=d.secret.replace(/(.{4})/g,'$1 ').trim();
+  }catch(e){}
+}
+
+async function submitEnroll(){
+  const btn=document.getElementById('enroll-btn');
+  btn.dataset.html=`<span>${t('enrollBtn')}</span> <span>→</span>`;
+  busy(btn,true,t('enrollBtn'));
+  try{
+    const {ok,data}=await api('/api/2fa/enroll',{code:document.getElementById('enroll-code').value});
+    if(ok&&data.success){
+      pendingUsername=data.username;
+      document.getElementById('enroll-code').value='';
+      fieldError('enroll-error','');
+      const list=document.getElementById('recovery-list');
+      list.innerHTML='';
+      data.recoveryCodes.forEach(c=>{
+        const d=document.createElement('div');
+        d.textContent=c;
+        d.style.cssText='font-family:monospace;font-size:14px;text-align:center;padding:9px;border:1px solid var(--border);border-radius:8px;background:var(--surface);user-select:all';
+        list.appendChild(d);
+      });
+      list.dataset.codes=data.recoveryCodes.join('\n');
+      return showStage('recovery');
     }
-  }catch(err){
-    btn.innerHTML=`<span>${t('signIn')}</span><span>→</span>`;
-    btn.disabled=false;
-    toast(t('connectionError'),'error');
-  }
+    if(data.stage==='login'){fieldError('enroll-error','');toast(t('tooManyAttempts'),'error');return showStage('login');}
+    fieldError('enroll-error',data.error==='Invalid code'?t('invalidCode'):(data.error||t('connectionError')));
+  }catch(e){fieldError('enroll-error',t('connectionError'));}
+  busy(btn,false);
+}
+
+async function submitVerify(){
+  const btn=document.getElementById('verify-btn');
+  btn.dataset.html=`<span>${t('verifyBtn')}</span> <span>→</span>`;
+  busy(btn,true,t('verifyBtn'));
+  try{
+    const {ok,data}=await api('/api/2fa/verify',{code:document.getElementById('verify-code').value});
+    if(ok&&data.success){
+      document.getElementById('verify-code').value='';
+      fieldError('verify-error','');
+      showApp(data.username);
+      if(typeof data.recoveryLeft==='number'&&data.recoveryLeft<=2)toast(t('recoveryLow').replace('{n}',data.recoveryLeft),'warn');
+      return;
+    }
+    if(data.stage==='login'){fieldError('verify-error','');toast(t('tooManyAttempts'),'error');return showStage('login');}
+    fieldError('verify-error',data.error==='Invalid code'?t('invalidCode'):(data.error||t('connectionError')));
+  }catch(e){fieldError('verify-error',t('connectionError'));}
+  busy(btn,false);
+}
+
+async function copyRecovery(){
+  const txt=document.getElementById('recovery-list').dataset.codes||'';
+  try{await navigator.clipboard.writeText(txt);toast(t('recoveryCopied'),'success');}catch(e){}
+}
+
+function wireAuthUi(){
+  const enter=(id,fn)=>document.getElementById(id).addEventListener('keypress',e=>{if(e.key==='Enter')fn();});
+  document.getElementById('setup-btn').addEventListener('click',createAccount);
+  ['setup-code','setup-user','setup-pass','setup-pass2'].forEach(id=>enter(id,createAccount));
+  document.getElementById('enroll-btn').addEventListener('click',submitEnroll);
+  enter('enroll-code',submitEnroll);
+  document.getElementById('verify-btn').addEventListener('click',submitVerify);
+  enter('verify-code',submitVerify);
+  document.getElementById('verify-back').addEventListener('click',async e=>{e.preventDefault();await fetch('/api/logout',{method:'POST'});showStage('login');});
+  document.getElementById('recovery-copy').addEventListener('click',copyRecovery);
+  document.getElementById('recovery-continue').addEventListener('click',()=>{document.getElementById('recovery-list').innerHTML='';document.getElementById('recovery-list').dataset.codes='';showApp(pendingUsername);});
 }
 
 async function logout(){
   await fetch('/api/logout',{method:'POST'});
-  document.getElementById('app').style.display='none';
-  document.getElementById('login-page').style.display='flex';
   document.getElementById('login-user').value='';
   document.getElementById('login-pass').value='';
+  showStage('login');
 }
 
 async function showApp(username){
@@ -1021,7 +1189,7 @@ function renderAlerts(items,today){
     const status=getExpiryStatus(item.expiry_date,today);
     return `<div class="alert-item ${status.cls}" onclick="navigateTo('inventory')">
       <div class="alert-dot"></div>
-      <div style="flex:1"><div class="alert-name">${item.name}</div><div class="alert-info">${translateCat(item.category)} · ${item.quantity} ${item.unit}</div></div>
+      <div style="flex:1"><div class="alert-name">${esc(item.name)}</div><div class="alert-info">${translateCat(item.category)} · ${item.quantity} ${esc(item.unit)}</div></div>
       <span class="expiry-tag expiry-${status.cls==='expired'?'expired':'warn'}">${status.label}</span>
       <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openEditModal(${item.id})" title="Edit">✏️</button>
     </div>`;
@@ -1033,13 +1201,13 @@ async function renderCatOverview(){
   const inv=inventoryData.length>0?inventoryData:await loadInventory(true);
   const catMap={};
   inv.forEach(i=>{catMap[i.category]=(catMap[i.category]||0)+1;});
-  const today=new Date().toISOString().split('T')[0];
+  const today=localDate(0);
   const catExpired={};
   inv.forEach(i=>{if(i.expiry_date&&i.expiry_date<today)catExpired[i.category]=(catExpired[i.category]||0)+1;});
   const html=Object.entries(catMap).map(([cat,count])=>{
     const icon=CAT_ICONS[cat]||'💊';
     const expired=catExpired[cat]||0;
-    return `<div class="cat-overview-card" onclick="filterByCategory('${cat}')">
+    return `<div class="cat-overview-card" data-cat="${esc(cat)}" onclick="filterByCategory(this.dataset.cat)">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
         <span style="font-size:22px">${icon}</span>
         ${expired>0?`<span class="section-badge badge-red">${expired} ${t('expired').toLowerCase()}</span>`:''}
@@ -1055,7 +1223,7 @@ function filterByCategory(cat){
   navigateTo('inventory');
   activeCategory=cat;
   document.querySelectorAll('.cat-pill').forEach(p=>p.classList.remove('active'));
-  document.querySelector(`.cat-pill[data-cat="${cat}"]`)?.classList.add('active');
+  document.querySelector(`.cat-pill[data-cat="${CSS.escape(cat)}"]`)?.classList.add('active');
   filterInventory();
 }
 
@@ -1075,7 +1243,7 @@ function renderInventory(){
   const search=document.getElementById('inv-search').value.toLowerCase();
   const sort=document.getElementById('inv-sort').value;
   const rxOnly=document.getElementById('inv-rx').checked;
-  const today=new Date().toISOString().split('T')[0];
+  const today=localDate(0);
   let data=[...inventoryData];
   if(search)data=data.filter(i=>i.name.toLowerCase().includes(search)||(i.generic||'').toLowerCase().includes(search)||i.category.toLowerCase().includes(search));
   if(rxOnly)data=data.filter(i=>i.rx);
@@ -1095,14 +1263,14 @@ function renderInventory(){
   tbody.innerHTML=data.map(item=>{
     const status=getExpiryStatus(item.expiry_date,today);
     return `<tr>
-      <td><div class="med-name">${item.name}${item.rx?`<span class="rx-badge">Rx</span>`:''}</div>${item.generic?`<div class="med-generic">${item.generic}</div>`:''}</td>
+      <td><div class="med-name">${esc(item.name)}${item.rx?`<span class="rx-badge">Rx</span>`:''}</div>${item.generic?`<div class="med-generic">${esc(item.generic)}</div>`:''}</td>
       <td><span class="cat-tag">${translateCat(item.category)}</span></td>
-      <td style="color:var(--text2)">${item.quantity} ${item.unit}</td>
+      <td style="color:var(--text2)">${item.quantity} ${esc(item.unit)}</td>
       <td><span class="expiry-tag expiry-${status.expClass}">${formatDate(item.expiry_date)}</span></td>
-      <td style="color:var(--text3);font-size:12px">${item.location||'—'}</td>
+      <td style="color:var(--text3);font-size:12px">${esc(item.location)||'—'}</td>
       <td style="text-align:right">
         <button class="btn btn-ghost btn-sm" onclick="openEditModal(${item.id})" title="Edit">✏️</button>
-        <button class="btn btn-danger btn-sm" onclick="confirmDelete(${item.id},'${item.name.replace(/'/g,"\\'")}')">🗑️</button>
+        <button class="btn btn-danger btn-sm" onclick="confirmDelete(${item.id})">🗑️</button>
       </td>
     </tr>`;
   }).join('');
@@ -1127,7 +1295,7 @@ function renderCategoryPills(){
 function filterByCategory2(cat){
   activeCategory=cat;
   document.querySelectorAll('.cat-pill').forEach(p=>p.classList.remove('active'));
-  document.querySelector(`.cat-pill[data-cat="${cat}"]`)?.classList.add('active');
+  document.querySelector(`.cat-pill[data-cat="${CSS.escape(cat)}"]`)?.classList.add('active');
   filterInventory();
 }
 
@@ -1144,13 +1312,13 @@ async function loadCategories(){
 function populateCategorySelect(){
   const sel=document.getElementById('med-category');
   const current=sel.value;
-  sel.innerHTML=`<option value="">${t('selectCategory')}</option>`+categories.map(c=>`<option value="${c}">${translateCat(c)}</option>`).join('');
+  sel.innerHTML=`<option value="">${t('selectCategory')}</option>`+categories.map(c=>`<option value="${esc(c)}">${translateCat(c)}</option>`).join('');
   if(current)sel.value=current;
 }
 
 function renderCategoryPage(){
   const catMap={};
-  const today=new Date().toISOString().split('T')[0];
+  const today=localDate(0);
   inventoryData.forEach(i=>{
     if(!catMap[i.category])catMap[i.category]={total:0,expired:0};
     catMap[i.category].total++;
@@ -1158,7 +1326,7 @@ function renderCategoryPage(){
   });
   const html=Object.entries(catMap).map(([cat,info])=>{
     const icon=CAT_ICONS[cat]||'💊';
-    return `<div class="cat-overview-card" onclick="filterByCategory('${cat}')">
+    return `<div class="cat-overview-card" data-cat="${esc(cat)}" onclick="filterByCategory(this.dataset.cat)">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
         <span style="font-size:26px">${icon}</span>
         <span style="font-size:14px;font-weight:700;color:var(--text)">${translateCat(cat)}</span>
@@ -1187,11 +1355,11 @@ async function loadExpiryPage(){
     tbody.innerHTML=items.map(item=>{
       const status=getExpiryStatus(item.expiry_date,today);
       return `<tr>
-        <td><div class="med-name">${item.name}</div></td>
+        <td><div class="med-name">${esc(item.name)}</div></td>
         <td><span class="cat-tag">${translateCat(item.category)}</span></td>
         <td>${formatDate(item.expiry_date)}</td>
         <td><span class="expiry-tag expiry-${status.cls==='expired'?'expired':'warn'}">${status.label}</span></td>
-        <td>${item.quantity} ${item.unit}</td>
+        <td>${item.quantity} ${esc(item.unit)}</td>
         <td style="text-align:right"><button class="btn btn-ghost btn-sm" onclick="openEditModal(${item.id})">✏️</button></td>
       </tr>`;
     }).join('');
@@ -1282,7 +1450,9 @@ async function saveItem(){
 }
 
 // ==================== DELETE ====================
-function confirmDelete(id,name){
+function confirmDelete(id){
+  const found=(typeof inventoryData!=='undefined'?inventoryData:[]).find(i=>i.id===id);
+  const name=found?found.name:'';
   document.getElementById('confirm-msg').textContent=`${t('deleteConfirm')}: "${name}"?`;
   document.getElementById('confirm-overlay').classList.add('active');
   document.getElementById('confirm-ok').onclick=()=>deleteItem(id);
@@ -1328,8 +1498,8 @@ function showAutocomplete(items){
   dd.style.width=rect.width+'px';
   dd.innerHTML=items.map((item,i)=>`
     <div class="ac-item" data-index="${i}" onclick="selectAcItem(${i})">
-      <div class="ac-name">${item.name}</div>
-      <div class="ac-sub"><span class="ac-cat">${translateCat(item.category)}</span>${item.generic?`<span>· ${item.generic}</span>`:''}${item.form?`<span>· ${translateForm(item.form)}</span>`:''}${item.rx?'<span style="color:#805AD5">· Rx</span>':''}</div>
+      <div class="ac-name">${esc(item.name)}</div>
+      <div class="ac-sub"><span class="ac-cat">${translateCat(item.category)}</span>${item.generic?`<span>· ${esc(item.generic)}</span>`:''}${item.form?`<span>· ${translateForm(item.form)}</span>`:''}${item.rx?'<span style="color:#805AD5">· Rx</span>':''}</div>
     </div>`).join('');
   dd.dataset.items=JSON.stringify(items);
   dd.classList.add('show');
@@ -1386,13 +1556,13 @@ async function searchByGeneric(){
     }
     panel.innerHTML=`
       <div style="padding:8px 12px;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);background:var(--surface)">
-        ${matches.length} ${t('brandsFound')} "${q}" — ${t('clickToSelect')}
+        ${matches.length} ${t('brandsFound')} "${esc(q)}" — ${t('clickToSelect')}
       </div>
-      ${matches.map(item=>`
-        <div onclick="pickGenericBrand('${item.name.replace(/'/g,"\\'")}','${(item.generic||'').replace(/'/g,"\\'")}','${item.category.replace(/'/g,"\\'")}','${(item.form||'').replace(/'/g,"\\'")}',${item.rx?1:0})"
+      ${(window._brandMatches=matches).map((item,i)=>`
+        <div onclick="pickGenericBrand(${i})"
           style="padding:10px 12px;cursor:pointer;border-bottom:1px solid var(--border);transition:background .1s;"
           onmouseover="this.style.background='var(--surface)'" onmouseout="this.style.background=''">
-          <div style="font-size:13px;font-weight:700;color:var(--text)">${item.name}</div>
+          <div style="font-size:13px;font-weight:700;color:var(--text)">${esc(item.name)}</div>
           <div style="font-size:11px;color:var(--text3);margin-top:2px;display:flex;gap:8px;flex-wrap:wrap">
             <span style="color:var(--accent)">${translateCat(item.category)}</span>
             ${item.form?`<span>· ${translateForm(item.form)}</span>`:''}
@@ -1404,7 +1574,10 @@ async function searchByGeneric(){
   }
 }
 
-function pickGenericBrand(name,generic,category,form,rx){
+function pickGenericBrand(i){
+  const m=(window._brandMatches||[])[i];
+  if(!m)return;
+  const name=m.name,generic=m.generic||'',category=m.category,form=m.form||'',rx=m.rx;
   document.getElementById('med-name').value=name;
   document.getElementById('med-generic').value=generic;
   document.getElementById('med-category').value=category;
@@ -1425,11 +1598,18 @@ function renderAddPage(){
 }
 
 // ==================== HELPERS ====================
+function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function localDate(offsetDays=0){
+  const d=new Date(Date.now()+offsetDays*86400000);
+  const p=n=>String(n).padStart(2,'0');
+  return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`;
+}
+
 function getExpiryStatus(expiryDate,today){
   if(!expiryDate)return{cls:'none',expClass:'none',label:t('noDate')};
   if(expiryDate<today)return{cls:'expired',expClass:'expired',label:t('expiryExpired')};
-  const d30=new Date(Date.now()+30*86400000).toISOString().split('T')[0];
-  const d90=new Date(Date.now()+90*86400000).toISOString().split('T')[0];
+  const d30=localDate(30);
+  const d90=localDate(90);
   if(expiryDate<=d30)return{cls:'warn30',expClass:'warn',label:t('expiry30')};
   if(expiryDate<=d90)return{cls:'warn90',expClass:'ok',label:t('expiry90')};
   return{cls:'ok',expClass:'ok',label:t('expiryOk')};
@@ -1446,7 +1626,8 @@ function toast(message,type='success'){
   const icons={success:'✅',error:'❌',warn:'⚠️'};
   const el=document.createElement('div');
   el.className=`toast ${type}`;
-  el.innerHTML=`<span>${icons[type]}</span> ${message}`;
+  el.innerHTML=`<span>${icons[type]}</span> `;
+  el.appendChild(document.createTextNode(message));
   document.getElementById('toast-container').appendChild(el);
   setTimeout(()=>el.remove(),3500);
 }
