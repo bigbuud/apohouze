@@ -9809,6 +9809,25 @@ const MEDICINES = [
   { name: "SONIREM", generic: "ZOLPIDEM TARTRATO", category: "Sleep & Sedation", form: "Dispersible tablet", rx: false },
   { name: "VICI", generic: "ACIDO ASCORBICO", category: "Vitamins & Supplements", form: "Tablet", rx: false },
 
+  { name: "ACIDO VALPROICO SANDOZ", generic: "ACIDO VALPROICO + SODIO VALPROATO", category: "Neurology", form: "Tablet", rx: false },
+  { name: "CLOPIDOGREL E ACIDO ACETILSALICILICO DOC", generic: "ACIDO ACETILSALICILICO + CLOPIDOGREL IDROGENO SOLFATO", category: "Anticoagulants", form: "Tablet", rx: false },
+  { name: "ACIDO ACETILSALICILICO + CLOPIDOGREL IDROGENO SOLFATO", generic: "ACIDO ACETILSALICILICO + CLOPIDOGREL IDROGENO SOLFATO", category: "Anticoagulants", form: "Tablet", rx: false },
+  { name: "ENFLONSIA", generic: "CLESROVIMAB", category: "Antivirals", form: "Tablet", rx: false },
+  { name: "CLESROVIMAB", generic: "CLESROVIMAB", category: "Antivirals", form: "Tablet", rx: false },
+  { name: "ETORICOXIB TEVA", generic: "ETORICOXIB", category: "Pain & Fever", form: "Tablet", rx: false },
+  { name: "FINASTERIDE AUROBINDO PHARMA ITALIA", generic: "FINASTERIDE", category: "Skin & Wounds", form: "Tablet", rx: false },
+  { name: "FINGOLIMOD AUROBINDO", generic: "FINGOLIMOD", category: "Corticosteroids", form: "Tablet", rx: false },
+  { name: "FLUVASTATINA DOC GENERICI", generic: "FLUVASTATINA SODICA", category: "Cholesterol", form: "Tablet", rx: false },
+  { name: "FOSINOPRIL DOC GENERICI", generic: "FOSINOPRIL SODICO", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "GABAPENTIN ALMUS", generic: "GABAPENTINA", category: "Pain & Fever", form: "Capsule", rx: false },
+  { name: "GABAPENTIN ALTER", generic: "GABAPENTINA", category: "Pain & Fever", form: "Capsule", rx: false },
+  { name: "LINDONE", generic: "PREGABALIN", category: "Neurology", form: "Tablet", rx: false },
+  { name: "MONTELUKAST PENSA", generic: "MONTELUKAST SODICO", category: "Lungs & Asthma", form: "Tablet", rx: false },
+  { name: "NOIDAK", generic: "ISOTRETINOINA", category: "Skin & Wounds", form: "Capsule", rx: false },
+  { name: "PERINDOPRIL E AMLODIPINA AUROBINDO", generic: "AMLODIPINA + PERINDOPRIL TERT-BUTILAMINA", category: "Heart & Blood Pressure", form: "Tablet", rx: false },
+  { name: "PRIVIGEN", generic: "IMMUNOGLOBULINA UMANA NORMALE", category: "Antivirals", form: "Injection", rx: false },
+  { name: "UNIFOL", generic: "PROPOFOL", category: "Pain & Fever", form: "Injection", rx: false },
+
 ];
 
 const CATEGORIES = [

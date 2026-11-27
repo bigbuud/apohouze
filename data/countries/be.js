@@ -12711,6 +12711,14 @@ const MEDICINES = [
   { name: "Inijaq 5 mg film-coat. tabl.", generic: "", category: "Corticosteroids", form: "Tablet", rx: false },
   { name: "Quinine HCl Sterop 300 mg/ml inf. sol. (conc.) i.v. amp.", generic: "", category: "Antiparasitics", form: "Injection", rx: false },
 
+  { name: "Bethanechol Infectopharm 10 mg tabl.", generic: "", category: "Nervous System", form: "Tablet", rx: false },
+  { name: "Kayexalate Calcium 14.99 g or./rect. susp. (pwdr.)", generic: "", category: "Vitamins & Supplements", form: "Powder", rx: false },
+  { name: "Ruxolitinib Zentiva 5 mg tabl.", generic: "", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Ruxolitinib Zentiva 10 mg tabl.", generic: "", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Ruxolitinib Zentiva 15 mg tabl.", generic: "", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Ruxolitinib Zentiva 20 mg tabl.", generic: "", category: "Oncology", form: "Tablet", rx: false },
+  { name: "Sepalna 20 mg hard caps.", generic: "", category: "Oncology", form: "Capsule", rx: false },
+
 ];
 
 const CATEGORIES = [

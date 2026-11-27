@@ -21029,6 +21029,32 @@ const MEDICINES = [
   { name: "Algyd 25 mg/25 mg pleister", generic: "LIDOCAÏNE#PRILOCAÏNE", category: "Pain & Fever", form: "Patch", rx: true },
   { name: "Vortioxetine Vivanta Generics 5 mg filmomhulde tabletten", generic: "VORTIOXETINEHYDROBROMIDE", category: "Antidepressants", form: "Tablet", rx: true },
 
+  { name: "Ranitidine Accord 300 mg bruistabletten", generic: "RANITIDINEHYDROCHLORIDE", category: "Stomach & Intestine", form: "Effervescent tablet", rx: true },
+  { name: "Joxelni 10 mg, tabletten", generic: "CLADRIBINE", category: "Corticosteroids", form: "Tablet", rx: true },
+  { name: "Ranitidine Accord 150 mg bruistabletten", generic: "RANITIDINEHYDROCHLORIDE", category: "Stomach & Intestine", form: "Effervescent tablet", rx: true },
+  { name: "Palbociclib Lotus 75 mg, filmomhulde tabletten", generic: "PALBOCICLIB", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Adenosine Macure 5 mg/ml, oplossing voor injectie/infusie", generic: "ADENOSINE", category: "Heart & Blood Pressure", form: "Injection", rx: true },
+  { name: "Cladribine Pharos 10 mg, tabletten", generic: "CLADRIBINE", category: "Corticosteroids", form: "Tablet", rx: true },
+  { name: "Cladribine Polpharma 10 mg, tabletten", generic: "CLADRIBINE", category: "Corticosteroids", form: "Tablet", rx: true },
+  { name: "Cladribine Viatris 10 mg, tabletten", generic: "CLADRIBINE", category: "Corticosteroids", form: "Tablet", rx: true },
+  { name: "Ranitidine Accord 150 mg, filmomhulde tabletten", generic: "RANITIDINEHYDROCHLORIDE", category: "Stomach & Intestine", form: "Tablet", rx: true },
+  { name: "Cladribine Meditop 10 mg, tabletten", generic: "CLADRIBINE", category: "Corticosteroids", form: "Tablet", rx: true },
+  { name: "Pantoprazol Amarox 20 mg maagsapresistente tabletten", generic: "PANTOPRAZOL NATRIUM 1,5-WATER", category: "Stomach & Intestine", form: "Tablet", rx: true },
+  { name: "Latanoprost Sandoz 50 microgram/ml oogdruppels, oplossing in verpakking voor eenmalig gebruik", generic: "LATANOPROST", category: "Eye & Ear", form: "Eye drops", rx: true },
+  { name: "Cladribine Zentiva 10 mg, tabletten", generic: "CLADRIBINE", category: "Corticosteroids", form: "Tablet", rx: true },
+  { name: "Palbociclib Lotus 100 mg, filmomhulde tabletten", generic: "PALBOCICLIB", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Palbociclib Lotus 125 mg, filmomhulde tabletten", generic: "PALBOCICLIB", category: "Oncology", form: "Tablet", rx: true },
+  { name: "Nitro \"Pohl\" Infus voor perfusorpompsystemen 1mg/ml, oplossing voor infusie", generic: "NITROGLYCERINE", category: "Heart & Blood Pressure", form: "Solution", rx: true },
+  { name: "Ceftazidim Navamedic 500 mg poeder voor oplossing voor injectie", generic: "CEFTAZIDIM 5-WATER", category: "Antibiotics", form: "Injection", rx: true },
+  { name: "Endikleb 10 mg, tabletten", generic: "CLADRIBINE", category: "Corticosteroids", form: "Tablet", rx: true },
+  { name: "Cladribine Sandoz 10 mg, tabletten", generic: "CLADRIBINE", category: "Corticosteroids", form: "Tablet", rx: true },
+  { name: "Ceftazidim Navamedic 1 g poeder voor oplossing voor injectie/infusie", generic: "CEFTAZIDIM 5-WATER", category: "Antibiotics", form: "Injection", rx: true },
+  { name: "Ranitidine Accord 300 mg, filmomhulde tabletten", generic: "RANITIDINEHYDROCHLORIDE", category: "Stomach & Intestine", form: "Tablet", rx: true },
+  { name: "Diltiazem HCL Allgen 20 mg/g, zalf", generic: "DILTIAZEMHYDROCHLORIDE", category: "Heart & Blood Pressure", form: "Ointment", rx: true },
+  { name: "Calysclera 10 mg, tabletten", generic: "CLADRIBINE", category: "Corticosteroids", form: "Tablet", rx: true },
+  { name: "Ceftazidim Navamedic 2 g poeder voor oplossing voor injectie/infusie", generic: "CEFTAZIDIM 5-WATER", category: "Antibiotics", form: "Injection", rx: true },
+  { name: "Resmexa 10 mg, tabletten", generic: "CLADRIBINE", category: "Corticosteroids", form: "Tablet", rx: true },
+
 ];
 
 const CATEGORIES = [
