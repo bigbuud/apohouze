@@ -2,334 +2,413 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <meta name="theme-color" content="#0D9488">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0F6B66">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="apoHouze">
-  <meta name="description" content="Home medicine app inventory management">
+  <meta name="description" content="Home medicine inventory management">
   <title>apoHouze</title>
   <link rel="manifest" href="/manifest.json">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
   <style>
     :root {
-      --accent:       #0D9488;
-      --accent2:      #0F766E;
-      --accent-light: #14b8a6;
-      --accent-dim:   rgba(13,148,136,.09);
-      --accent-glow:  rgba(13,148,136,.18);
-      --blue:         #2D6BE4;
-      --blue-dim:     rgba(45,107,228,.08);
-      --bg:      #F5F7F6;
-      --bg2:     #FFFFFF;
-      --surface: #EEF2F0;
-      --surface2:#E3EAE7;
-      --border:  #DDE5E2;
-      --border2: #C8D5D1;
-      --red:        #E53E3E;
-      --red-dim:    rgba(229,62,62,.09);
-      --orange:     #ED8936;
-      --orange-dim: rgba(237,137,54,.09);
-      --yellow:     #D69E2E;
-      --yellow-dim: rgba(214,158,46,.09);
-      --green:      #38A169;
-      --green-dim:  rgba(56,161,105,.09);
-      --purple:     #805AD5;
-      --purple-dim: rgba(128,90,213,.09);
-      --text:  #1A2420;
-      --text2: #4A6560;
-      --text3: #8BAAA3;
-      --font-body:    'Outfit', sans-serif;
-      --font-display: 'Outfit', sans-serif;
-      --font-mono:    'Outfit', monospace;
-      --radius:    14px;
-      --radius-sm: 9px;
+      /* Brand */
+      --accent:       #0F6B66;
+      --accent-hover: #0B5753;
+      --accent-soft:  #E7F2F1;
+      --accent-ring:  rgba(15,107,102,.18);
+
+      /* Neutrals */
+      --bg:       #F6F7F8;
+      --card:     #FFFFFF;
+      --subtle:   #F9FAFB;
+      --hover:    #F3F5F6;
+      --border:   #E4E7EA;
+      --border-strong: #CED4D8;
+      --text:     #172023;
+      --text2:    #4A585C;
+      --text3:    #7A878B;
+
+      /* Status */
+      --red:       #B42318;  --red-bg:    #FEF1F0;  --red-bd:    #F9D2CF;
+      --amber:     #B54708;  --amber-bg:  #FFF7E8;  --amber-bd:  #FBE0AE;
+      --green:     #067647;  --green-bg:  #EDF8F2;  --green-bd:  #C6E9D5;
+      --violet:    #5A3FA0;  --violet-bg: #F4F1FB;  --violet-bd: #DDD3F3;
+
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+      --radius:    12px;
+      --radius-sm: 8px;
       --radius-xs: 6px;
-      --shadow:    0 1px 4px rgba(0,0,0,.05), 0 1px 2px rgba(0,0,0,.04);
-      --shadow-lg: 0 4px 20px rgba(0,0,0,.08);
-      --shadow-xl: 0 8px 36px rgba(0,0,0,.12);
+      --shadow-sm: 0 1px 2px rgba(16,24,40,.05);
+      --shadow-md: 0 4px 12px rgba(16,24,40,.08);
+      --shadow-lg: 0 16px 40px rgba(16,24,40,.16);
+
+      --sidebar-w: 240px;
     }
+
     *{ margin:0; padding:0; box-sizing:border-box; }
-    html{ scroll-behavior:smooth; }
-    body{ font-family:var(--font-body); background:var(--bg); color:var(--text); min-height:100vh; overflow-x:hidden; }
+    html{ -webkit-text-size-adjust:100%; }
+    body{
+      font-family:var(--font); font-size:14px; line-height:1.5; color:var(--text);
+      background:var(--bg); min-height:100vh; overflow-x:hidden;
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+    button{ font-family:inherit; }
+    a{ color:var(--accent); }
+    :focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+    ::selection{ background:var(--accent-ring); }
 
-    /* LOGIN */
-    #login-page{
-      min-height:100vh; display:flex; align-items:center; justify-content:center;
-      background:linear-gradient(135deg,#e8f5f3 0%,#f0faf8 50%,#e8f0ee 100%);
-      position:relative; overflow:hidden;
-    }
-    #login-page::before{
-      content:''; position:absolute; inset:0;
-      background:radial-gradient(circle at 20% 80%,rgba(13,148,136,.12) 0%,transparent 50%),
-                 radial-gradient(circle at 80% 20%,rgba(45,107,228,.08) 0%,transparent 50%);
-      pointer-events:none;
-    }
+    /* Icons */
+    .icon{ width:18px; height:18px; flex-shrink:0; fill:none; stroke:currentColor; stroke-width:1.75; stroke-linecap:round; stroke-linejoin:round; }
+    .icon-sm{ width:16px; height:16px; }
+    .icon-lg{ width:20px; height:20px; }
+
+    /* ---------- LOGIN ---------- */
+    #login-page{ min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; background:var(--bg); }
     .login-card{
-      background:rgba(255,255,255,.92); backdrop-filter:blur(16px);
-      border:1px solid rgba(255,255,255,.8); border-radius:24px;
-      padding:44px 40px; width:100%; max-width:420px;
-      box-shadow:var(--shadow-xl),0 0 0 1px rgba(13,148,136,.06); position:relative; z-index:1;
+      background:var(--card); border:1px solid var(--border); border-radius:16px;
+      padding:36px 36px 28px; width:100%; max-width:400px; box-shadow:var(--shadow-md);
     }
-    .login-brand{ display:flex; align-items:center; gap:14px; margin-bottom:32px; }
-    .login-brand-icon{ width:64px; height:64px; border-radius:16px; overflow:hidden; flex-shrink:0; box-shadow:0 4px 12px rgba(13,148,136,.25); }
-    .login-brand-icon img{ width:100%; height:100%; object-fit:cover; }
-    .login-brand-text h1{ font-size:22px; font-weight:800; color:var(--text); letter-spacing:-.4px; }
-    .login-brand-text p{ font-size:11px; color:var(--text3); letter-spacing:.8px; text-transform:uppercase; margin-top:2px; }
-    .login-welcome{ font-size:24px; font-weight:700; color:var(--text); margin-bottom:4px; }
-    .login-sub{ font-size:14px; color:var(--text2); margin-bottom:28px; }
+    .login-brand{ display:flex; align-items:center; gap:12px; margin-bottom:28px; }
+    .login-brand-icon{ width:44px; height:44px; border-radius:50%; overflow:hidden; flex-shrink:0; border:1px solid var(--border); }
+    .login-brand-icon img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .login-brand-text h1{ font-size:18px; font-weight:650; letter-spacing:-.2px; line-height:1.2; }
+    .login-brand-text p{ font-size:12.5px; color:var(--text3); margin-top:1px; }
+    .login-welcome{ font-size:20px; font-weight:650; letter-spacing:-.25px; margin-bottom:4px; }
+    .login-sub{ font-size:14px; color:var(--text2); margin-bottom:24px; }
+    .login-footer{ text-align:center; margin-top:24px; padding-top:18px; border-top:1px solid var(--border); font-size:12px; color:var(--text3); }
+    .hint{ font-size:12px; color:var(--text3); margin-top:6px; }
+    .hint-center{ text-align:center; }
+    .mono-key{ font-family:var(--font-mono); font-size:13px; letter-spacing:.08em; text-align:center; margin:8px 0 18px; word-break:break-all; user-select:all; color:var(--text); background:var(--subtle); border:1px solid var(--border); border-radius:var(--radius-sm); padding:10px 12px; }
+    .qr-box{ display:flex; justify-content:center; margin:4px 0 14px; }
+    .qr-box img{ border-radius:var(--radius-sm); border:1px solid var(--border); background:#fff; padding:6px; }
+    .recovery-grid{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:8px 0 16px; }
+    .recovery-code{ font-family:var(--font-mono); font-size:13px; text-align:center; padding:9px 6px; border:1px solid var(--border); border-radius:var(--radius-sm); background:var(--subtle); user-select:all; }
+    .link-muted{ font-size:13px; color:var(--text3); text-decoration:none; }
+    .link-muted:hover{ color:var(--text); text-decoration:underline; }
+    .stack-top{ margin-top:20px; }
 
-    /* FORMS */
-    .form-group{ margin-bottom:18px; }
-    .form-group label{ display:block; font-size:13px; font-weight:600; color:var(--text2); margin-bottom:7px; letter-spacing:.1px; }
-    .form-group input,.form-group select,.form-group textarea{
-      width:100%; padding:11px 14px; background:var(--bg); border:1.5px solid var(--border2);
-      border-radius:var(--radius-sm); color:var(--text); font-size:14px; font-family:var(--font-body);
-      outline:none; transition:border-color .15s,box-shadow .15s;
+    /* ---------- FORMS ---------- */
+    .form-group{ margin-bottom:16px; }
+    .form-group > label, .field-label{ display:block; font-size:13px; font-weight:550; color:var(--text2); margin-bottom:6px; }
+    .field-hint{ font-weight:400; color:var(--text3); margin-left:4px; }
+    .form-group input, .form-group select, .form-group textarea, .input, .select{
+      width:100%; height:40px; padding:0 12px; background:var(--card); border:1px solid var(--border-strong);
+      border-radius:var(--radius-sm); color:var(--text); font-size:14px; font-family:var(--font);
+      outline:none; transition:border-color .12s, box-shadow .12s;
     }
-    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{
-      border-color:var(--accent); background:#fff; box-shadow:0 0 0 3px var(--accent-dim);
+    .form-group textarea{ height:auto; padding:10px 12px; min-height:84px; resize:vertical; line-height:1.5; }
+    .form-group select, .select{
+      appearance:none; -webkit-appearance:none; padding-right:34px; cursor:pointer;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%237A878B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:right 10px center;
     }
-    .form-group textarea{ resize:vertical; min-height:80px; }
+    .form-group input::placeholder, .form-group textarea::placeholder, .input::placeholder{ color:var(--text3); }
+    .form-group input:hover, .form-group select:hover, .form-group textarea:hover, .input:hover, .select:hover{ border-color:#B6BEC3; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus, .input:focus, .select:focus{
+      border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-ring);
+    }
     .error-msg{
-      background:var(--red-dim); border:1px solid rgba(229,62,62,.2); border-radius:var(--radius-sm);
-      padding:10px 14px; font-size:13px; color:var(--red); display:none; margin-bottom:12px;
+      background:var(--red-bg); border:1px solid var(--red-bd); border-radius:var(--radius-sm);
+      padding:10px 12px; font-size:13px; color:var(--red); display:none; margin-bottom:12px;
     }
+    .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .checkbox-group{ display:flex; align-items:center; gap:10px; font-size:14px; color:var(--text2); cursor:pointer; }
+    .checkbox-group input[type=checkbox]{ width:16px; height:16px; accent-color:var(--accent); cursor:pointer; }
+    .checkbox-group label{ cursor:pointer; }
 
-    /* BUTTONS */
+    /* ---------- BUTTONS ---------- */
     .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:7px;
-      padding:10px 18px; border:1.5px solid transparent; border-radius:var(--radius-sm);
-      font-size:13.5px; font-weight:600; font-family:var(--font-body);
-      cursor:pointer; transition:all .15s; text-decoration:none; white-space:nowrap;
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      height:38px; padding:0 16px; border:1px solid transparent; border-radius:var(--radius-sm);
+      font-size:14px; font-weight:550; cursor:pointer; text-decoration:none; white-space:nowrap;
+      transition:background .12s, border-color .12s, color .12s, box-shadow .12s;
     }
-    .btn-primary{ background:var(--accent); color:#fff; border-color:var(--accent); box-shadow:0 2px 8px rgba(13,148,136,.3); }
-    .btn-primary:hover{ background:var(--accent2); border-color:var(--accent2); box-shadow:0 4px 12px rgba(13,148,136,.4); }
-    .btn-ghost{ background:transparent; color:var(--text2); border-color:var(--border2); }
-    .btn-ghost:hover{ background:var(--surface); color:var(--text); }
-    .btn-danger{ background:transparent; color:var(--red); border-color:transparent; }
-    .btn-danger:hover{ background:var(--red-dim); border-color:rgba(229,62,62,.2); }
+    .btn:disabled{ opacity:.6; cursor:default; }
+    .btn-primary{ background:var(--accent); color:#fff; box-shadow:var(--shadow-sm); }
+    .btn-primary:hover:not(:disabled){ background:var(--accent-hover); }
+    .btn-ghost{ background:var(--card); color:var(--text); border-color:var(--border-strong); box-shadow:var(--shadow-sm); }
+    .btn-ghost:hover{ background:var(--hover); }
+    .btn-danger{ background:#C0392B; color:#fff; box-shadow:var(--shadow-sm); }
+    .btn-danger:hover{ background:#A93226; }
     .btn-full{ width:100%; }
-    .btn-sm{ padding:6px 13px; font-size:12.5px; }
+    .btn-sm{ height:32px; padding:0 12px; font-size:13px; }
+    .icon-btn{
+      width:32px; height:32px; display:inline-flex; align-items:center; justify-content:center;
+      background:transparent; border:none; border-radius:var(--radius-xs); color:var(--text3); cursor:pointer;
+      transition:background .12s, color .12s;
+    }
+    .icon-btn:hover{ background:var(--hover); color:var(--text); }
+    .icon-btn.danger:hover{ background:var(--red-bg); color:var(--red); }
+    .loading-spinner{ width:14px; height:14px; border:2px solid rgba(255,255,255,.4); border-top-color:#fff; border-radius:50%; display:inline-block; animation:spin .7s linear infinite; }
+    @keyframes spin{ to{ transform:rotate(360deg); } }
 
-    /* LAYOUT */
+    /* ---------- APP SHELL ---------- */
     #app{ display:none; }
     .sidebar{
-      position:fixed; left:0; top:0; bottom:0; width:248px;
-      background:#fff; border-right:1px solid var(--border);
-      display:flex; flex-direction:column; z-index:100;
-      transition:transform .25s ease; box-shadow:2px 0 16px rgba(0,0,0,.04);
+      position:fixed; left:0; top:0; bottom:0; width:var(--sidebar-w);
+      background:var(--card); border-right:1px solid var(--border);
+      display:flex; flex-direction:column; z-index:100; transition:transform .22s ease;
     }
-    .sidebar-logo{ display:flex; align-items:center; gap:12px; padding:22px 18px 18px; border-bottom:1px solid var(--border); }
-    .sidebar-logo-icon{ width:46px; height:46px; border-radius:12px; overflow:hidden; flex-shrink:0; box-shadow:0 2px 8px rgba(13,148,136,.2); }
-    .sidebar-logo-icon img{ width:100%; height:100%; object-fit:cover; }
-    .sidebar-logo-text h2{ font-size:15px; font-weight:800; color:var(--text); letter-spacing:-.3px; }
-    .sidebar-logo-text span{ font-size:11px; color:var(--text3); letter-spacing:.2px; }
-    .country-flag{ display:inline-block; width:20px; height:14px; vertical-align:middle; border-radius:2px; object-fit:cover; margin-right:4px; }
-    .sidebar-nav{ flex:1; padding:14px 10px; overflow-y:auto; }
-    .nav-section-label{ font-size:10px; font-weight:700; color:var(--text3); letter-spacing:1px; text-transform:uppercase; padding:8px 10px 5px; }
+    .sidebar-logo{ display:flex; align-items:center; gap:12px; padding:18px 16px; }
+    .sidebar-logo-icon{ width:36px; height:36px; border-radius:50%; overflow:hidden; flex-shrink:0; border:1px solid var(--border); }
+    .sidebar-logo-icon img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .sidebar-logo-text h2{ font-size:15px; font-weight:650; letter-spacing:-.2px; line-height:1.2; }
+    .sidebar-logo-text span{ display:flex; align-items:center; font-size:11.5px; color:var(--text3); margin-top:1px; white-space:nowrap; }
+    .country-flag{ display:inline-block; width:16px; height:12px; vertical-align:-1px; border-radius:2px; object-fit:cover; margin-right:6px; flex-shrink:0; }
+    .sidebar-nav{ flex:1; padding:6px 10px; overflow-y:auto; }
+    .nav-section-label{ font-size:11px; font-weight:600; color:var(--text3); letter-spacing:.04em; text-transform:uppercase; padding:14px 10px 6px; }
     .nav-item{
-      display:flex; align-items:center; gap:10px; padding:10px 12px;
-      border-radius:var(--radius-sm); cursor:pointer; color:var(--text2);
-      font-size:13.5px; font-weight:500; transition:all .15s; margin-bottom:2px;
+      display:flex; align-items:center; gap:11px; width:100%; padding:8px 10px; margin-bottom:2px;
+      border:none; background:transparent; border-radius:var(--radius-sm); cursor:pointer; text-align:left;
+      color:var(--text2); font-size:14px; font-weight:500; transition:background .12s, color .12s;
     }
-    .nav-item:hover{ background:var(--surface); color:var(--text); }
-    .nav-item.active{ background:var(--accent-dim); color:var(--accent); font-weight:700; box-shadow:inset 3px 0 0 var(--accent); }
-    .nav-icon{ font-size:16px; }
-    .nav-badge{ margin-left:auto; background:var(--red); color:#fff; font-size:10px; font-weight:700; padding:2px 7px; border-radius:12px; }
-    .sidebar-footer{ padding:14px 10px; border-top:1px solid var(--border); }
-    .user-pill{ display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:var(--radius-sm); background:var(--surface); margin-bottom:8px; }
-    .user-avatar{ width:32px; height:32px; background:var(--accent); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:800; }
-    .user-info h4{ font-size:13px; font-weight:700; color:var(--text); }
-    .user-info p{ font-size:11px; color:var(--text3); }
+    .nav-item .icon{ color:var(--text3); transition:color .12s; }
+    .nav-item:hover{ background:var(--hover); color:var(--text); }
+    .nav-item:hover .icon{ color:var(--text2); }
+    .nav-item.active{ background:var(--accent-soft); color:var(--accent); font-weight:600; }
+    .nav-item.active .icon{ color:var(--accent); }
+    .nav-badge{ margin-left:auto; min-width:20px; text-align:center; background:var(--hover); color:var(--text2); font-size:11px; font-weight:600; padding:1px 7px; border-radius:10px; font-variant-numeric:tabular-nums; }
+    .nav-badge.alert{ background:var(--red-bg); color:var(--red); }
+    .sidebar-footer{ padding:12px 10px 14px; border-top:1px solid var(--border); }
+    .user-pill{ display:flex; align-items:center; gap:10px; padding:4px 6px 12px; }
+    .user-avatar{ width:32px; height:32px; background:var(--accent-soft); color:var(--accent); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:650; flex-shrink:0; }
+    .user-info{ min-width:0; }
+    .user-info h4{ font-size:13px; font-weight:600; line-height:1.25; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .user-info p{ font-size:12px; color:var(--text3); line-height:1.25; }
 
-    /* LANG SWITCHER — now lives in sidebar footer */
-    .lang-switcher{
-      display:flex; align-items:center; justify-content:center;
-      background:var(--surface); border:1.5px solid var(--border);
-      border-radius:100px; padding:3px; gap:2px; margin-bottom:8px;
-    }
-    .lang-btn{
-      padding:5px 11px; border-radius:100px; border:none; font-family:var(--font-body);
-      font-size:12px; font-weight:600; cursor:pointer; transition:all .15s;
-      background:transparent; color:var(--text3);
-    }
-    .lang-btn.active{ background:#fff; color:var(--accent); box-shadow:0 1px 4px rgba(0,0,0,.1); }
+    .lang-switcher{ display:grid; grid-template-columns:repeat(3,1fr); background:var(--hover); border-radius:var(--radius-sm); padding:3px; gap:2px; margin-bottom:8px; }
+    .lang-btn{ padding:5px 0; border-radius:6px; border:none; font-size:12px; font-weight:600; cursor:pointer; background:transparent; color:var(--text3); transition:background .12s, color .12s; }
+    .lang-btn.active{ background:var(--card); color:var(--text); box-shadow:var(--shadow-sm); }
     .lang-btn:hover:not(.active){ color:var(--text2); }
 
-    /* MAIN */
-    .main-content{ margin-left:248px; min-height:100vh; }
+    .main-content{ margin-left:var(--sidebar-w); min-height:100vh; }
     .topbar{
-      display:flex; align-items:center; gap:12px; padding:14px 24px;
-      background:#fff; border-bottom:1px solid var(--border);
-      position:sticky; top:0; z-index:50; box-shadow:0 2px 8px rgba(0,0,0,.04);
+      display:flex; align-items:center; gap:14px; height:60px; padding:0 28px;
+      background:rgba(255,255,255,.92); backdrop-filter:saturate(1.4) blur(8px); -webkit-backdrop-filter:saturate(1.4) blur(8px);
+      border-bottom:1px solid var(--border); position:sticky; top:0; z-index:50;
     }
-    .topbar-title{ font-size:17px; font-weight:800; color:var(--text); min-width:120px; letter-spacing:-.3px; }
+    .topbar-title{ font-size:16px; font-weight:650; letter-spacing:-.2px; min-width:110px; }
     .topbar-search{
-      display:flex; align-items:center; gap:8px; background:var(--surface);
-      border:1.5px solid var(--border); border-radius:var(--radius-sm);
-      padding:8px 14px; flex:1; max-width:440px; margin:0 auto; transition:border-color .15s;
+      display:flex; align-items:center; gap:8px; background:var(--subtle);
+      border:1px solid var(--border); border-radius:var(--radius-sm);
+      height:38px; padding:0 12px; flex:1; max-width:420px; margin:0 auto; color:var(--text3);
+      transition:border-color .12s, box-shadow .12s, background .12s;
     }
-    .topbar-search:focus-within{ border-color:var(--accent); }
-    .topbar-search input{ background:transparent; border:none; outline:none; font-size:13.5px; color:var(--text); width:100%; font-family:var(--font-body); }
-    .topbar-hamburger{ display:none; background:none; border:none; font-size:20px; cursor:pointer; color:var(--text2); padding:4px; }
-    .mobile-overlay{ display:none; position:fixed; inset:0; background:rgba(0,0,0,.35); z-index:99; backdrop-filter:blur(2px); }
+    .topbar-search:focus-within{ border-color:var(--accent); background:var(--card); box-shadow:0 0 0 3px var(--accent-ring); }
+    .topbar-search input{ background:transparent; border:none; outline:none; font-size:14px; color:var(--text); width:100%; font-family:var(--font); }
+    .topbar-search input::placeholder{ color:var(--text3); }
+    .topbar-hamburger{ display:none; width:36px; height:36px; align-items:center; justify-content:center; background:none; border:none; border-radius:var(--radius-sm); color:var(--text2); cursor:pointer; margin-left:-6px; }
+    .topbar-hamburger:hover{ background:var(--hover); }
+    .mobile-overlay{ display:none; position:fixed; inset:0; background:rgba(16,24,40,.4); z-index:99; }
     .mobile-overlay.show{ display:block; }
 
     .page{ display:none; padding:28px; max-width:1200px; }
     .page.active{ display:block; }
-    .page-lead{ color:var(--text3); font-size:13px; margin-bottom:24px; }
+    .page-lead{ color:var(--text2); font-size:14px; margin-bottom:20px; }
 
-    /* STATS */
-    .stats-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(175px,1fr)); gap:14px; margin-bottom:28px; }
-    .stat-card{
-      background:#fff; border:1px solid var(--border); border-radius:var(--radius);
-      padding:18px 16px; transition:box-shadow .15s,transform .15s; position:relative; overflow:hidden;
-    }
-    .stat-card::before{ content:''; position:absolute; left:0; top:0; bottom:0; width:4px; border-radius:4px 0 0 4px; }
-    .stat-card:hover{ box-shadow:var(--shadow-lg); transform:translateY(-1px); }
-    .stat-card.total::before { background:var(--accent); }
-    .stat-card.expired::before{ background:var(--red); }
-    .stat-card.safe::before   { background:var(--green); }
-    .stat-card.rx::before     { background:var(--purple); }
-    .stat-card.cats::before   { background:var(--blue); }
-    .stat-card.total .stat-number  { color:var(--accent); }
-    .stat-card.expired .stat-number{ color:var(--red); }
-    .stat-card.safe .stat-number   { color:var(--green); }
-    .stat-card.rx .stat-number     { color:var(--purple); }
-    .stat-card.cats .stat-number   { color:var(--blue); }
-    .stat-icon{ font-size:22px; margin-bottom:10px; }
-    .stat-number{ font-size:34px; font-weight:800; letter-spacing:-1.5px; line-height:1; }
-    .stat-label{ font-size:13px; font-weight:700; color:var(--text); margin-top:5px; }
-    .stat-sublabel{ font-size:11px; color:var(--text3); margin-top:2px; }
-
-    /* SECTION */
-    .section-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
-    .section-title{ font-size:15px; font-weight:700; color:var(--text); }
-    .section-badge{ font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; }
-    .badge-red   { background:var(--red-dim);   color:var(--red); }
-    .badge-orange{ background:var(--orange-dim); color:var(--orange); }
-    .badge-green { background:var(--green-dim);  color:var(--green); }
-
-    /* ALERTS */
-    .alert-list{ display:flex; flex-direction:column; gap:7px; }
-    .alert-item{
-      display:flex; align-items:center; gap:12px; padding:11px 16px;
-      border-radius:var(--radius-sm); background:var(--surface); border:1px solid var(--border);
-      cursor:pointer; transition:all .15s; font-size:13px;
-    }
-    .alert-item:hover{ background:var(--surface2); box-shadow:var(--shadow); }
-    .alert-item.expired{ background:rgba(229,62,62,.05); border-color:rgba(229,62,62,.2); }
-    .alert-item.warn30,.alert-item.warn90{ background:rgba(237,137,54,.05); border-color:rgba(237,137,54,.2); }
-    .alert-dot{ width:8px; height:8px; border-radius:50%; flex-shrink:0; background:var(--border2); }
-    .alert-item.expired .alert-dot{ background:var(--red); }
-    .alert-item.warn30 .alert-dot,.alert-item.warn90 .alert-dot{ background:var(--orange); }
-    .alert-name{ font-weight:700; color:var(--text); }
-    .alert-info{ font-size:11px; color:var(--text3); }
-
-    /* EXPIRY */
-    .expiry-tag{ font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; white-space:nowrap; }
-    .expiry-expired{ background:var(--red-dim);    color:var(--red); }
-    .expiry-warn   { background:var(--orange-dim); color:var(--orange); }
-    .expiry-ok     { background:var(--green-dim);  color:var(--green); }
-    .expiry-none   { background:var(--surface2);   color:var(--text3); }
-
-    /* INVENTORY */
-    .inventory-toolbar{ display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap; }
-    .category-pills{ display:flex; gap:7px; flex-wrap:wrap; margin-bottom:18px; }
-    .cat-pill{ padding:6px 14px; border-radius:100px; font-size:12.5px; font-weight:600; background:var(--surface2); color:var(--text2); cursor:pointer; border:1.5px solid transparent; transition:all .15s; }
-    .cat-pill:hover{ border-color:var(--accent); color:var(--accent); }
-    .cat-pill.active{ background:var(--accent-dim); color:var(--accent); border-color:var(--accent); }
-
-    /* TABLE */
-    .table-wrap{ background:#fff; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); }
-    table{ width:100%; border-collapse:collapse; }
-    thead{ background:var(--surface); }
-    thead th{ padding:11px 15px; text-align:left; font-size:11px; font-weight:700; color:var(--text3); letter-spacing:.6px; text-transform:uppercase; border-bottom:1px solid var(--border); }
-    tbody tr{ border-bottom:1px solid var(--border); transition:background .1s; }
-    tbody tr:last-child{ border-bottom:none; }
-    tbody tr:hover{ background:var(--surface); }
-    tbody td{ padding:13px 15px; vertical-align:middle; font-size:13.5px; }
-    .med-name{ font-weight:700; color:var(--text); font-size:13.5px; }
-    .med-generic{ font-size:11px; color:var(--text3); margin-top:2px; }
-    .cat-tag{ font-size:11px; padding:3px 9px; border-radius:6px; background:var(--accent-dim); color:var(--accent); white-space:nowrap; font-weight:600; }
-    .rx-badge{ font-size:10px; font-weight:700; padding:2px 7px; border-radius:4px; background:var(--purple-dim); color:var(--purple); margin-left:6px; }
-
-    /* MODAL */
-    .modal-overlay{ position:fixed; inset:0; background:rgba(0,0,0,.35); display:none; align-items:center; justify-content:center; z-index:200; padding:20px; backdrop-filter:blur(4px); }
-    .modal-overlay.active{ display:flex; }
-    .modal{ background:#fff; border-radius:20px; width:100%; max-width:600px; max-height:90vh; display:flex; flex-direction:column; box-shadow:var(--shadow-xl); overflow:hidden; }
-    .modal-header{ display:flex; align-items:center; justify-content:space-between; padding:20px 24px 16px; border-bottom:1px solid var(--border); flex-shrink:0; }
-    .modal-title{ font-size:17px; font-weight:800; color:var(--text); }
-    .modal-close{ background:var(--surface); border:none; color:var(--text2); width:32px; height:32px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:14px; transition:all .15s; }
-    .modal-close:hover{ background:var(--red-dim); color:var(--red); }
-    .modal-body{ padding:20px 24px; overflow-y:auto; flex:1; }
-    .modal-footer{ display:flex; gap:10px; justify-content:flex-end; margin-top:24px; padding-top:18px; border-top:1px solid var(--border); }
-    .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-    .form-row.three{ grid-template-columns:1fr 1fr 1fr; }
-    .checkbox-group{ display:flex; align-items:center; gap:10px; margin-top:4px; font-size:14px; color:var(--text2); cursor:pointer; }
-    .checkbox-group input[type=checkbox]{ width:16px; height:16px; accent-color:var(--accent); cursor:pointer; }
-
-    /* CONFIRM */
-    .confirm-dialog{ background:#fff; border-radius:20px; padding:32px; max-width:360px; width:100%; text-align:center; box-shadow:var(--shadow-xl); }
-    .confirm-icon{ font-size:36px; margin-bottom:14px; }
-    .confirm-title{ font-size:18px; font-weight:800; color:var(--text); margin-bottom:8px; }
-    .confirm-msg{ font-size:14px; color:var(--text2); margin-bottom:24px; }
-    .confirm-btns{ display:flex; gap:10px; justify-content:center; }
-
-    /* TOAST */
-    .toast-container{ position:fixed; bottom:24px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
-    .toast{ display:flex; align-items:center; gap:10px; background:#fff; border:1px solid var(--border); border-radius:var(--radius-sm); padding:12px 18px; font-size:13px; font-weight:500; box-shadow:var(--shadow-lg); animation:slideUp .25s ease; min-width:220px; }
-    .toast.success{ border-left:3px solid var(--green); }
-    .toast.error  { border-left:3px solid var(--red); }
-    .toast.warn   { border-left:3px solid var(--orange); }
-    @keyframes slideUp{ from{ opacity:0; transform:translateY(12px); } to{ opacity:1; transform:translateY(0); } }
-
-    /* AUTOCOMPLETE */
-    .autocomplete-wrap{ position:relative; }
-    .autocomplete-dropdown{ position:fixed; z-index:9999; background:#fff; border:1.5px solid var(--accent); border-radius:var(--radius-sm); max-height:240px; overflow-y:auto; display:none; box-shadow:var(--shadow-xl); }
-    .autocomplete-dropdown.show{ display:block; }
-    .ac-item{ padding:10px 14px; cursor:pointer; border-bottom:1px solid var(--border); transition:background .1s; }
-    .ac-item:last-child{ border-bottom:none; }
-    .ac-item:hover,.ac-item.selected{ background:var(--accent-dim); }
-    .ac-name{ font-size:13px; font-weight:700; color:var(--text); }
-    .ac-sub{ font-size:11px; color:var(--text3); margin-top:2px; display:flex; gap:6px; flex-wrap:wrap; }
-    .ac-cat{ color:var(--accent); font-weight:600; }
-
-    /* LOADING */
-    .loading-spinner{ width:14px; height:14px; border:2px solid rgba(255,255,255,.4); border-top-color:#fff; border-radius:50%; display:inline-block; animation:spin .7s linear infinite; }
-    @keyframes spin{ to{ transform:rotate(360deg); } }
-    .skeleton{ background:linear-gradient(90deg,var(--surface) 25%,var(--surface2) 50%,var(--surface) 75%); background-size:200%; animation:shimmer 1.4s infinite; border-radius:var(--radius); }
+    /* ---------- STATS ---------- */
+    .stats-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:14px; margin-bottom:32px; }
+    .stat-card{ background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:16px 18px; box-shadow:var(--shadow-sm); }
+    .stat-top{ display:flex; align-items:center; justify-content:space-between; color:var(--text3); }
+    .stat-label{ font-size:13px; font-weight:550; color:var(--text2); }
+    .stat-number{ font-size:30px; font-weight:650; letter-spacing:-.8px; line-height:1.1; margin-top:10px; font-variant-numeric:tabular-nums; }
+    .stat-number.is-red{ color:var(--red); }
+    .stat-number.is-green{ color:var(--green); }
+    .stat-sublabel{ font-size:12px; color:var(--text3); margin-top:3px; }
+    .skeleton{ background:linear-gradient(90deg,var(--hover) 25%,var(--border) 50%,var(--hover) 75%); background-size:200%; animation:shimmer 1.4s infinite; border-radius:var(--radius); border:none; box-shadow:none; }
     @keyframes shimmer{ from{background-position:200%} to{background-position:-200%} }
 
-    /* CATEGORY CARDS */
-    .cat-overview-card{ background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:18px; cursor:pointer; transition:all .15s; }
-    .cat-overview-card:hover{ box-shadow:var(--shadow-lg); transform:translateY(-2px); border-color:var(--accent); }
+    /* ---------- SECTIONS ---------- */
+    .section-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; min-height:32px; }
+    .section-title{ font-size:15px; font-weight:650; letter-spacing:-.15px; }
+    .section-gap{ height:32px; }
 
-    /* RESPONSIVE */
+    /* ---------- BADGES ---------- */
+    .badge{ display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:550; padding:2px 9px; border-radius:100px; border:1px solid transparent; white-space:nowrap; line-height:1.5; }
+    .badge::before{ content:''; width:6px; height:6px; border-radius:50%; background:currentColor; }
+    .badge.plain::before{ display:none; }
+    .badge-red,   .expiry-expired{ background:var(--red-bg);   color:var(--red);   border-color:var(--red-bd); }
+    .badge-amber, .expiry-warn{    background:var(--amber-bg); color:var(--amber); border-color:var(--amber-bd); }
+    .badge-green, .expiry-ok{      background:var(--green-bg); color:var(--green); border-color:var(--green-bd); }
+    .badge-gray,  .expiry-none{    background:var(--hover);    color:var(--text3); border-color:var(--border); }
+    .expiry-tag{ display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:550; padding:2px 9px; border-radius:100px; border:1px solid transparent; white-space:nowrap; line-height:1.5; }
+    .expiry-tag::before{ content:''; width:6px; height:6px; border-radius:50%; background:currentColor; }
+    .expiry-none::before{ display:none; }
+    .cat-tag{ font-size:12px; padding:2px 8px; border-radius:6px; background:var(--hover); color:var(--text2); white-space:nowrap; font-weight:500; }
+    .rx-badge{ font-size:10.5px; font-weight:650; letter-spacing:.03em; padding:1px 6px; border-radius:4px; background:var(--violet-bg); color:var(--violet); border:1px solid var(--violet-bd); margin-left:8px; vertical-align:1px; }
+
+    /* ---------- LIST CARD (alerts) ---------- */
+    .list-card{ background:var(--card); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow-sm); overflow:hidden; }
+    .alert-item{ display:flex; align-items:center; gap:14px; padding:12px 16px; border-bottom:1px solid var(--border); cursor:pointer; transition:background .1s; }
+    .alert-item:last-child{ border-bottom:none; }
+    .alert-item:hover{ background:var(--subtle); }
+    .alert-dot{ width:8px; height:8px; border-radius:50%; flex-shrink:0; background:var(--border-strong); }
+    .alert-item.expired .alert-dot{ background:var(--red); }
+    .alert-item.warn30 .alert-dot, .alert-item.warn90 .alert-dot{ background:#E08A1E; }
+    .alert-main{ flex:1; min-width:0; }
+    .alert-name{ font-weight:600; font-size:14px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .alert-info{ font-size:12.5px; color:var(--text3); margin-top:1px; }
+    .empty-state{ display:flex; align-items:center; gap:10px; padding:18px 20px; color:var(--green); font-weight:550; font-size:14px; }
+    .empty-muted{ padding:28px 16px; text-align:center; color:var(--text3); font-size:14px; }
+
+    /* ---------- INVENTORY ---------- */
+    .inventory-toolbar{ display:flex; gap:10px; margin-bottom:14px; flex-wrap:wrap; align-items:center; }
+    .search-field{ position:relative; flex:1; min-width:220px; }
+    .search-field .icon{ position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--text3); pointer-events:none; }
+    .search-field .input{ padding-left:36px; }
+    .inventory-toolbar .select{ width:auto; min-width:190px; }
+    .category-pills{ display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px; }
+    .cat-pill{ padding:5px 12px; border-radius:100px; font-size:13px; font-weight:500; background:var(--card); color:var(--text2); cursor:pointer; border:1px solid var(--border-strong); transition:background .12s, border-color .12s, color .12s; user-select:none; }
+    .cat-pill:hover{ background:var(--hover); }
+    .cat-pill.active{ background:var(--accent-soft); color:var(--accent); border-color:var(--accent); font-weight:600; }
+    .count-note{ font-size:12.5px; color:var(--text3); margin-top:10px; }
+
+    /* ---------- TABLE ---------- */
+    .table-wrap{ background:var(--card); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow-sm); overflow-x:auto; }
+    table{ width:100%; border-collapse:collapse; }
+    thead th{ padding:10px 16px; text-align:left; font-size:12px; font-weight:600; color:var(--text3); background:var(--subtle); border-bottom:1px solid var(--border); white-space:nowrap; }
+    tbody tr{ border-bottom:1px solid var(--border); transition:background .1s; }
+    tbody tr:last-child{ border-bottom:none; }
+    tbody tr:hover{ background:var(--subtle); }
+    tbody td{ padding:12px 16px; vertical-align:middle; font-size:14px; }
+    .td-muted{ color:var(--text2); }
+    .td-small{ color:var(--text3); font-size:13px; }
+    .td-actions{ text-align:right; white-space:nowrap; }
+    .td-actions .icon-btn + .icon-btn{ margin-left:2px; }
+    .med-name{ font-weight:600; font-size:14px; }
+    .med-generic{ font-size:12.5px; color:var(--text3); margin-top:1px; }
+    .show-mobile{ display:none; }
+    .empty-cell{ padding:40px 16px; text-align:center; color:var(--text3); }
+
+    /* ---------- CATEGORY CARDS ---------- */
+    .card-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; }
+    .cat-overview-card{
+      background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:16px 18px;
+      cursor:pointer; box-shadow:var(--shadow-sm); transition:border-color .12s, box-shadow .12s; display:flex; flex-direction:column; gap:10px; min-height:104px;
+    }
+    .cat-overview-card:hover{ border-color:var(--border-strong); box-shadow:var(--shadow-md); }
+    .cat-card-name{ font-size:14px; font-weight:600; line-height:1.3; }
+    .cat-card-foot{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:auto; }
+    .cat-card-count{ font-size:24px; font-weight:650; letter-spacing:-.5px; line-height:1; font-variant-numeric:tabular-nums; }
+
+    .add-card{ max-width:560px; background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:28px; box-shadow:var(--shadow-sm); }
+    .add-card p{ color:var(--text2); margin-bottom:18px; }
+
+    /* ---------- MODAL ---------- */
+    .modal-overlay{ position:fixed; inset:0; background:rgba(16,24,40,.45); display:none; align-items:center; justify-content:center; z-index:200; padding:20px; }
+    .modal-overlay.active{ display:flex; }
+    .modal{ background:var(--card); border-radius:16px; width:100%; max-width:580px; max-height:90vh; display:flex; flex-direction:column; box-shadow:var(--shadow-lg); overflow:hidden; }
+    .modal-header{ display:flex; align-items:center; justify-content:space-between; padding:18px 24px; border-bottom:1px solid var(--border); flex-shrink:0; }
+    .modal-title{ font-size:16px; font-weight:650; letter-spacing:-.15px; }
+    .modal-body{ padding:22px 24px 24px; overflow-y:auto; flex:1; }
+    .modal-footer{ display:flex; gap:10px; justify-content:flex-end; margin-top:22px; padding-top:18px; border-top:1px solid var(--border); }
+
+    .confirm-dialog{ background:var(--card); border-radius:16px; padding:28px; max-width:380px; width:100%; box-shadow:var(--shadow-lg); }
+    .confirm-icon{ width:40px; height:40px; border-radius:50%; background:var(--red-bg); color:var(--red); display:flex; align-items:center; justify-content:center; margin-bottom:14px; }
+    .confirm-title{ font-size:16px; font-weight:650; margin-bottom:6px; }
+    .confirm-msg{ font-size:14px; color:var(--text2); margin-bottom:22px; }
+    .confirm-btns{ display:flex; gap:10px; justify-content:flex-end; }
+
+    /* ---------- TOAST ---------- */
+    .toast-container{ position:fixed; bottom:24px; right:24px; z-index:999; display:flex; flex-direction:column; gap:8px; }
+    .toast{ display:flex; align-items:center; gap:10px; background:var(--text); color:#fff; border-radius:var(--radius-sm); padding:11px 16px; font-size:13.5px; font-weight:500; box-shadow:var(--shadow-lg); animation:slideUp .2s ease; min-width:220px; }
+    .toast .icon{ width:18px; height:18px; }
+    .toast.success .icon{ color:#4ADE9B; }
+    .toast.error   .icon{ color:#FF8A80; }
+    .toast.warn    .icon{ color:#FFC663; }
+    @keyframes slideUp{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:translateY(0); } }
+
+    /* ---------- AUTOCOMPLETE / BRAND SEARCH ---------- */
+    .autocomplete-wrap{ position:relative; }
+    .autocomplete-dropdown{ position:fixed; z-index:9999; background:var(--card); border:1px solid var(--border-strong); border-radius:var(--radius-sm); max-height:260px; overflow-y:auto; display:none; box-shadow:var(--shadow-lg); }
+    .autocomplete-dropdown.show{ display:block; }
+    .ac-item{ padding:9px 14px; cursor:pointer; border-bottom:1px solid var(--border); }
+    .ac-item:last-child{ border-bottom:none; }
+    .ac-item:hover, .ac-item.selected{ background:var(--accent-soft); }
+    .ac-name{ font-size:14px; font-weight:600; }
+    .ac-sub{ font-size:12px; color:var(--text3); margin-top:1px; display:flex; gap:6px; flex-wrap:wrap; }
+    .ac-cat{ color:var(--accent); font-weight:550; }
+    .ac-rx{ color:var(--violet); font-weight:600; }
+    .generic-input-row{ display:flex; gap:8px; align-items:center; }
+    .generic-input-row .input{ flex:1; }
+    .generic-panel{ display:none; margin-top:8px; border:1px solid var(--border-strong); border-radius:var(--radius-sm); background:var(--card); max-height:230px; overflow-y:auto; box-shadow:var(--shadow-md); }
+    .generic-panel-head{ padding:8px 12px; font-size:12px; font-weight:550; color:var(--text3); border-bottom:1px solid var(--border); background:var(--subtle); position:sticky; top:0; }
+    .generic-panel-msg{ padding:12px; font-size:13px; color:var(--text3); }
+    .generic-panel-msg.err{ color:var(--red); }
+    .generic-row{ padding:9px 12px; cursor:pointer; border-bottom:1px solid var(--border); }
+    .generic-row:last-child{ border-bottom:none; }
+    .generic-row:hover{ background:var(--accent-soft); }
+    .generic-row-name{ font-size:14px; font-weight:600; }
+    .generic-row-sub{ font-size:12px; color:var(--text3); margin-top:1px; display:flex; gap:6px; flex-wrap:wrap; }
+
+    ::-webkit-scrollbar{ width:8px; height:8px; }
+    ::-webkit-scrollbar-track{ background:transparent; }
+    ::-webkit-scrollbar-thumb{ background:var(--border-strong); border-radius:4px; border:2px solid transparent; background-clip:content-box; }
+
+    /* ---------- RESPONSIVE ---------- */
     @media(max-width:768px){
-      .sidebar{ transform:translateX(-100%); }
+      body{ font-size:15px; }
+      .sidebar{ transform:translateX(-100%); box-shadow:var(--shadow-lg); }
       .sidebar.open{ transform:translateX(0); }
-      .mobile-overlay.show{ display:block; }
       .main-content{ margin-left:0; }
-      .topbar{ padding:10px 14px; gap:8px; }
+      .topbar{ padding:0 14px; gap:8px; height:56px; }
       .topbar-hamburger{ display:flex; }
       .topbar-title{ display:none; }
       .topbar-search{ max-width:100%; }
       .page{ padding:16px; }
-      .stats-grid{ grid-template-columns:repeat(2,1fr); }
-      .form-row,.form-row.three{ grid-template-columns:1fr; }
-      table{ font-size:12px; }
-      thead th:nth-child(3),thead th:nth-child(5),tbody td:nth-child(3),tbody td:nth-child(5){ display:none; }
+      .stats-grid{ grid-template-columns:repeat(2,1fr); gap:10px; }
+      .stat-number{ font-size:26px; }
+      .stats-grid .stat-card:last-child:nth-child(odd){ grid-column:1/-1; }
+      .form-row{ grid-template-columns:1fr; gap:0; }
+      .login-card{ padding:28px 22px 22px; }
+      .modal-overlay{ padding:0; align-items:flex-end; }
+      .modal{ max-width:none; border-radius:16px 16px 0 0; max-height:94vh; }
+      .modal-header, .modal-body{ padding-left:18px; padding-right:18px; }
+      .confirm-dialog{ margin:0 16px; }
+      .modal-overlay#confirm-overlay{ align-items:center; padding:0; }
+      .toast-container{ left:16px; right:16px; bottom:16px; }
+      .toast{ min-width:0; }
+      thead th:nth-child(2), thead th:nth-child(3), thead th:nth-child(5),
+      tbody td:nth-child(2), tbody td:nth-child(3), tbody td:nth-child(5){ display:none; }
+      .show-mobile{ display:block; }
+      thead th, tbody td{ padding-left:12px; padding-right:12px; }
+      .form-group input, .form-group select, .form-group textarea, .input, .select, .topbar-search input{ font-size:16px; } /* no iOS zoom-on-focus */
+      .inventory-toolbar .select{ width:100%; }
     }
-    ::-webkit-scrollbar{ width:5px; }
-    ::-webkit-scrollbar-track{ background:transparent; }
-    ::-webkit-scrollbar-thumb{ background:var(--border2); border-radius:3px; }
+    @media(prefers-reduced-motion:reduce){
+      *{ animation:none !important; transition:none !important; }
+    }
   </style>
 </head>
 <body>
+
+<!-- ICON SPRITE -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-dashboard" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></symbol>
+  <symbol id="i-package" viewBox="0 0 24 24"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></symbol>
+  <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-x-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></symbol>
+  <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></symbol>
+  <symbol id="i-pill" viewBox="0 0 24 24"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></symbol>
+</svg>
 
 <!-- LOGIN -->
 <div id="login-page">
@@ -341,73 +420,72 @@
         <p data-i18n="appTagline">Home Medicine App</p>
       </div>
     </div>
+
     <div id="panel-login">
-    <h2 class="login-welcome" data-i18n="welcomeBack">Welcome back</h2>
-    <p class="login-sub" data-i18n="loginSub">Sign in to manage your home medicine app</p>
-    <div class="form-group">
-      <label data-i18n="username">Username</label>
-      <input type="text" id="login-user" placeholder="username" autocomplete="username">
-    </div>
-    <div class="form-group">
-      <label data-i18n="password">Password</label>
-      <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password">
-    </div>
-    <div class="error-msg" id="login-error" data-i18n="invalidCredentials">Invalid username or password</div>
-    <div style="margin-top:22px">
-      <button class="btn btn-primary btn-full" id="login-btn">
-        <span data-i18n="signIn">Sign in</span> <span>→</span>
-      </button>
-    </div>
+      <h2 class="login-welcome" data-i18n="welcomeBack">Welcome back</h2>
+      <p class="login-sub" data-i18n="loginSub">Sign in to manage your home medicine app</p>
+      <div class="form-group">
+        <label for="login-user" data-i18n="username">Username</label>
+        <input type="text" id="login-user" autocomplete="username" autocapitalize="off" spellcheck="false">
+      </div>
+      <div class="form-group">
+        <label for="login-pass" data-i18n="password">Password</label>
+        <input type="password" id="login-pass" autocomplete="current-password">
+      </div>
+      <div class="error-msg" id="login-error" data-i18n="invalidCredentials">Invalid username or password</div>
+      <div class="stack-top">
+        <button class="btn btn-primary btn-full" id="login-btn"><span data-i18n="signIn">Sign in</span></button>
+      </div>
     </div>
 
     <div id="panel-create" style="display:none">
       <h2 class="login-welcome" data-i18n="setupTitle">Welcome to apoHouze</h2>
       <p class="login-sub" data-i18n="setupSub">Create your account. The setup code is shown in the container log.</p>
-      <div class="form-group"><label data-i18n="setupCode">Setup code</label>
+      <div class="form-group"><label for="setup-code" data-i18n="setupCode">Setup code</label>
         <input type="text" id="setup-code" placeholder="xxxxx-xxxxx" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
-      <div class="form-group"><label data-i18n="username">Username</label>
-        <input type="text" id="setup-user" autocomplete="username"></div>
-      <div class="form-group"><label data-i18n="password">Password</label>
+      <div class="form-group"><label for="setup-user" data-i18n="username">Username</label>
+        <input type="text" id="setup-user" autocomplete="username" autocapitalize="off" spellcheck="false"></div>
+      <div class="form-group"><label for="setup-pass" data-i18n="password">Password</label>
         <input type="password" id="setup-pass" autocomplete="new-password">
-        <div style="font-size:11.5px;color:var(--text3);margin-top:5px" data-i18n="passwordHint">At least 10 characters</div></div>
-      <div class="form-group"><label data-i18n="passwordRepeat">Repeat password</label>
+        <div class="hint" data-i18n="passwordHint">At least 10 characters</div></div>
+      <div class="form-group"><label for="setup-pass2" data-i18n="passwordRepeat">Repeat password</label>
         <input type="password" id="setup-pass2" autocomplete="new-password"></div>
       <div class="error-msg" id="setup-error"></div>
-      <div style="margin-top:22px"><button class="btn btn-primary btn-full" id="setup-btn"><span data-i18n="createAccount">Create account</span> <span>→</span></button></div>
+      <div class="stack-top"><button class="btn btn-primary btn-full" id="setup-btn"><span data-i18n="createAccount">Create account</span></button></div>
     </div>
 
     <div id="panel-enroll" style="display:none">
       <h2 class="login-welcome" data-i18n="enrollTitle">Set up two-step verification</h2>
       <p class="login-sub" data-i18n="enrollSub">Scan the QR code with an authenticator app (Google Authenticator, Aegis, Authy, 1Password…).</p>
-      <div style="display:flex;justify-content:center;margin:6px 0 10px"><img id="enroll-qr" alt="QR" width="200" height="200" style="border-radius:12px;border:1px solid var(--border);background:#fff"></div>
-      <div style="font-size:11.5px;color:var(--text3);text-align:center" data-i18n="enrollManual">Can't scan? Enter this key manually:</div>
-      <div id="enroll-secret" style="font-family:monospace;font-size:13px;letter-spacing:1px;text-align:center;margin:6px 0 14px;word-break:break-all;user-select:all"></div>
-      <div class="form-group"><label data-i18n="enrollCode">6-digit code from the app</label>
+      <div class="qr-box"><img id="enroll-qr" alt="QR" width="200" height="200"></div>
+      <div class="hint hint-center" data-i18n="enrollManual">Can't scan? Enter this key manually:</div>
+      <div id="enroll-secret" class="mono-key"></div>
+      <div class="form-group"><label for="enroll-code" data-i18n="enrollCode">6-digit code from the app</label>
         <input type="text" id="enroll-code" inputmode="numeric" autocomplete="one-time-code" maxlength="7" placeholder="123456"></div>
       <div class="error-msg" id="enroll-error"></div>
-      <div style="margin-top:22px"><button class="btn btn-primary btn-full" id="enroll-btn"><span data-i18n="enrollBtn">Activate</span> <span>→</span></button></div>
+      <div class="stack-top"><button class="btn btn-primary btn-full" id="enroll-btn"><span data-i18n="enrollBtn">Activate</span></button></div>
     </div>
 
     <div id="panel-verify" style="display:none">
       <h2 class="login-welcome" data-i18n="verifyTitle">Two-step verification</h2>
       <p class="login-sub" data-i18n="verifySub">Enter the 6-digit code from your authenticator app.</p>
-      <div class="form-group"><label data-i18n="verifyCode">Code</label>
-        <input type="text" id="verify-code" autocomplete="one-time-code" autocapitalize="off" spellcheck="false" placeholder="123456"></div>
-      <div style="font-size:11.5px;color:var(--text3);margin-top:-6px" data-i18n="recoveryHint">Lost your phone? Enter one of your recovery codes instead.</div>
+      <div class="form-group"><label for="verify-code" data-i18n="verifyCode">Code</label>
+        <input type="text" id="verify-code" autocomplete="one-time-code" autocapitalize="off" spellcheck="false" placeholder="123456">
+        <div class="hint" data-i18n="recoveryHint">Lost your phone? Enter one of your recovery codes instead.</div></div>
       <div class="error-msg" id="verify-error"></div>
-      <div style="margin-top:22px"><button class="btn btn-primary btn-full" id="verify-btn"><span data-i18n="verifyBtn">Verify</span> <span>→</span></button></div>
-      <p style="text-align:center;margin-top:14px"><a href="#" id="verify-back" style="font-size:12.5px;color:var(--text3)" data-i18n="backToLogin">Back to sign in</a></p>
+      <div class="stack-top"><button class="btn btn-primary btn-full" id="verify-btn"><span data-i18n="verifyBtn">Verify</span></button></div>
+      <p class="hint-center" style="margin-top:16px"><a href="#" id="verify-back" class="link-muted" data-i18n="backToLogin">Back to sign in</a></p>
     </div>
 
     <div id="panel-recovery" style="display:none">
       <h2 class="login-welcome" data-i18n="recoveryTitle">Save your recovery codes</h2>
       <p class="login-sub" data-i18n="recoverySub">Each code works once if you lose your authenticator. They are shown only now — store them somewhere safe (password manager or paper).</p>
-      <div id="recovery-list" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 14px"></div>
-      <button class="btn btn-ghost btn-full" id="recovery-copy" style="margin-bottom:10px"><span data-i18n="recoveryCopy">Copy codes</span></button>
-      <button class="btn btn-primary btn-full" id="recovery-continue"><span data-i18n="recoveryContinue">I saved them — continue</span> <span>→</span></button>
+      <div id="recovery-list" class="recovery-grid"></div>
+      <button class="btn btn-ghost btn-full" id="recovery-copy" style="margin-bottom:10px"><svg class="icon icon-sm"><use href="#i-copy"/></svg><span data-i18n="recoveryCopy">Copy codes</span></button>
+      <button class="btn btn-primary btn-full" id="recovery-continue"><span data-i18n="recoveryContinue">I saved them — continue</span></button>
     </div>
 
-    <p style="text-align:center;margin-top:18px;font-size:12px;color:var(--text3)" id="login-footer">apoHouze · Multi-country database</p>
+    <p class="login-footer" id="login-footer">apoHouze · Multi-country database</p>
   </div>
 </div>
 
@@ -419,17 +497,17 @@
       <div class="sidebar-logo-icon"><img src="/icons/logo.png" alt="apoHouze logo"></div>
       <div class="sidebar-logo-text">
         <h2>apoHouze</h2>
-        <span id="sidebar-country-label" data-i18n="homeCabinet">HOME CABINET</span>
+        <span id="sidebar-country-label" data-i18n="homeCabinet">Home cabinet</span>
       </div>
     </div>
-    <nav class="sidebar-nav">
+    <nav class="sidebar-nav" aria-label="Main">
       <div class="nav-section-label" data-i18n="navOverview">Overview</div>
-      <div class="nav-item active" data-page="dashboard"><span class="nav-icon">📊</span> <span data-i18n="navDashboard">Dashboard</span></div>
-      <div class="nav-item" data-page="inventory"><span class="nav-icon">🗂️</span> <span data-i18n="navInventory">Inventory</span><span class="nav-badge" id="nav-total" style="display:none"></span></div>
-      <div class="nav-item" data-page="expiring"><span class="nav-icon">⚠️</span> <span data-i18n="navExpiry">Expiry alerts</span><span class="nav-badge" id="nav-expiry" style="display:none"></span></div>
-      <div class="nav-section-label" style="margin-top:12px" data-i18n="navManage">Manage</div>
-      <div class="nav-item" data-page="categories"><span class="nav-icon">📋</span> <span data-i18n="navCategories">Categories</span></div>
-      <div class="nav-item" data-page="add"><span class="nav-icon">➕</span> <span data-i18n="navAdd">Add medicine</span></div>
+      <button class="nav-item active" data-page="dashboard"><svg class="icon"><use href="#i-dashboard"/></svg><span data-i18n="navDashboard">Dashboard</span></button>
+      <button class="nav-item" data-page="inventory"><svg class="icon"><use href="#i-package"/></svg><span data-i18n="navInventory">Inventory</span><span class="nav-badge" id="nav-total" style="display:none"></span></button>
+      <button class="nav-item" data-page="expiring"><svg class="icon"><use href="#i-alert"/></svg><span data-i18n="navExpiry">Expiry alerts</span><span class="nav-badge alert" id="nav-expiry" style="display:none"></span></button>
+      <div class="nav-section-label" data-i18n="navManage">Manage</div>
+      <button class="nav-item" data-page="categories"><svg class="icon"><use href="#i-list"/></svg><span data-i18n="navCategories">Categories</span></button>
+      <button class="nav-item" data-page="add"><svg class="icon"><use href="#i-plus"/></svg><span data-i18n="navAdd">Add medicine</span></button>
     </nav>
     <div class="sidebar-footer">
       <div class="user-pill">
@@ -439,59 +517,59 @@
           <p data-i18n="administrator">Administrator</p>
         </div>
       </div>
-      <!-- Language switcher lives here — visible on all screen sizes -->
       <div class="lang-switcher" id="lang-switcher">
         <button class="lang-btn active" onclick="setLang('en')">EN</button>
         <button class="lang-btn" onclick="setLang('nl')">NL</button>
         <button class="lang-btn" onclick="setLang('fr')">FR</button>
       </div>
-      <button class="btn btn-ghost btn-full btn-sm" id="logout-btn">🚪 <span data-i18n="signOut">Sign out</span></button>
+      <button class="btn btn-ghost btn-full btn-sm" id="logout-btn"><svg class="icon icon-sm"><use href="#i-logout"/></svg><span data-i18n="signOut">Sign out</span></button>
     </div>
   </aside>
 
   <main class="main-content">
     <div class="topbar">
-      <button class="topbar-hamburger" id="hamburger">☰</button>
+      <button class="topbar-hamburger" id="hamburger" aria-label="Menu"><svg class="icon icon-lg"><use href="#i-menu"/></svg></button>
       <h1 class="topbar-title" id="topbar-title" data-i18n="navDashboard">Dashboard</h1>
       <div class="topbar-search">
-        <span style="color:var(--text3);font-size:14px">🔍</span>
-        <input type="text" id="global-search" data-i18n-placeholder="searchPlaceholder" placeholder="Search medicines...">
+        <svg class="icon icon-sm"><use href="#i-search"/></svg>
+        <input type="text" id="global-search" data-i18n-placeholder="searchPlaceholder" placeholder="Search medicines..." aria-label="Search">
       </div>
-      <button class="btn btn-primary btn-sm" onclick="openAddModal()">+ <span data-i18n="addShort">Add</span></button>
+      <button class="btn btn-primary btn-sm" onclick="openAddModal()"><svg class="icon icon-sm"><use href="#i-plus"/></svg><span data-i18n="addShort">Add</span></button>
     </div>
 
     <!-- DASHBOARD -->
     <div class="page active" id="page-dashboard">
       <div class="stats-grid" id="stats-grid">
-        <div class="stat-card total skeleton" style="height:120px"></div>
-        <div class="stat-card expired skeleton" style="height:120px"></div>
-        <div class="stat-card safe skeleton" style="height:120px"></div>
+        <div class="stat-card skeleton" style="height:104px"></div>
+        <div class="stat-card skeleton" style="height:104px"></div>
+        <div class="stat-card skeleton" style="height:104px"></div>
       </div>
       <div class="section-header">
-        <h3 class="section-title">⚠️ <span data-i18n="expiredExpiring">Expired &amp; Expiring soon</span></h3>
-        <button class="btn btn-ghost btn-sm" onclick="navigateTo('expiring')" data-i18n="viewAll">View all →</button>
+        <h3 class="section-title" data-i18n="expiredExpiring">Expired &amp; expiring soon</h3>
+        <button class="btn btn-ghost btn-sm" onclick="navigateTo('expiring')"><span data-i18n="viewAll">View all</span><svg class="icon icon-sm"><use href="#i-chevron-right"/></svg></button>
       </div>
-      <div class="alert-list" id="alert-list"><div style="color:var(--text3);font-size:13px;padding:16px" data-i18n="loading">Loading...</div></div>
-      <div style="height:32px"></div>
+      <div class="list-card" id="alert-list"><div class="empty-muted" data-i18n="loading">Loading...</div></div>
+      <div class="section-gap"></div>
       <div class="section-header">
-        <h3 class="section-title">📊 <span data-i18n="byCategory">By category</span></h3>
+        <h3 class="section-title" data-i18n="byCategory">By category</h3>
       </div>
-      <div id="cat-overview" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px"></div>
+      <div class="card-grid" id="cat-overview"></div>
     </div>
 
     <!-- INVENTORY -->
     <div class="page" id="page-inventory">
       <div class="inventory-toolbar">
-        <input type="text" id="inv-search" data-i18n-placeholder="searchInventory" placeholder="🔍 Search by name, category..."
-          style="flex:1;min-width:200px;padding:10px 14px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-size:13.5px;font-family:var(--font-body);outline:none;transition:border-color .15s"
-          onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border)'">
-        <select id="inv-sort" style="padding:10px 14px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-size:13px;font-family:var(--font-body);outline:none;">
+        <div class="search-field">
+          <svg class="icon icon-sm"><use href="#i-search"/></svg>
+          <input type="text" id="inv-search" class="input" data-i18n-placeholder="searchInventory" placeholder="Search by name, category..." aria-label="Search inventory">
+        </div>
+        <select id="inv-sort" class="select" aria-label="Sort">
           <option value="expiry" data-i18n="sortExpiry">Sort: Expiry date</option>
           <option value="name" data-i18n="sortName">Sort: Name</option>
           <option value="category" data-i18n="sortCategory">Sort: Category</option>
         </select>
         <label class="checkbox-group">
-          <input type="checkbox" id="inv-rx"> <span style="font-size:13px;color:var(--text2)" data-i18n="rxOnly">Rx only</span>
+          <input type="checkbox" id="inv-rx"> <span data-i18n="rxOnly">Rx only</span>
         </label>
       </div>
       <div class="category-pills" id="inv-cat-pills"><div class="cat-pill active" data-cat="" data-i18n="all">All</div></div>
@@ -503,12 +581,12 @@
             <th data-i18n="quantity">Quantity</th>
             <th data-i18n="expiryDate">Expiry date</th>
             <th data-i18n="location">Location</th>
-            <th style="width:100px"></th>
+            <th style="width:92px"></th>
           </tr></thead>
-          <tbody id="inventory-tbody"><tr><td colspan="6" style="padding:40px;text-align:center;color:var(--text3)" data-i18n="loading">Loading...</td></tr></tbody>
+          <tbody id="inventory-tbody"><tr><td colspan="6" class="empty-cell" data-i18n="loading">Loading...</td></tr></tbody>
         </table>
       </div>
-      <p id="inv-count" style="font-size:12px;color:var(--text3);margin-top:10px"></p>
+      <p id="inv-count" class="count-note"></p>
     </div>
 
     <!-- EXPIRING -->
@@ -522,9 +600,9 @@
             <th data-i18n="expiryDate">Expiry date</th>
             <th data-i18n="status">Status</th>
             <th data-i18n="quantity">Quantity</th>
-            <th style="width:80px"></th>
+            <th style="width:56px"></th>
           </tr></thead>
-          <tbody id="expiry-tbody"><tr><td colspan="6" style="padding:40px;text-align:center;color:var(--text3)" data-i18n="loading">Loading...</td></tr></tbody>
+          <tbody id="expiry-tbody"><tr><td colspan="6" class="empty-cell" data-i18n="loading">Loading...</td></tr></tbody>
         </table>
       </div>
     </div>
@@ -532,59 +610,56 @@
     <!-- CATEGORIES -->
     <div class="page" id="page-categories">
       <p class="page-lead" data-i18n="categoriesLead">Overview by category</p>
-      <div id="cat-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px"></div>
+      <div class="card-grid" id="cat-grid"></div>
     </div>
 
     <!-- ADD -->
     <div class="page" id="page-add">
       <p class="page-lead" data-i18n="addLead">Add a new medicine to your inventory</p>
-      <div style="max-width:600px"><div id="quick-add-form"></div></div>
+      <div id="quick-add-form"></div>
     </div>
   </main>
 </div>
 
 <!-- ADD/EDIT MODAL -->
 <div class="modal-overlay" id="modal-overlay">
-  <div class="modal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="modal-header">
       <h3 class="modal-title" id="modal-title" data-i18n="addMedicine">Add medicine</h3>
-      <button class="modal-close" onclick="closeModal()">✕</button>
+      <button class="icon-btn" onclick="closeModal()" aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button>
     </div>
     <div class="modal-body">
       <input type="hidden" id="edit-id">
       <div class="form-group autocomplete-wrap">
-        <label data-i18n="medicineName">Medicine name *</label>
+        <label for="med-name" data-i18n="medicineName">Medicine name *</label>
         <input type="text" id="med-name" data-i18n-placeholder="startTyping" placeholder="Start typing..." autocomplete="off">
         <div class="autocomplete-dropdown" id="ac-dropdown"></div>
       </div>
+      <div class="form-group">
+        <label for="med-generic"><span data-i18n="genericName">Generic name</span><span class="field-hint" data-i18n="genericHint">— type to search brands</span></label>
+        <div class="generic-input-row">
+          <input type="text" id="med-generic" class="input" data-i18n-placeholder="genericPlaceholder" placeholder="e.g. Paracetamol, Ibuprofen..." autocomplete="off">
+          <button type="button" class="btn btn-ghost btn-sm" onclick="searchByGeneric()" style="flex-shrink:0;height:40px"><svg class="icon icon-sm"><use href="#i-search"/></svg><span data-i18n="brands">Brands</span></button>
+        </div>
+        <div id="generic-results" class="generic-panel"></div>
+      </div>
       <div class="form-row">
         <div class="form-group">
-          <label><span data-i18n="genericName">Generic name</span> <span style="font-size:11px;color:var(--text3);font-weight:400;margin-left:6px" data-i18n="genericHint">— type to search brands</span></label>
-          <div style="display:flex;gap:6px;align-items:flex-start">
-            <div style="flex:1;position:relative">
-              <input type="text" id="med-generic" data-i18n-placeholder="genericPlaceholder" placeholder="e.g. Paracetamol, Ibuprofen..." autocomplete="off"
-                style="width:100%;padding:10px 12px;background:var(--bg);border:1.5px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-size:14px;font-family:var(--font-body);outline:none;">
-            </div>
-            <button type="button" class="btn btn-ghost btn-sm" onclick="searchByGeneric()" style="white-space:nowrap;height:40px;flex-shrink:0">🔍 <span data-i18n="brands">Brands</span></button>
-          </div>
-          <div id="generic-results" style="display:none;margin-top:8px;border:1.5px solid var(--border2);border-radius:var(--radius-sm);background:#fff;max-height:220px;overflow-y:auto;box-shadow:var(--shadow-lg)"></div>
-        </div>
-        <div class="form-group">
-          <label data-i18n="form">Form</label>
+          <label for="med-form" data-i18n="form">Form</label>
           <select id="med-form"></select>
         </div>
-      </div>
-      <div class="form-group">
-        <label data-i18n="category">Category *</label>
-        <select id="med-category"><option value="" data-i18n="selectCategory">Select category...</option></select>
+        <div class="form-group">
+          <label for="med-category" data-i18n="category">Category *</label>
+          <select id="med-category"><option value="" data-i18n="selectCategory">Select category...</option></select>
+        </div>
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label data-i18n="quantity">Quantity</label>
-          <input type="number" id="med-qty" min="0" value="1" placeholder="1">
+          <label for="med-qty" data-i18n="quantity">Quantity</label>
+          <input type="number" id="med-qty" min="0" value="1" placeholder="1" inputmode="numeric">
         </div>
         <div class="form-group">
-          <label data-i18n="unit">Unit</label>
+          <label for="med-unit" data-i18n="unit">Unit</label>
           <select id="med-unit">
             <option value="units" data-i18n="units">units</option>
             <option value="tablets" data-i18n="tablets">tablets</option>
@@ -599,11 +674,11 @@
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label data-i18n="expiryDate">Expiry date</label>
+          <label for="med-expiry" data-i18n="expiryDate">Expiry date</label>
           <input type="month" id="med-expiry">
         </div>
         <div class="form-group">
-          <label data-i18n="location">Location</label>
+          <label for="med-location" data-i18n="location">Location</label>
           <select id="med-location">
             <option value="Medicine cabinet" data-i18n="locMedicineCabinet">Medicine cabinet</option>
             <option value="Bathroom" data-i18n="locBathroom">Bathroom</option>
@@ -617,12 +692,12 @@
         </div>
       </div>
       <div class="form-group">
-        <label data-i18n="notes">Notes</label>
+        <label for="med-notes" data-i18n="notes">Notes</label>
         <textarea id="med-notes" data-i18n-placeholder="notesPlaceholder" placeholder="Dosage, remarks..."></textarea>
       </div>
       <div class="checkbox-group">
         <input type="checkbox" id="med-rx">
-        <label for="med-rx" data-i18n="prescriptionRx">Prescription medicine (Rx) 🩺</label>
+        <label for="med-rx" data-i18n="prescriptionRx">Prescription medicine (Rx)</label>
       </div>
       <div class="modal-footer">
         <button class="btn btn-ghost" onclick="closeModal()" data-i18n="cancel">Cancel</button>
@@ -634,9 +709,9 @@
 
 <!-- CONFIRM -->
 <div class="modal-overlay" id="confirm-overlay">
-  <div class="confirm-dialog">
-    <div class="confirm-icon">🗑️</div>
-    <div class="confirm-title" data-i18n="deleteTitle">Delete?</div>
+  <div class="confirm-dialog" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title">
+    <div class="confirm-icon"><svg class="icon icon-lg"><use href="#i-trash"/></svg></div>
+    <div class="confirm-title" id="confirm-title" data-i18n="deleteTitle">Delete?</div>
     <div class="confirm-msg" id="confirm-msg"></div>
     <div class="confirm-btns">
       <button class="btn btn-ghost" onclick="closeConfirm()" data-i18n="cancel">Cancel</button>
@@ -645,7 +720,7 @@
   </div>
 </div>
 
-<div class="toast-container" id="toast-container"></div>
+<div class="toast-container" id="toast-container" aria-live="polite"></div>
 
 <script>
 // ==================== TRANSLATIONS ====================
@@ -659,12 +734,12 @@ const TRANSLATIONS = {
     enrollTitle:'Set up two-step verification',enrollSub:'Scan the QR code with an authenticator app (Google Authenticator, Aegis, Authy, 1Password…).',enrollManual:"Can't scan? Enter this key manually:",enrollCode:'6-digit code from the app',enrollBtn:'Activate',
     verifyTitle:'Two-step verification',verifySub:'Enter the 6-digit code from your authenticator app.',verifyCode:'Code',verifyBtn:'Verify',recoveryHint:'Lost your phone? Enter one of your recovery codes instead.',backToLogin:'Back to sign in',invalidCode:'Invalid code',tooManyAttempts:'Too many attempts. Please sign in again.',
     recoveryTitle:'Save your recovery codes',recoverySub:'Each code works once if you lose your authenticator. They are shown only now — store them somewhere safe (password manager or paper).',recoveryCopy:'Copy codes',recoveryCopied:'Codes copied',recoveryContinue:'I saved them — continue',recoveryLow:'Only {n} recovery code(s) left',
-    homeCabinet:'HOME CABINET',
+    homeCabinet:'Home cabinet',
     navOverview:'Overview',navDashboard:'Dashboard',navInventory:'Inventory',
     navExpiry:'Expiry alerts',navManage:'Manage',navCategories:'Categories',
     navAdd:'Add medicine',addShort:'Add',
-    searchPlaceholder:'Search medicines...',searchInventory:'🔍 Search by name, category...',
-    expiredExpiring:'Expired & Expiring soon',viewAll:'View all →',
+    searchPlaceholder:'Search medicines...',searchInventory:'Search by name, category...',
+    expiredExpiring:'Expired & expiring soon',viewAll:'View all',
     byCategory:'By category',loading:'Loading...',
     medicine:'Medicine',category:'Category',quantity:'Quantity',
     expiryDate:'Expiry date',location:'Location',status:'Status',
@@ -675,7 +750,7 @@ const TRANSLATIONS = {
     genericName:'Generic name',genericHint:'— type to search brands',
     genericPlaceholder:'e.g. Paracetamol, Ibuprofen...',
     brands:'Brands',form:'Form',select:'Select...',selectCategory:'Select category...',unit:'Unit',
-    notes:'Notes',notesPlaceholder:'Dosage, remarks...',prescriptionRx:'Prescription medicine (Rx) 🩺',
+    notes:'Notes',notesPlaceholder:'Dosage, remarks...',prescriptionRx:'Prescription medicine (Rx)',
     cancel:'Cancel',save:'Save',delete:'Delete',deleteTitle:'Delete?',
     deleteConfirm:'Remove from inventory',
     sortExpiry:'Sort: Expiry date',sortName:'Sort: Name',sortCategory:'Sort: Category',
@@ -688,15 +763,15 @@ const TRANSLATIONS = {
     nameAndCategoryRequired:'Name and category are required',
     errorSaving:'Error saving',errorDeleting:'Error deleting',
     typeIngredient:'Type an active ingredient first',
-    noMedicines:'No medicines added yet',allGood:'✅ All good! No expiring medicines.',
+    noMedicines:'No medicines added yet',allGood:'All good! No expiring medicines.',
     removeImmediately:'remove immediately',totalInventory:'total in inventory',
     notExpired:'not expired',rxMedicines:'Rx medicines',inUse:'in use',
     medicines:'Medicines',expired:'Expired',valid:'Valid',prescription:'Prescription',
     categories:'Categories',medicinesInDb:'medicines in database',
-    addMedicineBtn:'➕ Add medicine',addMedicineLead:'Use the form to add a new medicine to your inventory.',
-    noDate:'No date',brandsFound:'brands found for',clickToSelect:'— click to select',
+    addMedicineBtn:'Add medicine',addMedicineLead:'Use the form to add a new medicine to your inventory.',
+    noDate:'No date',brandsFound:'brands found for',clickToSelect:'click to select',
     noBrandsFound:'No brands found for this active ingredient.',searchError:'Search error.',
-    expiryExpired:'⚠️ Expired',expiry30:'< 30 days',expiry90:'< 90 days',expiryOk:'✓ OK',
+    expiryExpired:'Expired',expiry30:'< 30 days',expiry90:'< 90 days',expiryOk:'OK',
   },
   nl:{
     appTagline:'Thuisapotheek App',
@@ -707,12 +782,12 @@ const TRANSLATIONS = {
     enrollTitle:'Tweestapsverificatie instellen',enrollSub:'Scan de QR-code met een authenticator-app (Google Authenticator, Aegis, Authy, 1Password…).',enrollManual:'Lukt scannen niet? Voer deze sleutel handmatig in:',enrollCode:'6-cijferige code uit de app',enrollBtn:'Activeren',
     verifyTitle:'Tweestapsverificatie',verifySub:'Voer de 6-cijferige code uit je authenticator-app in.',verifyCode:'Code',verifyBtn:'Controleren',recoveryHint:'Telefoon kwijt? Voer een van je herstelcodes in.',backToLogin:'Terug naar inloggen',invalidCode:'Ongeldige code',tooManyAttempts:'Te veel pogingen. Log opnieuw in.',
     recoveryTitle:'Bewaar je herstelcodes',recoverySub:'Elke code werkt één keer als je je authenticator kwijt bent. Ze worden alleen nu getoond — bewaar ze veilig (wachtwoordmanager of op papier).',recoveryCopy:'Codes kopiëren',recoveryCopied:'Codes gekopieerd',recoveryContinue:'Ik heb ze bewaard — verder',recoveryLow:'Nog maar {n} herstelcode(s) over',
-    homeCabinet:'MEDICIJNKAST',
+    homeCabinet:'Medicijnkast',
     navOverview:'Overzicht',navDashboard:'Dashboard',navInventory:'Inventaris',
     navExpiry:'Verloopalerts',navManage:'Beheren',navCategories:'Categorieën',
     navAdd:'Medicijn toevoegen',addShort:'Toevoegen',
-    searchPlaceholder:'Medicijnen zoeken...',searchInventory:'🔍 Zoek op naam, categorie...',
-    expiredExpiring:'Verlopen & Bijna verlopen',viewAll:'Alles bekijken →',
+    searchPlaceholder:'Medicijnen zoeken...',searchInventory:'Zoek op naam, categorie...',
+    expiredExpiring:'Verlopen & bijna verlopen',viewAll:'Alles bekijken',
     byCategory:'Per categorie',loading:'Laden...',
     medicine:'Medicijn',category:'Categorie',quantity:'Hoeveelheid',
     expiryDate:'Vervaldatum',location:'Locatie',status:'Status',
@@ -723,7 +798,7 @@ const TRANSLATIONS = {
     genericName:'Generieke naam',genericHint:'— typ om merken te zoeken',
     genericPlaceholder:'bijv. Paracetamol, Ibuprofen...',
     brands:'Merken',form:'Vorm',select:'Selecteer...',selectCategory:'Selecteer categorie...',unit:'Eenheid',
-    notes:'Notities',notesPlaceholder:'Dosering, opmerkingen...',prescriptionRx:'Receptplichtig medicijn (Rx) 🩺',
+    notes:'Notities',notesPlaceholder:'Dosering, opmerkingen...',prescriptionRx:'Receptplichtig medicijn (Rx)',
     cancel:'Annuleren',save:'Opslaan',delete:'Verwijderen',deleteTitle:'Verwijderen?',
     deleteConfirm:'Verwijder uit inventaris',
     sortExpiry:'Sorteren: Vervaldatum',sortName:'Sorteren: Naam',sortCategory:'Sorteren: Categorie',
@@ -736,15 +811,15 @@ const TRANSLATIONS = {
     nameAndCategoryRequired:'Naam en categorie zijn verplicht',
     errorSaving:'Fout bij opslaan',errorDeleting:'Fout bij verwijderen',
     typeIngredient:'Typ eerst een werkzame stof',
-    noMedicines:'Nog geen medicijnen toegevoegd',allGood:'✅ Alles goed! Geen medicijnen verlopen.',
+    noMedicines:'Nog geen medicijnen toegevoegd',allGood:'Alles goed! Geen medicijnen verlopen.',
     removeImmediately:'direct verwijderen',totalInventory:'totaal in inventaris',
     notExpired:'niet verlopen',rxMedicines:'Rx medicijnen',inUse:'in gebruik',
     medicines:'Medicijnen',expired:'Verlopen',valid:'Geldig',prescription:'Recept',
     categories:'Categorieën',medicinesInDb:'medicijnen in database',
-    addMedicineBtn:'➕ Medicijn toevoegen',addMedicineLead:'Gebruik het formulier om een nieuw medicijn toe te voegen.',
-    noDate:'Geen datum',brandsFound:'merken gevonden voor',clickToSelect:'— klik om te selecteren',
-    noBrandsFound:'Geen merken gevonden voor dit werkzame stof.',searchError:'Zoekfout.',
-    expiryExpired:'⚠️ Verlopen',expiry30:'< 30 dagen',expiry90:'< 90 dagen',expiryOk:'✓ OK',
+    addMedicineBtn:'Medicijn toevoegen',addMedicineLead:'Gebruik het formulier om een nieuw medicijn toe te voegen.',
+    noDate:'Geen datum',brandsFound:'merken gevonden voor',clickToSelect:'klik om te selecteren',
+    noBrandsFound:'Geen merken gevonden voor deze werkzame stof.',searchError:'Zoekfout.',
+    expiryExpired:'Verlopen',expiry30:'< 30 dagen',expiry90:'< 90 dagen',expiryOk:'OK',
   },
   fr:{
     appTagline:'Application Pharmacie Maison',
@@ -755,12 +830,12 @@ const TRANSLATIONS = {
     enrollTitle:'Configurer la vérification en deux étapes',enrollSub:"Scannez le QR code avec une application d'authentification (Google Authenticator, Aegis, Authy, 1Password…).",enrollManual:'Impossible de scanner ? Saisissez cette clé manuellement :',enrollCode:"Code à 6 chiffres de l'application",enrollBtn:'Activer',
     verifyTitle:'Vérification en deux étapes',verifySub:"Saisissez le code à 6 chiffres de votre application d'authentification.",verifyCode:'Code',verifyBtn:'Vérifier',recoveryHint:'Téléphone perdu ? Saisissez un de vos codes de secours.',backToLogin:'Retour à la connexion',invalidCode:'Code invalide',tooManyAttempts:'Trop de tentatives. Reconnectez-vous.',
     recoveryTitle:'Conservez vos codes de secours',recoverySub:"Chaque code ne fonctionne qu'une fois si vous perdez votre application. Ils ne sont affichés qu'une seule fois — gardez-les en lieu sûr.",recoveryCopy:'Copier les codes',recoveryCopied:'Codes copiés',recoveryContinue:"Je les ai conservés — continuer",recoveryLow:'Plus que {n} code(s) de secours',
-    homeCabinet:'ARMOIRE À PHARMACIE',
+    homeCabinet:'Armoire à pharmacie',
     navOverview:'Aperçu',navDashboard:'Tableau de bord',navInventory:'Inventaire',
     navExpiry:'Alertes expiration',navManage:'Gérer',navCategories:'Catégories',
     navAdd:'Ajouter médicament',addShort:'Ajouter',
-    searchPlaceholder:'Rechercher médicaments...',searchInventory:'🔍 Rechercher par nom, catégorie...',
-    expiredExpiring:'Expirés & Bientôt expirés',viewAll:'Voir tout →',
+    searchPlaceholder:'Rechercher médicaments...',searchInventory:'Rechercher par nom, catégorie...',
+    expiredExpiring:'Expirés & bientôt expirés',viewAll:'Voir tout',
     byCategory:'Par catégorie',loading:'Chargement...',
     medicine:'Médicament',category:'Catégorie',quantity:'Quantité',
     expiryDate:"Date d'expiration",location:'Emplacement',status:'Statut',
@@ -771,7 +846,7 @@ const TRANSLATIONS = {
     genericName:'Nom générique',genericHint:'— tapez pour chercher des marques',
     genericPlaceholder:'ex. Paracétamol, Ibuprofène...',
     brands:'Marques',form:'Forme',select:'Sélectionner...',selectCategory:'Sélectionner une catégorie...',unit:'Unité',
-    notes:'Notes',notesPlaceholder:'Posologie, remarques...',prescriptionRx:'Médicament sur ordonnance (Rx) 🩺',
+    notes:'Notes',notesPlaceholder:'Posologie, remarques...',prescriptionRx:'Médicament sur ordonnance (Rx)',
     cancel:'Annuler',save:'Enregistrer',delete:'Supprimer',deleteTitle:'Supprimer?',
     deleteConfirm:"Supprimer de l'inventaire",
     sortExpiry:"Trier: Date d'expiration",sortName:'Trier: Nom',sortCategory:'Trier: Catégorie',
@@ -784,24 +859,26 @@ const TRANSLATIONS = {
     nameAndCategoryRequired:'Le nom et la catégorie sont requis',
     errorSaving:'Erreur lors de la sauvegarde',errorDeleting:'Erreur lors de la suppression',
     typeIngredient:"Saisissez d'abord un principe actif",
-    noMedicines:'Aucun médicament ajouté',allGood:'✅ Tout va bien ! Aucun médicament ne va expirer.',
+    noMedicines:'Aucun médicament ajouté',allGood:'Tout va bien ! Aucun médicament ne va expirer.',
     removeImmediately:'à retirer immédiatement',totalInventory:'total en inventaire',
     notExpired:'non expiré',rxMedicines:'médicaments Rx',inUse:'en usage',
     medicines:'Médicaments',expired:'Expirés',valid:'Valides',prescription:'Ordonnance',
     categories:'Catégories',medicinesInDb:'médicaments en base de données',
-    addMedicineBtn:'➕ Ajouter médicament',addMedicineLead:'Utilisez le formulaire pour ajouter un nouveau médicament.',
-    noDate:'Sans date',brandsFound:'marques trouvées pour',clickToSelect:'— cliquez pour sélectionner',
+    addMedicineBtn:'Ajouter médicament',addMedicineLead:'Utilisez le formulaire pour ajouter un nouveau médicament.',
+    noDate:'Sans date',brandsFound:'marques trouvées pour',clickToSelect:'cliquez pour sélectionner',
     noBrandsFound:'Aucune marque trouvée pour ce principe actif.',searchError:'Erreur de recherche.',
-    expiryExpired:'⚠️ Expiré',expiry30:'< 30 jours',expiry90:'< 90 jours',expiryOk:'✓ OK',
+    expiryExpired:'Expiré',expiry30:'< 30 jours',expiry90:'< 90 jours',expiryOk:'OK',
   }
 };
 
 let currentLang = localStorage.getItem('apohouze_lang') || 'en';
+document.documentElement.lang = currentLang;
 function t(key){ return (TRANSLATIONS[currentLang]&&TRANSLATIONS[currentLang][key])||TRANSLATIONS.en[key]||key; }
 
 function setLang(lang){
   currentLang = lang;
   localStorage.setItem('apohouze_lang', lang);
+  document.documentElement.lang = lang;
   document.querySelectorAll('.lang-btn').forEach(btn=>{
     btn.classList.toggle('active', btn.textContent.toLowerCase()===lang);
   });
@@ -833,7 +910,6 @@ let confirmCallback=null;
 let acTimeout=null;
 let acSelectedIndex=-1;
 
-const CAT_ICONS={'Pain & Fever':'🌡️','Allergy':'🌸','Stomach & Intestine':'🫃','Skin & Wounds':'🩹','Cough & Cold':'🤧','Eye & Ear':'👁️','Vitamins & Supplements':'💊','Sleep & Sedation':'😴','Heart & Blood Pressure':'❤️','Antibiotics':'🦠','Diabetes':'🍬','Thyroid':'⚡','Joints & Muscles':'💪',"Women's Health":'♀️','Lungs & Asthma':'🫁','Migraine':'🤕','Neurology':'🧠','Cholesterol':'🩸','Antidepressants':'🧠','Smoking Cessation':'🚭','First Aid':'🏥','Urology':'🫘','Corticosteroids':'💊','Antiparasitics':'🪲','Antifungals':'🍄','Antivirals':'🦠','Anticoagulants':'💉','Oral Care':'🦷','Nervous System':'🧠','Cardiovascular':'❤️','Respiratory':'🫁','Dermatology':'🩹','Ophthalmology':'👁️','Psychiatry':'🧠','Oncology':'⚕️'};
 
 const CAT_TRANSLATIONS={
   'Pain & Fever':          {nl:'Pijn & Koorts',          fr:'Douleur & Fièvre'},
@@ -923,7 +999,7 @@ const COUNTRY_CODES={BE:'be',NL:'nl',DE:'de',FR:'fr',ES:'es',IT:'it',CH:'ch',AT:
 function getFlagImg(countryCode,size=20){
   const code=COUNTRY_CODES[countryCode];
   if(!code) return '';
-  return `<img src="https://flagcdn.com/${size}x${Math.round(size*.75)}/${code}.png" srcset="https://flagcdn.com/${size*2}x${Math.round(size*.75*2)}/${code}.png 2x" alt="${countryCode} flag" class="country-flag" width="${size}" height="${Math.round(size*.75)}">`;
+  return `<img src="https://flagcdn.com/${size}x${Math.round(size*.75)}/${code}.png" srcset="https://flagcdn.com/${size*2}x${Math.round(size*.75*2)}/${code}.png 2x" alt="" class="country-flag" width="${size}" height="${Math.round(size*.75)}">`;
 }
 
 // ==================== INIT ====================
@@ -1007,7 +1083,7 @@ function busy(btn,on,label){
 
 async function login(){
   const btn=document.getElementById('login-btn');
-  btn.dataset.html=`<span>${t('signIn')}</span><span>→</span>`;
+  btn.dataset.html=`<span>${t('signIn')}</span>`;
   busy(btn,true,t('signIn'));
   try{
     const {ok,data}=await api('/api/login',{username:document.getElementById('login-user').value,password:document.getElementById('login-pass').value});
@@ -1024,7 +1100,7 @@ async function createAccount(){
   const pass=document.getElementById('setup-pass').value;
   if(pass!==document.getElementById('setup-pass2').value)return fieldError('setup-error',t('passwordsDiffer'));
   const btn=document.getElementById('setup-btn');
-  btn.dataset.html=`<span>${t('createAccount')}</span> <span>→</span>`;
+  btn.dataset.html=`<span>${t('createAccount')}</span>`;
   busy(btn,true,t('createAccount'));
   try{
     const {ok,data}=await api('/api/setup',{code:document.getElementById('setup-code').value,username:document.getElementById('setup-user').value,password:pass});
@@ -1046,7 +1122,7 @@ async function loadEnroll(){
 
 async function submitEnroll(){
   const btn=document.getElementById('enroll-btn');
-  btn.dataset.html=`<span>${t('enrollBtn')}</span> <span>→</span>`;
+  btn.dataset.html=`<span>${t('enrollBtn')}</span>`;
   busy(btn,true,t('enrollBtn'));
   try{
     const {ok,data}=await api('/api/2fa/enroll',{code:document.getElementById('enroll-code').value});
@@ -1059,7 +1135,7 @@ async function submitEnroll(){
       data.recoveryCodes.forEach(c=>{
         const d=document.createElement('div');
         d.textContent=c;
-        d.style.cssText='font-family:monospace;font-size:14px;text-align:center;padding:9px;border:1px solid var(--border);border-radius:8px;background:var(--surface);user-select:all';
+        d.className='recovery-code';
         list.appendChild(d);
       });
       list.dataset.codes=data.recoveryCodes.join('\n');
@@ -1073,7 +1149,7 @@ async function submitEnroll(){
 
 async function submitVerify(){
   const btn=document.getElementById('verify-btn');
-  btn.dataset.html=`<span>${t('verifyBtn')}</span> <span>→</span>`;
+  btn.dataset.html=`<span>${t('verifyBtn')}</span>`;
   busy(btn,true,t('verifyBtn'));
   try{
     const {ok,data}=await api('/api/2fa/verify',{code:document.getElementById('verify-code').value});
@@ -1165,13 +1241,14 @@ let lastStats=null, lastAlerts=null, lastAlertsToday=null;
 
 function renderStats(stats){
   lastStats=stats;
-  document.getElementById('stats-grid').innerHTML=`
-    <div class="stat-card total"><div class="stat-icon">💊</div><div class="stat-number">${stats.total}</div><div class="stat-label">${t('medicines')}</div><div class="stat-sublabel">${t('totalInventory')}</div></div>
-    <div class="stat-card expired"><div class="stat-icon">⛔</div><div class="stat-number">${stats.expired}</div><div class="stat-label">${t('expired')}</div><div class="stat-sublabel">${t('removeImmediately')}</div></div>
-    <div class="stat-card safe"><div class="stat-icon">✔️</div><div class="stat-number">${stats.total-stats.expired}</div><div class="stat-label">${t('valid')}</div><div class="stat-sublabel">${t('notExpired')}</div></div>
-    <div class="stat-card rx"><div class="stat-icon">🩺</div><div class="stat-number">${stats.rx}</div><div class="stat-label">${t('prescription')}</div><div class="stat-sublabel">${t('rxMedicines')}</div></div>
-    <div class="stat-card cats"><div class="stat-icon">🗂️</div><div class="stat-number">${stats.categories}</div><div class="stat-label">${t('categories')}</div><div class="stat-sublabel">${t('inUse')}</div></div>
-  `;
+  const valid=stats.total-stats.expired;
+  const card=(icon,label,num,sub,cls='')=>`<div class="stat-card"><div class="stat-top"><span class="stat-label">${label}</span>${ico(icon)}</div><div class="stat-number ${cls}">${num}</div><div class="stat-sublabel">${sub}</div></div>`;
+  document.getElementById('stats-grid').innerHTML=
+    card('package',t('medicines'),stats.total,t('totalInventory'))+
+    card('alert',t('expired'),stats.expired,t('removeImmediately'),stats.expired>0?'is-red':'')+
+    card('check-circle',t('valid'),valid,t('notExpired'))+
+    card('file',t('prescription'),stats.rx,t('rxMedicines'))+
+    card('list',t('categories'),stats.categories,t('inUse'));
   const nb=document.getElementById('nav-total');
   nb.textContent=stats.total; nb.style.display=stats.total>0?'inline':'none';
   const eb=document.getElementById('nav-expiry');
@@ -1182,16 +1259,16 @@ function renderStats(stats){
 function renderAlerts(items,today){
   lastAlerts=items; lastAlertsToday=today;
   if(!items||items.length===0){
-    document.getElementById('alert-list').innerHTML=`<div class="alert-item" style="background:var(--green-dim);border-color:rgba(56,161,105,.2)"><div class="alert-dot" style="background:var(--green)"></div><span style="font-size:14px;color:var(--green);font-weight:700">${t('allGood')}</span></div>`;
+    document.getElementById('alert-list').innerHTML=`<div class="empty-state">${ico('check-circle','icon-lg')}<span>${t('allGood')}</span></div>`;
     return;
   }
   const html=items.slice(0,10).map(item=>{
     const status=getExpiryStatus(item.expiry_date,today);
     return `<div class="alert-item ${status.cls}" onclick="navigateTo('inventory')">
-      <div class="alert-dot"></div>
-      <div style="flex:1"><div class="alert-name">${esc(item.name)}</div><div class="alert-info">${translateCat(item.category)} · ${item.quantity} ${esc(item.unit)}</div></div>
+      <span class="alert-dot"></span>
+      <div class="alert-main"><div class="alert-name">${esc(item.name)}</div><div class="alert-info">${esc(translateCat(item.category))} · ${item.quantity} ${esc(item.unit)}</div></div>
       <span class="expiry-tag expiry-${status.cls==='expired'?'expired':'warn'}">${status.label}</span>
-      <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openEditModal(${item.id})" title="Edit">✏️</button>
+      <button class="icon-btn" onclick="event.stopPropagation();openEditModal(${item.id})" aria-label="${t('editMedicine')}">${ico('edit')}</button>
     </div>`;
   }).join('');
   document.getElementById('alert-list').innerHTML=html;
@@ -1205,18 +1282,13 @@ async function renderCatOverview(){
   const catExpired={};
   inv.forEach(i=>{if(i.expiry_date&&i.expiry_date<today)catExpired[i.category]=(catExpired[i.category]||0)+1;});
   const html=Object.entries(catMap).map(([cat,count])=>{
-    const icon=CAT_ICONS[cat]||'💊';
     const expired=catExpired[cat]||0;
     return `<div class="cat-overview-card" data-cat="${esc(cat)}" onclick="filterByCategory(this.dataset.cat)">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-        <span style="font-size:22px">${icon}</span>
-        ${expired>0?`<span class="section-badge badge-red">${expired} ${t('expired').toLowerCase()}</span>`:''}
-      </div>
-      <div style="font-size:28px;font-weight:800;color:var(--accent);letter-spacing:-1px">${count}</div>
-      <div style="font-size:12.5px;font-weight:600;margin-top:5px;color:var(--text2)">${translateCat(cat)}</div>
+      <div class="cat-card-name">${esc(translateCat(cat))}</div>
+      <div class="cat-card-foot"><span class="cat-card-count">${count}</span>${expired>0?`<span class="badge badge-red">${expired} ${t('expired').toLowerCase()}</span>`:''}</div>
     </div>`;
   }).join('');
-  document.getElementById('cat-overview').innerHTML=html||`<div style="color:var(--text3);grid-column:1/-1;padding:20px">${t('noMedicines')}</div>`;
+  document.getElementById('cat-overview').innerHTML=html||`<div class="empty-muted" style="grid-column:1/-1">${t('noMedicines')}</div>`;
 }
 
 function filterByCategory(cat){
@@ -1232,6 +1304,7 @@ async function loadInventory(returnData=false){
   try{
     const res=await fetch('/api/inventory');
     inventoryData=await res.json();
+    renderCategoryPills();
     if(!returnData)renderInventory();
     return inventoryData;
   }catch(err){console.error(err);return [];}
@@ -1256,7 +1329,7 @@ function renderInventory(){
   });
   const tbody=document.getElementById('inventory-tbody');
   if(!data.length){
-    tbody.innerHTML=`<tr><td colspan="6" style="padding:40px;text-align:center;color:var(--text3)">${t('noMedicines')}</td></tr>`;
+    tbody.innerHTML=`<tr><td colspan="6" class="empty-cell">${t('noMedicines')}</td></tr>`;
     document.getElementById('inv-count').textContent='';
     return;
   }
@@ -1264,13 +1337,13 @@ function renderInventory(){
     const status=getExpiryStatus(item.expiry_date,today);
     return `<tr>
       <td><div class="med-name">${esc(item.name)}${item.rx?`<span class="rx-badge">Rx</span>`:''}</div>${item.generic?`<div class="med-generic">${esc(item.generic)}</div>`:''}</td>
-      <td><span class="cat-tag">${translateCat(item.category)}</span></td>
-      <td style="color:var(--text2)">${item.quantity} ${esc(item.unit)}</td>
+      <td><span class="cat-tag">${esc(translateCat(item.category))}</span></td>
+      <td class="td-muted">${item.quantity} ${esc(item.unit)}</td>
       <td><span class="expiry-tag expiry-${status.expClass}">${formatDate(item.expiry_date)}</span></td>
-      <td style="color:var(--text3);font-size:12px">${esc(item.location)||'—'}</td>
-      <td style="text-align:right">
-        <button class="btn btn-ghost btn-sm" onclick="openEditModal(${item.id})" title="Edit">✏️</button>
-        <button class="btn btn-danger btn-sm" onclick="confirmDelete(${item.id})">🗑️</button>
+      <td class="td-small">${esc(item.location)||'—'}</td>
+      <td class="td-actions">
+        <button class="icon-btn" onclick="openEditModal(${item.id})" aria-label="${t('editMedicine')}">${ico('edit')}</button>
+        <button class="icon-btn danger" onclick="confirmDelete(${item.id})" aria-label="${t('delete')}">${ico('trash')}</button>
       </td>
     </tr>`;
   }).join('');
@@ -1282,12 +1355,11 @@ function renderCategoryPills(){
   const container=document.getElementById('inv-cat-pills');
   container.innerHTML=`<div class="cat-pill ${!activeCategory?'active':''}" data-cat="" onclick="filterByCategory2('')">${t('all')}</div>`;
   cats.forEach(cat=>{
-    const icon=CAT_ICONS[cat]||'';
     const div=document.createElement('div');
     div.className=`cat-pill${activeCategory===cat?' active':''}`;
     div.dataset.cat=cat;
     div.onclick=()=>filterByCategory2(cat);
-    div.textContent=`${icon} ${translateCat(cat)}`;
+    div.textContent=translateCat(cat);
     container.appendChild(div);
   });
 }
@@ -1325,19 +1397,12 @@ function renderCategoryPage(){
     if(i.expiry_date&&i.expiry_date<today)catMap[i.category].expired++;
   });
   const html=Object.entries(catMap).map(([cat,info])=>{
-    const icon=CAT_ICONS[cat]||'💊';
     return `<div class="cat-overview-card" data-cat="${esc(cat)}" onclick="filterByCategory(this.dataset.cat)">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
-        <span style="font-size:26px">${icon}</span>
-        <span style="font-size:14px;font-weight:700;color:var(--text)">${translateCat(cat)}</span>
-      </div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <span style="font-size:12px;padding:3px 10px;border-radius:20px;background:var(--accent-dim);color:var(--accent);font-weight:600">${info.total} ${t('medicines').toLowerCase()}</span>
-        ${info.expired>0?`<span class="section-badge badge-red">${info.expired} ${t('expired').toLowerCase()}</span>`:`<span class="section-badge badge-green">✓ OK</span>`}
-      </div>
+      <div class="cat-card-name">${esc(translateCat(cat))}</div>
+      <div class="cat-card-foot"><span class="cat-card-count">${info.total}</span>${info.expired>0?`<span class="badge badge-red">${info.expired} ${t('expired').toLowerCase()}</span>`:`<span class="badge badge-green">${t('expiryOk')}</span>`}</div>
     </div>`;
   }).join('');
-  document.getElementById('cat-grid').innerHTML=html||`<p style="color:var(--text3)">${t('noMedicines')}</p>`;
+  document.getElementById('cat-grid').innerHTML=html||`<div class="empty-muted" style="grid-column:1/-1">${t('noMedicines')}</div>`;
 }
 
 // ==================== EXPIRY PAGE ====================
@@ -1349,18 +1414,18 @@ async function loadExpiryPage(){
     const items=data.expiring||[];
     const tbody=document.getElementById('expiry-tbody');
     if(!items.length){
-      tbody.innerHTML=`<tr><td colspan="6" style="padding:40px;text-align:center"><span style="color:var(--green);font-weight:700">${t('allGood')}</span></td></tr>`;
+      tbody.innerHTML=`<tr><td colspan="6" class="empty-cell"><div class="empty-state" style="justify-content:center">${ico('check-circle','icon-lg')}<span>${t('allGood')}</span></div></td></tr>`;
       return;
     }
     tbody.innerHTML=items.map(item=>{
       const status=getExpiryStatus(item.expiry_date,today);
       return `<tr>
-        <td><div class="med-name">${esc(item.name)}</div></td>
-        <td><span class="cat-tag">${translateCat(item.category)}</span></td>
-        <td>${formatDate(item.expiry_date)}</td>
+        <td><div class="med-name">${esc(item.name)}</div><div class="med-generic show-mobile">${formatDate(item.expiry_date)} · ${item.quantity} ${esc(item.unit)}</div></td>
+        <td><span class="cat-tag">${esc(translateCat(item.category))}</span></td>
+        <td class="td-muted">${formatDate(item.expiry_date)}</td>
         <td><span class="expiry-tag expiry-${status.cls==='expired'?'expired':'warn'}">${status.label}</span></td>
-        <td>${item.quantity} ${esc(item.unit)}</td>
-        <td style="text-align:right"><button class="btn btn-ghost btn-sm" onclick="openEditModal(${item.id})">✏️</button></td>
+        <td class="td-muted">${item.quantity} ${esc(item.unit)}</td>
+        <td class="td-actions"><button class="icon-btn" onclick="openEditModal(${item.id})" aria-label="${t('editMedicine')}">${ico('edit')}</button></td>
       </tr>`;
     }).join('');
   }catch(err){}
@@ -1499,7 +1564,7 @@ function showAutocomplete(items){
   dd.innerHTML=items.map((item,i)=>`
     <div class="ac-item" data-index="${i}" onclick="selectAcItem(${i})">
       <div class="ac-name">${esc(item.name)}</div>
-      <div class="ac-sub"><span class="ac-cat">${translateCat(item.category)}</span>${item.generic?`<span>· ${esc(item.generic)}</span>`:''}${item.form?`<span>· ${translateForm(item.form)}</span>`:''}${item.rx?'<span style="color:#805AD5">· Rx</span>':''}</div>
+      <div class="ac-sub"><span class="ac-cat">${translateCat(item.category)}</span>${item.generic?`<span>· ${esc(item.generic)}</span>`:''}${item.form?`<span>· ${translateForm(item.form)}</span>`:''}${item.rx?'<span class="ac-rx">· Rx</span>':''}</div>
     </div>`).join('');
   dd.dataset.items=JSON.stringify(items);
   dd.classList.add('show');
@@ -1545,32 +1610,27 @@ async function searchByGeneric(){
   if(q.length<2){toast(t('typeIngredient'),'warn');return;}
   const panel=document.getElementById('generic-results');
   panel.style.display='block';
-  panel.innerHTML=`<div style="padding:12px;font-size:13px;color:var(--text3)">${t('loading')}</div>`;
+  panel.innerHTML=`<div class="generic-panel-msg">${t('loading')}</div>`;
   try{
     const res=await fetch(`/api/medicines/search?q=${encodeURIComponent(q)}`);
     const data=await res.json();
     const matches=data.filter(item=>item.generic&&item.generic.toLowerCase().includes(q.toLowerCase()));
     if(!matches.length){
-      panel.innerHTML=`<div style="padding:12px;font-size:13px;color:var(--text3)">${t('noBrandsFound')}</div>`;
+      panel.innerHTML=`<div class="generic-panel-msg">${t('noBrandsFound')}</div>`;
       return;
     }
-    panel.innerHTML=`
-      <div style="padding:8px 12px;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);background:var(--surface)">
-        ${matches.length} ${t('brandsFound')} "${esc(q)}" — ${t('clickToSelect')}
-      </div>
-      ${(window._brandMatches=matches).map((item,i)=>`
-        <div onclick="pickGenericBrand(${i})"
-          style="padding:10px 12px;cursor:pointer;border-bottom:1px solid var(--border);transition:background .1s;"
-          onmouseover="this.style.background='var(--surface)'" onmouseout="this.style.background=''">
-          <div style="font-size:13px;font-weight:700;color:var(--text)">${esc(item.name)}</div>
-          <div style="font-size:11px;color:var(--text3);margin-top:2px;display:flex;gap:8px;flex-wrap:wrap">
-            <span style="color:var(--accent)">${translateCat(item.category)}</span>
-            ${item.form?`<span>· ${translateForm(item.form)}</span>`:''}
-            ${item.rx?'<span style="color:var(--purple);font-weight:700">· Rx</span>':'<span style="color:var(--green)">· OTC</span>'}
+    panel.innerHTML=`<div class="generic-panel-head">${matches.length} ${t('brandsFound')} "${esc(q)}" — ${t('clickToSelect')}</div>`+
+      (window._brandMatches=matches).map((item,i)=>`
+        <div class="generic-row" onclick="pickGenericBrand(${i})">
+          <div class="generic-row-name">${esc(item.name)}</div>
+          <div class="generic-row-sub">
+            <span class="ac-cat">${esc(translateCat(item.category))}</span>
+            ${item.form?`<span>· ${esc(translateForm(item.form))}</span>`:''}
+            ${item.rx?'<span class="ac-rx">· Rx</span>':'<span>· OTC</span>'}
           </div>
-        </div>`).join('')}`;
+        </div>`).join('');
   }catch(err){
-    panel.innerHTML=`<div style="padding:12px;font-size:13px;color:var(--red)">${t('searchError')}</div>`;
+    panel.innerHTML=`<div class="generic-panel-msg err">${t('searchError')}</div>`;
   }
 }
 
@@ -1591,13 +1651,14 @@ function pickGenericBrand(i){
 // ==================== ADD PAGE ====================
 function renderAddPage(){
   document.getElementById('quick-add-form').innerHTML=`
-    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow)">
-      <p style="color:var(--text2);margin-bottom:20px;font-size:14px">${t('addMedicineLead')}</p>
-      <button class="btn btn-primary" onclick="openAddModal()">${t('addMedicineBtn')}</button>
+    <div class="add-card">
+      <p>${t('addMedicineLead')}</p>
+      <button class="btn btn-primary" onclick="openAddModal()">${ico('plus','icon-sm')}<span>${t('addMedicineBtn')}</span></button>
     </div>`;
 }
 
 // ==================== HELPERS ====================
+function ico(name,cls=''){return `<svg class="icon ${cls}" aria-hidden="true"><use href="#i-${name}"/></svg>`;}
 function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function localDate(offsetDays=0){
   const d=new Date(Date.now()+offsetDays*86400000);
@@ -1623,11 +1684,13 @@ function formatDate(dateStr){
 }
 
 function toast(message,type='success'){
-  const icons={success:'✅',error:'❌',warn:'⚠️'};
+  const icons={success:'check-circle',error:'x-circle',warn:'alert'};
   const el=document.createElement('div');
   el.className=`toast ${type}`;
-  el.innerHTML=`<span>${icons[type]}</span> `;
-  el.appendChild(document.createTextNode(message));
+  el.innerHTML=ico(icons[type]||'info');
+  const txt=document.createElement('span');
+  txt.textContent=message;
+  el.appendChild(txt);
   document.getElementById('toast-container').appendChild(el);
   setTimeout(()=>el.remove(),3500);
 }
