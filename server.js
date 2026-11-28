@@ -7,7 +7,7 @@ const path = require('path');
 const {
   getDb, closeDb, searchMedicines, getInventory, addInventoryItem,
   updateInventoryItem, deleteInventoryItem, getDashboardStats,
-  getExpiringItems, localDate, CATEGORIES,
+  getExpiringItems, localDate, CATEGORIES, getProductCode, saveProductCode,
 } = require('./db/database');
 
 const app = express();
@@ -124,12 +124,19 @@ app.use((req, res, next) => {
     'X-Content-Type-Options': 'nosniff',
     'X-Frame-Options': 'DENY',
     'Referrer-Policy': 'same-origin',
-    'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+    'Permissions-Policy': 'camera=(self), microphone=(), geolocation=()',
   });
   next();
 });
 
 app.use(express.json({ limit: '50kb' }));
+
+// ZXing barcode decoder (used by the in-app scanner when the browser has no native BarcodeDetector).
+const ZXING_FILE = path.join(__dirname, 'node_modules', '@zxing', 'library', 'umd', 'index.min.js');
+app.get('/vendor/zxing.min.js', (req, res) => {
+  res.set('Cache-Control', 'public, max-age=86400');
+  res.sendFile(ZXING_FILE, err => { if (err && !res.headersSent) res.status(404).end(); });
+});
 
 app.use(express.static(path.join(__dirname, 'public'), {
   setHeaders(res, file) {
@@ -356,6 +363,10 @@ function cleanItem(body = {}) {
   };
 }
 
+// Pack codes come from the scanner: GTIN-14 digits or "raw:<text>". Keep the alphabet tight.
+const PACK_CODE_RE = /^[A-Za-z0-9:._-]{3,64}$/;
+const cleanPackCode = v => { const c = String(v == null ? '' : v).trim(); return PACK_CODE_RE.test(c) ? c : null; };
+
 const parseId = (req, res) => {
   const id = parseInt(req.params.id, 10);
   if (!Number.isInteger(id) || id < 1) { res.status(400).json({ error: 'Invalid id' }); return null; }
@@ -397,9 +408,23 @@ app.get('/api/inventory', requireAuth, (req, res) => {
   } catch (e) { fail(res, e); }
 });
 
+app.get('/api/product-code', requireAuth, (req, res) => {
+  const code = cleanPackCode(req.query.code);
+  if (!code) return res.status(400).json({ error: 'Invalid code' });
+  try {
+    const product = getProductCode(code);
+    res.json(product ? { found: true, product: { ...product, rx: !!product.rx } } : { found: false });
+  } catch (e) { fail(res, e); }
+});
+
 app.post('/api/inventory', requireAuth, (req, res) => {
   try {
-    res.json({ success: true, id: addInventoryItem(cleanItem(req.body)) });
+    const item = cleanItem(req.body);
+    const id = addInventoryItem(item);
+    // Remember which medicine this pack code belongs to, so the next scan is recognised.
+    const code = cleanPackCode(req.body && req.body.code);
+    if (code) saveProductCode(code, item);
+    res.json({ success: true, id });
   } catch (e) { e instanceof ValidationError ? fail(res, e, 400) : fail(res, e); }
 });
 

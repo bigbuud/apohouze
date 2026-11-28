@@ -22,6 +22,19 @@ No username or password is stored in the compose file.
 
 Locked out (lost phone and recovery codes)? Add `RESET_ACCOUNT: "true"` to the compose file, restart once, read the new setup code in the log, set up again, and **remove the variable again**. Your inventory is kept.
 
+## Adding medicines with the phone camera
+
+Tap the round **scan** button in the bottom bar (or the *Scan* shortcut on the home-screen icon) and point the camera at the code on the box.
+
+- **EU medicine packs** carry a GS1 DataMatrix with the product code (GTIN), **expiry date**, batch and serial number. The expiry date and batch are filled in for you.
+- **Older packs** only have a normal barcode (EAN / Code 39). That gives the pack code but no expiry date, so you type the date from the box.
+- **The first time** a pack is scanned you fill in the name once (autocomplete helps). apoHouze remembers the code, so the next box of the same medicine is recognised and prefilled. EAN-13 and DataMatrix codes of the same pack share one entry.
+- **Save & scan next** keeps you in the scanner to add a whole shelf quickly.
+
+Browsers only allow the **live camera over HTTPS** (or `localhost`). Over plain `http://nas:3525` the scanner shows *Take photo* instead: it opens the phone's own camera app and reads the code from the picture, which works on any connection. For the live view, put apoHouze behind an HTTPS reverse proxy and set `TRUST_PROXY=1`.
+
+Scanning uses the browser's built-in barcode detector where available (Chrome on Android) and the bundled ZXing library elsewhere (iPhone Safari). Nothing is sent to an external service: images stay on the phone and only the decoded code reaches your server.
+
 ## Supported countries
 
 ### West-Europa
@@ -92,6 +105,7 @@ apohouze/
 │       └── us.js, ca.js             # Noord-Amerika
 ├── public/
 │   ├── index.html                   # PWA frontend
+│   ├── scan.js                      # Barcode / GS1 DataMatrix scanner
 │   ├── manifest.json
 │   └── sw.js
 ├── fetch_eu_medicines.py            # Fetcher: AT CH DK ES FI IE NO PL PT SE
