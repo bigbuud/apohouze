@@ -276,6 +276,8 @@
     tbody tr{ border-bottom:1px solid var(--border); transition:background .1s; }
     tbody tr:last-child{ border-bottom:none; }
     tbody tr:hover{ background:var(--subtle); }
+    tr.row-click{ cursor:pointer; }
+    tr.row-click:focus-visible{ outline:2px solid var(--accent); outline-offset:-2px; }
     tbody td{ padding:12px 16px; vertical-align:middle; font-size:14px; }
     .td-muted{ color:var(--text2); }
     .td-small{ color:var(--text3); font-size:13px; }
@@ -1380,7 +1382,7 @@ function renderAlerts(items,today){
   }
   const html=items.slice(0,10).map(item=>{
     const status=getExpiryStatus(item.expiry_date,today);
-    return `<div class="alert-item ${status.cls}" onclick="navigateTo('inventory')">
+    return `<div class="alert-item ${status.cls}" onclick="openEditModal(${item.id})">
       <span class="alert-dot"></span>
       <div class="alert-main"><div class="alert-name">${esc(item.name)}</div><div class="alert-info">${esc(translateCat(item.category))} · ${item.quantity} ${esc(item.unit)}</div></div>
       <span class="expiry-tag expiry-${status.cls==='expired'?'expired':'warn'}">${status.label}</span>
@@ -1451,15 +1453,15 @@ function renderInventory(){
   }
   tbody.innerHTML=data.map(item=>{
     const status=getExpiryStatus(item.expiry_date,today);
-    return `<tr>
+    return `<tr class="row-click" tabindex="0" onclick="openEditModal(${item.id})" onkeydown="if(event.key==='Enter'&&event.target===this)openEditModal(${item.id})">
       <td><div class="med-name">${esc(item.name)}${item.rx?`<span class="rx-badge">Rx</span>`:''}</div>${item.generic?`<div class="med-generic">${esc(item.generic)}</div>`:''}</td>
       <td><span class="cat-tag">${esc(translateCat(item.category))}</span></td>
       <td class="td-muted">${item.quantity} ${esc(item.unit)}</td>
       <td><span class="expiry-tag expiry-${status.expClass}">${formatDate(item.expiry_date)}</span></td>
       <td class="td-small">${esc(item.location)||'—'}</td>
       <td class="td-actions">
-        <button class="icon-btn" onclick="openEditModal(${item.id})" aria-label="${t('editMedicine')}">${ico('edit')}</button>
-        <button class="icon-btn danger" onclick="confirmDelete(${item.id})" aria-label="${t('delete')}">${ico('trash')}</button>
+        <button class="icon-btn" onclick="event.stopPropagation();openEditModal(${item.id})" aria-label="${t('editMedicine')}">${ico('edit')}</button>
+        <button class="icon-btn danger" onclick="event.stopPropagation();confirmDelete(${item.id})" aria-label="${t('delete')}">${ico('trash')}</button>
       </td>
     </tr>`;
   }).join('');
@@ -1535,13 +1537,13 @@ async function loadExpiryPage(){
     }
     tbody.innerHTML=items.map(item=>{
       const status=getExpiryStatus(item.expiry_date,today);
-      return `<tr>
+      return `<tr class="row-click" tabindex="0" onclick="openEditModal(${item.id})" onkeydown="if(event.key==='Enter'&&event.target===this)openEditModal(${item.id})">
         <td><div class="med-name">${esc(item.name)}</div><div class="med-generic show-mobile">${formatDate(item.expiry_date)} · ${item.quantity} ${esc(item.unit)}</div></td>
         <td><span class="cat-tag">${esc(translateCat(item.category))}</span></td>
         <td class="td-muted">${formatDate(item.expiry_date)}</td>
         <td><span class="expiry-tag expiry-${status.cls==='expired'?'expired':'warn'}">${status.label}</span></td>
         <td class="td-muted">${item.quantity} ${esc(item.unit)}</td>
-        <td class="td-actions"><button class="icon-btn" onclick="openEditModal(${item.id})" aria-label="${t('editMedicine')}">${ico('edit')}</button></td>
+        <td class="td-actions"><button class="icon-btn" onclick="event.stopPropagation();openEditModal(${item.id})" aria-label="${t('editMedicine')}">${ico('edit')}</button></td>
       </tr>`;
     }).join('');
   }catch(err){}
