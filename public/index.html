@@ -52,13 +52,13 @@
     }
 
     *{ margin:0; padding:0; box-sizing:border-box; }
-    html{ -webkit-text-size-adjust:100%; }
+    html{ -webkit-text-size-adjust:100%; touch-action:manipulation; }
     body{
       font-family:var(--font); font-size:14px; line-height:1.5; color:var(--text);
       background:var(--bg); min-height:100vh; overflow-x:hidden;
       -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
     }
-    button{ font-family:inherit; }
+    button{ font-family:inherit; -webkit-tap-highlight-color:transparent; }
     a{ color:var(--accent); }
     :focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
     ::selection{ background:var(--accent-ring); }
@@ -351,6 +351,50 @@
     ::-webkit-scrollbar-track{ background:transparent; }
     ::-webkit-scrollbar-thumb{ background:var(--border-strong); border-radius:4px; border:2px solid transparent; background-clip:content-box; }
 
+
+    /* ---------- SCANNER ---------- */
+    .scan-overlay{ position:fixed; inset:0; z-index:300; background:#000; color:#fff; display:none; flex-direction:column; overflow:hidden; }
+    .scan-overlay.open{ display:flex; }
+    body.scan-open{ overflow:hidden; }
+    .scan-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; background:#000; }
+    .scan-top{ position:relative; z-index:2; display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:max(12px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) 12px max(14px, env(safe-area-inset-left));
+      background:linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,0)); }
+    .scan-title{ font-size:15px; font-weight:600; text-align:center; flex:1; }
+    .scan-btn{ width:44px; height:44px; border-radius:50%; border:none; background:rgba(255,255,255,.16); color:#fff; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); }
+    .scan-btn:active{ background:rgba(255,255,255,.28); }
+    .scan-btn.on{ background:#fff; color:#000; }
+    .scan-btn[hidden]{ display:none; }
+    .scan-stage{ position:relative; z-index:1; flex:1; display:flex; align-items:center; justify-content:center; pointer-events:none; }
+    .scan-frame{ position:relative; width:min(72vw, 320px); aspect-ratio:1; box-shadow:0 0 0 100vmax rgba(0,0,0,.42); border-radius:18px; }
+    .scan-frame i{ position:absolute; width:34px; height:34px; border:3px solid #fff; }
+    .scan-frame i:nth-child(1){ top:-2px; left:-2px; border-right:0; border-bottom:0; border-top-left-radius:18px; }
+    .scan-frame i:nth-child(2){ top:-2px; right:-2px; border-left:0; border-bottom:0; border-top-right-radius:18px; }
+    .scan-frame i:nth-child(3){ bottom:-2px; left:-2px; border-right:0; border-top:0; border-bottom-left-radius:18px; }
+    .scan-frame i:nth-child(4){ bottom:-2px; right:-2px; border-left:0; border-top:0; border-bottom-right-radius:18px; }
+    .scan-frame::after{ content:''; position:absolute; left:10%; right:10%; top:10%; height:2px; background:rgba(255,255,255,.85); border-radius:2px; animation:scanline 2.2s ease-in-out infinite alternate; }
+    .scan-overlay.busy .scan-frame::after, .scan-overlay.nocam .scan-frame{ display:none; }
+    @keyframes scanline{ from{ transform:translateY(0); } to{ transform:translateY(calc(min(72vw, 320px) * .8 - 2px)); } }
+    .scan-hint{ position:absolute; left:0; right:0; z-index:2; bottom:calc(112px + env(safe-area-inset-bottom)); text-align:center; padding:0 28px; font-size:14px; text-shadow:0 1px 6px rgba(0,0,0,.6); }
+    .scan-msg{ position:absolute; z-index:2; left:20px; right:20px; top:50%; transform:translateY(-50%); background:rgba(20,26,28,.92); border:1px solid rgba(255,255,255,.14); border-radius:14px; padding:18px 18px; font-size:14.5px; line-height:1.5; text-align:center; display:none; }
+    .scan-msg.show{ display:block; }
+    .scan-bottom{ position:relative; z-index:2; display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:14px max(16px, env(safe-area-inset-right)) calc(16px + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+      background:linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.65)); }
+    .scan-action{ height:50px; border-radius:12px; border:1px solid rgba(255,255,255,.28); background:rgba(255,255,255,.14); color:#fff; font:inherit; font-size:15px; font-weight:550; display:inline-flex; align-items:center; justify-content:center; gap:8px; cursor:pointer; -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); }
+    .scan-action:active{ background:rgba(255,255,255,.26); }
+    .scan-file{ position:absolute; width:1px; height:1px; opacity:0; pointer-events:none; }
+    .scan-banner{ display:none; align-items:flex-start; gap:10px; padding:11px 12px; margin-bottom:16px; border-radius:var(--radius-sm); font-size:13.5px; line-height:1.45; border:1px solid; }
+    .scan-banner.show{ display:flex; }
+    .scan-banner .icon{ margin-top:1px; }
+    .scan-banner.known{ background:var(--green-bg); border-color:var(--green-bd); color:var(--green); }
+    .scan-banner.new{ background:var(--accent-soft); border-color:var(--accent-ring); color:var(--accent); }
+    .scan-banner-sub{ color:var(--text2); display:block; margin-top:2px; }
+    #btn-save-next{ display:none; }
+    #btn-save-next.show{ display:inline-flex; }
+
+    /* ---------- BOTTOM TAB BAR (phones) ---------- */
+    .tabbar{ display:none; }
+
     /* ---------- RESPONSIVE ---------- */
     @media(max-width:768px){
       body{ font-size:15px; }
@@ -358,13 +402,43 @@
       .sidebar.open{ transform:translateX(0); }
       .main-content{ margin-left:0; }
       .topbar{ padding:0 14px; gap:8px; height:56px; }
-      .topbar-hamburger{ display:flex; }
       .topbar-title{ display:none; }
       .topbar-search{ max-width:100%; }
       .page{ padding:16px; }
       .stats-grid{ grid-template-columns:repeat(2,1fr); gap:10px; }
       .stat-number{ font-size:26px; }
       .stats-grid .stat-card:last-child:nth-child(odd){ grid-column:1/-1; }
+
+      /* phone app shell: bottom tab bar, safe areas, thumb-sized targets */
+      .topbar{ padding-top:env(safe-area-inset-top); height:calc(56px + env(safe-area-inset-top)); padding-left:max(14px, env(safe-area-inset-left)); padding-right:max(14px, env(safe-area-inset-right)); }
+      .page{ padding-bottom:calc(96px + env(safe-area-inset-bottom)); }
+      .tabbar{
+        display:grid; grid-template-columns:repeat(5,1fr); align-items:end;
+        position:fixed; left:0; right:0; bottom:0; z-index:90;
+        background:rgba(255,255,255,.96); -webkit-backdrop-filter:saturate(1.4) blur(10px); backdrop-filter:saturate(1.4) blur(10px);
+        border-top:1px solid var(--border);
+        padding:6px max(6px, env(safe-area-inset-right)) calc(6px + env(safe-area-inset-bottom)) max(6px, env(safe-area-inset-left));
+      }
+      .tab{ position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; min-height:52px; border:none; background:transparent; color:var(--text3); font-size:11px; font-weight:550; cursor:pointer; border-radius:10px; }
+      .tab .icon{ width:22px; height:22px; }
+      .tab.active{ color:var(--accent); }
+      .tab-dot{ position:absolute; top:7px; left:calc(50% + 6px); width:8px; height:8px; border-radius:50%; background:var(--red); border:2px solid #fff; box-sizing:content-box; }
+      .tab-dot[hidden]{ display:none; }
+      .tab-scan{ min-height:0; height:56px; width:56px; margin:-22px auto 0; padding:0; border-radius:50%; background:var(--accent); color:#fff; box-shadow:0 6px 16px rgba(15,107,102,.38), 0 0 0 5px rgba(255,255,255,.96); }
+      .tab-scan:active{ background:var(--accent-hover); transform:scale(.96); }
+      .tab-scan .icon{ width:26px; height:26px; }
+      .tab-label-spacer{ visibility:hidden; font-size:11px; }
+      .toast-container{ top:calc(10px + env(safe-area-inset-top)); bottom:auto; }
+      .toast{ pointer-events:none; }
+      .btn{ height:44px; }
+      .btn-sm{ height:40px; }
+      .icon-btn{ width:40px; height:40px; }
+      .cat-pill{ padding:8px 14px; }
+      .modal-footer{ position:sticky; bottom:0; margin:22px -18px calc(-24px - env(safe-area-inset-bottom)); padding:14px 18px calc(14px + env(safe-area-inset-bottom)); background:var(--card); }
+      .modal-footer .btn{ flex:1; }
+      #btn-save-next.show{ flex-basis:100%; order:-1; }
+      .modal-footer{ flex-wrap:wrap; }
+      .modal{ max-height:92dvh; }
       .form-row{ grid-template-columns:1fr; gap:0; }
       .login-card{ padding:28px 22px 22px; }
       .modal-overlay{ padding:0; align-items:flex-end; }
@@ -372,7 +446,7 @@
       .modal-header, .modal-body{ padding-left:18px; padding-right:18px; }
       .confirm-dialog{ margin:0 16px; }
       .modal-overlay#confirm-overlay{ align-items:center; padding:0; }
-      .toast-container{ left:16px; right:16px; bottom:16px; }
+      .toast-container{ left:16px; right:16px; }
       .toast{ min-width:0; }
       thead th:nth-child(2), thead th:nth-child(3), thead th:nth-child(5),
       tbody td:nth-child(2), tbody td:nth-child(3), tbody td:nth-child(5){ display:none; }
@@ -407,6 +481,10 @@
   <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
   <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
   <symbol id="i-file" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5Z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></symbol>
+  <symbol id="i-scan" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 12h10"/></symbol>
+  <symbol id="i-flash" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+  <symbol id="i-keyboard" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M6 9h.01M10 9h.01M14 9h.01M18 9h.01M6 13h.01M18 13h.01M9 16h6"/></symbol>
   <symbol id="i-pill" viewBox="0 0 24 24"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></symbol>
 </svg>
 
@@ -508,6 +586,7 @@
       <div class="nav-section-label" data-i18n="navManage">Manage</div>
       <button class="nav-item" data-page="categories"><svg class="icon"><use href="#i-list"/></svg><span data-i18n="navCategories">Categories</span></button>
       <button class="nav-item" data-page="add"><svg class="icon"><use href="#i-plus"/></svg><span data-i18n="navAdd">Add medicine</span></button>
+      <button class="nav-item" id="nav-scan"><svg class="icon"><use href="#i-scan"/></svg><span data-i18n="navScan">Scan medicine</span></button>
     </nav>
     <div class="sidebar-footer">
       <div class="user-pill">
@@ -619,6 +698,33 @@
       <div id="quick-add-form"></div>
     </div>
   </main>
+
+  <nav class="tabbar" id="tabbar" aria-label="Main">
+    <button class="tab active" data-page="dashboard"><svg class="icon"><use href="#i-dashboard"/></svg><span data-i18n="tabHome">Home</span></button>
+    <button class="tab" data-page="inventory"><svg class="icon"><use href="#i-package"/></svg><span data-i18n="navInventory">Inventory</span></button>
+    <button class="tab tab-scan" id="tab-scan" data-i18n-aria="tabScan" aria-label="Scan"><svg class="icon"><use href="#i-scan"/></svg></button>
+    <button class="tab" data-page="expiring"><svg class="icon"><use href="#i-alert"/></svg><span data-i18n="tabAlerts">Alerts</span><i class="tab-dot" id="tab-dot" hidden></i></button>
+    <button class="tab" id="tab-menu"><svg class="icon"><use href="#i-menu"/></svg><span data-i18n="tabMenu">Menu</span></button>
+  </nav>
+</div>
+
+<!-- SCANNER -->
+<div class="scan-overlay" id="scan-overlay" role="dialog" aria-modal="true" aria-labelledby="scan-title">
+  <video class="scan-video" id="scan-video" playsinline muted></video>
+  <div class="scan-top">
+    <button class="scan-btn" id="scan-close" data-i18n-aria="scanClose" aria-label="Close"><svg class="icon icon-lg"><use href="#i-x"/></svg></button>
+    <div class="scan-title" id="scan-title" data-i18n="scanTitle">Scan a pack</div>
+    <button class="scan-btn" id="scan-torch" data-i18n-aria="scanTorch" aria-label="Flashlight" aria-pressed="false" hidden><svg class="icon icon-lg"><use href="#i-flash"/></svg></button>
+    <span id="scan-top-spacer" style="width:44px;height:44px"></span>
+  </div>
+  <div class="scan-stage"><div class="scan-frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div></div>
+  <div class="scan-msg" id="scan-msg" role="status"></div>
+  <div class="scan-hint" id="scan-hint" data-i18n="scanHint">Point the camera at the DataMatrix or barcode on the box</div>
+  <div class="scan-bottom">
+    <button class="scan-action" id="scan-photo-btn" type="button"><svg class="icon"><use href="#i-camera"/></svg><span data-i18n="scanPhoto">Take photo</span></button>
+    <button class="scan-action" id="scan-manual" type="button"><svg class="icon"><use href="#i-keyboard"/></svg><span data-i18n="scanManual">Enter manually</span></button>
+  </div>
+  <input class="scan-file" type="file" id="scan-photo" accept="image/*" capture="environment" tabindex="-1" aria-hidden="true">
 </div>
 
 <!-- ADD/EDIT MODAL -->
@@ -630,6 +736,7 @@
     </div>
     <div class="modal-body">
       <input type="hidden" id="edit-id">
+      <div class="scan-banner" id="scan-banner" role="status"><svg class="icon"><use href="#i-scan"/></svg><div><span id="scan-banner-main"></span><span class="scan-banner-sub" id="scan-banner-sub"></span></div></div>
       <div class="form-group autocomplete-wrap">
         <label for="med-name" data-i18n="medicineName">Medicine name *</label>
         <input type="text" id="med-name" data-i18n-placeholder="startTyping" placeholder="Start typing..." autocomplete="off">
@@ -701,6 +808,7 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-ghost" onclick="closeModal()" data-i18n="cancel">Cancel</button>
+        <button class="btn btn-ghost" id="btn-save-next" type="button" onclick="saveItem(true)"><svg class="icon icon-sm"><use href="#i-scan"/></svg><span data-i18n="saveNext">Save &amp; scan next</span></button>
         <button class="btn btn-primary" onclick="saveItem()"><span id="save-btn-text" data-i18n="save">Save</span></button>
       </div>
     </div>
@@ -722,11 +830,13 @@
 
 <div class="toast-container" id="toast-container" aria-live="polite"></div>
 
+<script src="/scan.js"></script>
 <script>
 // ==================== TRANSLATIONS ====================
 const TRANSLATIONS = {
   en:{
     appTagline:'Home Medicine App',
+    navScan:"Scan medicine",tabHome:"Home",tabAlerts:"Alerts",tabMenu:"Menu",tabScan:"Scan",scanTitle:"Scan a pack",scanHint:"Point the camera at the DataMatrix or barcode on the box",batch:"Batch",scanTorch:"Flashlight",scanPhoto:"Take photo",scanManual:"Enter manually",scanClose:"Close",scanPack:"Scan a pack",scanInsecure:"Live camera needs a secure (HTTPS) connection. Use “Take photo” instead — it works on any connection.",scanDenied:"Camera access was blocked. Allow the camera for this site in your browser settings, or use “Take photo”.",scanNoCamera:"No camera found on this device. Use “Take photo” or enter the medicine manually.",scanError:"The camera could not be started. Use “Take photo” instead.",scanReading:"Reading photo…",scanPhotoFail:"No code found in that photo. Move closer, hold steady and try again.",scanKnown:"Pack recognised — check the expiry date and save.",scanNew:"New pack. Fill in the name once; next time this code is recognised automatically.",scanExpiryFound:"Expiry date read from the code.",scanExpiryMissing:"This code has no expiry date — enter it from the box.",saveNext:"Save & scan next",
     welcomeBack:'Welcome back',loginSub:'Sign in to manage your home medicine app',
     username:'Username',password:'Password',invalidCredentials:'Invalid username or password',
     signIn:'Sign in',signOut:'Sign out',administrator:'Administrator',
@@ -775,6 +885,7 @@ const TRANSLATIONS = {
   },
   nl:{
     appTagline:'Thuisapotheek App',
+    navScan:"Medicijn scannen",tabHome:"Start",tabAlerts:"Meldingen",tabMenu:"Menu",tabScan:"Scan",scanTitle:"Scan een verpakking",scanHint:"Richt de camera op de DataMatrix of streepjescode op de doos",batch:"Lotnr.",scanTorch:"Zaklamp",scanPhoto:"Foto nemen",scanManual:"Zelf invoeren",scanClose:"Sluiten",scanPack:"Verpakking scannen",scanInsecure:"Live camera vereist een beveiligde (HTTPS) verbinding. Gebruik “Foto nemen” — dat werkt op elke verbinding.",scanDenied:"Cameratoegang is geblokkeerd. Sta de camera toe voor deze site in je browserinstellingen, of gebruik “Foto nemen”.",scanNoCamera:"Geen camera gevonden op dit toestel. Gebruik “Foto nemen” of voer het medicijn zelf in.",scanError:"De camera kon niet gestart worden. Gebruik “Foto nemen”.",scanReading:"Foto wordt gelezen…",scanPhotoFail:"Geen code gevonden op die foto. Ga dichterbij, houd stil en probeer opnieuw.",scanKnown:"Verpakking herkend — controleer de vervaldatum en bewaar.",scanNew:"Nieuwe verpakking. Vul de naam één keer in; de volgende keer wordt deze code automatisch herkend.",scanExpiryFound:"Vervaldatum uit de code gelezen.",scanExpiryMissing:"Deze code bevat geen vervaldatum — vul ze in van de doos.",saveNext:"Opslaan & volgende scannen",
     welcomeBack:'Welkom terug',loginSub:'Log in om je apoHouze te beheren',
     username:'Gebruikersnaam',password:'Wachtwoord',invalidCredentials:'Ongeldige gebruikersnaam of wachtwoord',
     signIn:'Inloggen',signOut:'Uitloggen',administrator:'Beheerder',
@@ -823,6 +934,7 @@ const TRANSLATIONS = {
   },
   fr:{
     appTagline:'Application Pharmacie Maison',
+    navScan:"Scanner un médicament",tabHome:"Accueil",tabAlerts:"Alertes",tabMenu:"Menu",tabScan:"Scan",scanTitle:"Scanner une boîte",scanHint:"Pointez la caméra vers le DataMatrix ou le code-barres de la boîte",batch:"Lot",scanTorch:"Lampe torche",scanPhoto:"Prendre une photo",scanManual:"Saisir manuellement",scanClose:"Fermer",scanPack:"Scanner une boîte",scanInsecure:"La caméra en direct nécessite une connexion sécurisée (HTTPS). Utilisez « Prendre une photo » — cela fonctionne avec n’importe quelle connexion.",scanDenied:"L’accès à la caméra est bloqué. Autorisez la caméra pour ce site dans les réglages du navigateur, ou utilisez « Prendre une photo ».",scanNoCamera:"Aucune caméra détectée. Utilisez « Prendre une photo » ou saisissez le médicament manuellement.",scanError:"Impossible de démarrer la caméra. Utilisez « Prendre une photo ».",scanReading:"Lecture de la photo…",scanPhotoFail:"Aucun code trouvé sur cette photo. Rapprochez-vous, tenez l’appareil stable et réessayez.",scanKnown:"Boîte reconnue — vérifiez la date de péremption et enregistrez.",scanNew:"Nouvelle boîte. Saisissez le nom une fois ; la prochaine fois, ce code sera reconnu automatiquement.",scanExpiryFound:"Date de péremption lue dans le code.",scanExpiryMissing:"Ce code ne contient pas de date de péremption — saisissez-la depuis la boîte.",saveNext:"Enregistrer et scanner la suivante",
     welcomeBack:'Bon retour',loginSub:"Connectez-vous pour gérer votre apoHouze",
     username:"Nom d'utilisateur",password:'Mot de passe',invalidCredentials:"Nom d'utilisateur ou mot de passe invalide",
     signIn:'Se connecter',signOut:'Se déconnecter',administrator:'Administrateur',
@@ -898,6 +1010,7 @@ function setLang(lang){
 function applyTranslations(){
   document.querySelectorAll('[data-i18n]').forEach(el=>{ el.textContent=t(el.getAttribute('data-i18n')); });
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{ el.placeholder=t(el.getAttribute('data-i18n-placeholder')); });
+  document.querySelectorAll('[data-i18n-aria]').forEach(el=>{ el.setAttribute('aria-label',t(el.getAttribute('data-i18n-aria'))); });
 }
 
 // ==================== STATE ====================
@@ -1205,6 +1318,7 @@ async function showApp(username){
   loadCategories();
   loadDashboard();
   loadInventory();
+  handleLaunchAction();
 }
 
 // ==================== NAVIGATION ====================
@@ -1214,6 +1328,7 @@ function navigateTo(page){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById(`page-${page}`).classList.add('active');
   document.querySelector(`.nav-item[data-page="${page}"]`)?.classList.add('active');
+  document.querySelectorAll('.tab[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
   const titles={dashboard:t('navDashboard'),inventory:t('navInventory'),expiring:t('navExpiry'),categories:t('navCategories'),add:t('navAdd')};
   document.getElementById('topbar-title').textContent=titles[page]||page;
   if(page==='expiring')loadExpiryPage();
@@ -1254,6 +1369,7 @@ function renderStats(stats){
   const eb=document.getElementById('nav-expiry');
   const expCount=stats.expired+stats.expiring30;
   eb.textContent=expCount; eb.style.display=expCount>0?'inline':'none';
+  document.getElementById('tab-dot').hidden=!(expCount>0);
 }
 
 function renderAlerts(items,today){
@@ -1432,8 +1548,20 @@ async function loadExpiryPage(){
 }
 
 // ==================== MODAL ====================
-function openAddModal(){
+let pendingCode=null;      // pack code (GTIN) of the scanned box, saved with the new item
+function setScanBanner(kind,main,sub){
+  const b=document.getElementById('scan-banner');
+  b.className='scan-banner'+(kind?` show ${kind}`:'');
+  document.getElementById('scan-banner-main').textContent=main||'';
+  document.getElementById('scan-banner-sub').textContent=sub||'';
+}
+
+function openAddModal(opts){
+  opts=opts||{};
   currentEditId=null;
+  pendingCode=null;
+  setScanBanner(null);
+  document.getElementById('btn-save-next').classList.remove('show');
   document.getElementById('modal-title').textContent=t('addMedicine');
   document.getElementById('save-btn-text').textContent=t('save');
   document.getElementById('med-name').value='';
@@ -1448,13 +1576,16 @@ function openAddModal(){
   document.getElementById('med-rx').checked=false;
   document.getElementById('generic-results').style.display='none';
   document.getElementById('modal-overlay').classList.add('active');
-  setTimeout(()=>document.getElementById('med-name').focus(),100);
+  if(!opts.noFocus)setTimeout(()=>document.getElementById('med-name').focus(),100);
 }
 
 async function openEditModal(id){
   const item=inventoryData.find(i=>i.id===id);
   if(!item)return;
   currentEditId=id;
+  pendingCode=null;
+  setScanBanner(null);
+  document.getElementById('btn-save-next').classList.remove('show');
   document.getElementById('modal-title').textContent=t('editMedicine');
   document.getElementById('save-btn-text').textContent=t('save');
   document.getElementById('med-name').value=item.name;
@@ -1474,10 +1605,11 @@ async function openEditModal(id){
 function closeModal(){
   document.getElementById('modal-overlay').classList.remove('active');
   currentEditId=null;
+  pendingCode=null;
   hideAutocomplete();
 }
 
-async function saveItem(){
+async function saveItem(scanNext){
   const name=document.getElementById('med-name').value.trim();
   const category=document.getElementById('med-category').value;
   if(!name||!category){toast(t('nameAndCategoryRequired'),'warn');return;}
@@ -1493,6 +1625,8 @@ async function saveItem(){
     location:document.getElementById('med-location').value,
     rx:document.getElementById('med-rx').checked?1:0,
   };
+  const wasEdit=!!currentEditId;
+  if(!wasEdit&&pendingCode)body.code=pendingCode;
   try{
     let res;
     if(currentEditId){
@@ -1506,12 +1640,144 @@ async function saveItem(){
       await loadDashboard();
       renderCategoryPills();
       populateCategorySelect();
-      toast(currentEditId?t('medicineUpdated'):t('medicineAdded'),'success');
+      toast(wasEdit?t('medicineUpdated'):t('medicineAdded'),'success');
+      if(scanNext===true)openScanner();
     }else{
       const err=await res.json();
       toast(err.error||t('errorSaving'),'error');
     }
   }catch(err){toast(t('connectionError'),'error');}
+}
+
+
+// ==================== SCANNER ====================
+const $id=id=>document.getElementById(id);
+let scanOpen=false, torchOn=false;
+
+function scanMsg(text){
+  const m=$id('scan-msg');
+  m.textContent=text||'';
+  m.classList.toggle('show',!!text);
+  $id('scan-overlay').classList.toggle('nocam',!!text);
+  $id('scan-hint').style.display=text?'none':'';
+}
+
+async function openScanner(){
+  if(scanOpen)return;
+  closeSidebar();
+  scanOpen=true;
+  try{history.pushState({scan:1},'');}catch(e){}
+  $id('scan-overlay').classList.add('open');
+  $id('scan-overlay').classList.remove('busy');
+  document.body.classList.add('scan-open');
+  scanMsg('');
+  torchOn=false;
+  const tb=$id('scan-torch'); tb.hidden=true; tb.classList.remove('on'); tb.setAttribute('aria-pressed','false');
+  $id('scan-top-spacer').style.display='';
+  ApoScan.preload();
+  startLive();
+}
+
+// (Re)start the live camera. Also used when the page comes back from the native camera app.
+async function startLive(keepMsg){
+  if(!scanOpen)return;
+  const showErr=m=>{ if(keepMsg&&$id('scan-msg').classList.contains('show'))return; scanMsg(m); };
+  if(!ApoScan.isLiveSupported()){
+    showErr(window.isSecureContext?t('scanNoCamera'):t('scanInsecure'));
+    return;
+  }
+  try{
+    const info=await ApoScan.start($id('scan-video'),{onCode:handleScanned});
+    if(!scanOpen){ApoScan.stop();return;}      // closed while the camera was starting
+    if(info.torch){$id('scan-torch').hidden=false;$id('scan-top-spacer').style.display='none';}
+  }catch(e){
+    if(!scanOpen)return;
+    if(e&&(e.name==='NotAllowedError'||e.name==='SecurityError'))showErr(t('scanDenied'));
+    else if(e&&(e.name==='NotFoundError'||e.name==='OverconstrainedError'||e.name==='DevicesNotFoundError'))showErr(t('scanNoCamera'));
+    else if(e&&e.name==='InsecureContext')showErr(t('scanInsecure'));
+    else showErr(t('scanError'));
+  }
+}
+
+function closeScanner(fromPop){
+  if(!scanOpen)return;
+  scanOpen=false;
+  ApoScan.stop();
+  $id('scan-video').srcObject=null;
+  $id('scan-overlay').classList.remove('open','busy','nocam');
+  document.body.classList.remove('scan-open');
+  if(!fromPop&&history.state&&history.state.scan){try{history.back();}catch(e){}}
+}
+window.addEventListener('popstate',()=>{ if(scanOpen)closeScanner(true); });
+
+async function handleScanned(p){
+  if(!scanOpen)return;
+  closeScanner();
+  let known=null;
+  try{
+    const r=await fetch('/api/product-code?code='+encodeURIComponent(p.code));
+    if(r.ok){const j=await r.json(); if(j.found)known=j.product;}
+  }catch(e){}
+  openAddModal({noFocus:!!known});
+  pendingCode=p.code;
+  document.getElementById('btn-save-next').classList.add('show');
+  if(known){
+    document.getElementById('med-name').value=known.name||'';
+    document.getElementById('med-generic').value=known.generic||'';
+    if(known.category)document.getElementById('med-category').value=known.category;
+    document.getElementById('med-form').value=known.form||'';
+    if(known.unit)document.getElementById('med-unit').value=known.unit;
+    document.getElementById('med-rx').checked=!!known.rx;
+  }
+  if(p.expiry)document.getElementById('med-expiry').value=p.expiry;
+  if(p.batch)document.getElementById('med-notes').value=`${t('batch')}: ${p.batch}`;
+  setScanBanner(known?'known':'new',known?t('scanKnown'):t('scanNew'),p.expiry?t('scanExpiryFound'):t('scanExpiryMissing'));
+}
+
+$id('scan-close').addEventListener('click',()=>closeScanner());
+$id('tab-scan').addEventListener('click',openScanner);
+$id('nav-scan').addEventListener('click',openScanner);
+$id('tab-menu').addEventListener('click',()=>{
+  $id('sidebar').classList.toggle('open');
+  $id('mobile-overlay').classList.toggle('show');
+});
+document.querySelectorAll('.tab[data-page]').forEach(b=>b.addEventListener('click',()=>{closeSidebar();navigateTo(b.dataset.page);window.scrollTo(0,0);}));
+$id('scan-manual').addEventListener('click',()=>{closeScanner();openAddModal();});
+$id('scan-torch').addEventListener('click',async()=>{
+  const ok=await ApoScan.setTorch(!torchOn);
+  if(ok){torchOn=!torchOn;$id('scan-torch').classList.toggle('on',torchOn);$id('scan-torch').setAttribute('aria-pressed',String(torchOn));}
+});
+$id('scan-photo-btn').addEventListener('click',()=>$id('scan-photo').click());
+$id('scan-photo').addEventListener('change',async e=>{
+  const f=e.target.files&&e.target.files[0];
+  e.target.value='';
+  if(!f)return;
+  $id('scan-overlay').classList.add('busy');
+  scanMsg(t('scanReading'));
+  let res=null;
+  try{res=await ApoScan.decodeFile(f);}catch(err){}
+  $id('scan-overlay').classList.remove('busy');
+  if(!scanOpen)return;
+  if(res)handleScanned(res);
+  else{scanMsg(t('scanPhotoFail'));startLive(true);}
+});
+$id('scan-msg').addEventListener('click',()=>scanMsg(''));   // tap the message to dismiss it
+// Phones suspend the camera while the native camera app / another app is in front.
+document.addEventListener('visibilitychange',()=>{
+  if(!scanOpen)return;
+  if(document.hidden)ApoScan.stop();
+  else if(!$id('scan-overlay').classList.contains('busy'))startLive(true);
+});
+
+// Home-screen shortcuts: /?action=scan and /?page=expiring
+function handleLaunchAction(){
+  let q;
+  try{q=new URLSearchParams(location.search);}catch(e){return;}
+  const action=q.get('action'), page=q.get('page');
+  if(!action&&!page)return;
+  try{history.replaceState(null,'',location.pathname);}catch(e){}
+  if(page&&['dashboard','inventory','expiring','categories'].includes(page))navigateTo(page);
+  if(action==='scan')setTimeout(openScanner,250);
 }
 
 // ==================== DELETE ====================
@@ -1653,7 +1919,10 @@ function renderAddPage(){
   document.getElementById('quick-add-form').innerHTML=`
     <div class="add-card">
       <p>${t('addMedicineLead')}</p>
-      <button class="btn btn-primary" onclick="openAddModal()">${ico('plus','icon-sm')}<span>${t('addMedicineBtn')}</span></button>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="openScanner()">${ico('scan','icon-sm')}<span>${t('scanPack')}</span></button>
+        <button class="btn btn-ghost" onclick="openAddModal()">${ico('plus','icon-sm')}<span>${t('addMedicineBtn')}</span></button>
+      </div>
     </div>`;
 }
 

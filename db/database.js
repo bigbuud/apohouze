@@ -79,6 +79,18 @@ function initDb(db) {
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
 
+    -- Pack code (GTIN or raw barcode) -> medicine, learned the first time a pack is scanned.
+    CREATE TABLE IF NOT EXISTS product_codes (
+      code TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      generic TEXT,
+      category TEXT NOT NULL,
+      form TEXT,
+      unit TEXT DEFAULT 'units',
+      rx INTEGER DEFAULT 0,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
     CREATE TABLE IF NOT EXISTS app_config (
       key TEXT PRIMARY KEY,
       value TEXT NOT NULL
@@ -180,6 +192,26 @@ function updateInventoryItem(id, item) {
   `).run({ ...item, id });
 }
 
+function getProductCode(code) {
+  return getDb().prepare(
+    'SELECT code, name, generic, category, form, unit, rx FROM product_codes WHERE code = ?'
+  ).get(code) || null;
+}
+
+function saveProductCode(code, item) {
+  getDb().prepare(`
+    INSERT INTO product_codes (code, name, generic, category, form, unit, rx, updated_at)
+    VALUES (@code, @name, @generic, @category, @form, @unit, @rx, CURRENT_TIMESTAMP)
+    ON CONFLICT(code) DO UPDATE SET
+      name = excluded.name, generic = excluded.generic, category = excluded.category,
+      form = excluded.form, unit = excluded.unit, rx = excluded.rx,
+      updated_at = CURRENT_TIMESTAMP
+  `).run({
+    code, name: item.name, generic: item.generic || '', category: item.category,
+    form: item.form || '', unit: item.unit || 'units', rx: item.rx ? 1 : 0,
+  });
+}
+
 function deleteInventoryItem(id) {
   return getDb().prepare('DELETE FROM inventory WHERE id = ?').run(id);
 }
@@ -213,5 +245,6 @@ function closeDb() { if (db) { db.close(); db = null; } }
 module.exports = {
   getDb, closeDb, searchMedicines, getInventory, addInventoryItem,
   updateInventoryItem, deleteInventoryItem, getDashboardStats, getExpiringItems,
+  getProductCode, saveProductCode,
   localDate, CATEGORIES, SUPPORTED_COUNTRIES,
 };

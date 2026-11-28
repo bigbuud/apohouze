@@ -1,7 +1,7 @@
 {
   "name": "apohouze",
   "version": "2.2.0",
-  "description": "apoHouze \u2014 home medicine app PWA \u2014 multi-country medicine database",
+  "description": "apoHouze — home medicine app PWA — multi-country medicine database",
   "main": "server.js",
   "license": "MIT",
   "scripts": {
@@ -10,6 +10,7 @@
     "update-data": "node update.js"
   },
   "dependencies": {
+    "@zxing/library": "^0.21.3",
     "bcryptjs": "^2.4.3",
     "better-sqlite3": "^9.6.0",
     "express": "^4.19.2",

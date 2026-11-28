@@ -1,8 +1,9 @@
 // Bump this when shipping a new frontend; old caches are removed on activate.
-const CACHE_NAME = 'apohouze-v6';
+const CACHE_NAME = 'apohouze-v7';
 const STATIC_ASSETS = [
   '/',
   '/manifest.json',
+  '/scan.js',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
 ];
